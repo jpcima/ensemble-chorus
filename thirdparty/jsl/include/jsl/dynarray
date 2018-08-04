@@ -1,0 +1,104 @@
+// -*- C++ -*-
+//          Copyright Jean Pierre Cimalando 2018.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file LICENSE or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
+
+#pragma once
+#include <initializer_list>
+#include <memory>
+#include <tuple>
+
+namespace jsl {
+
+template <class T, class A = std::allocator<T>>
+class dynarray {
+public:
+    typedef T value_type;
+    typedef size_t size_type;
+    typedef ptrdiff_t difference_type;
+    typedef T &reference;
+    typedef const T &const_reference;
+    typedef T *pointer;
+    typedef const T *const_pointer;
+    typedef T *iterator;
+    typedef const T *const_iterator;
+    typedef std::reverse_iterator<T *> reverse_iterator;
+    typedef std::reverse_iterator<const T *> const_reverse_iterator;
+
+    dynarray() noexcept;
+
+    ~dynarray();
+    void clear();
+
+    explicit dynarray(size_t count);
+    void reset(size_t count);
+
+    template <class I> dynarray(I first, I last);
+    template <class I> void assign(I first, I last);
+
+    dynarray(size_t count, const T &value);
+    void assign(size_t count, const T &value);
+
+    dynarray(dynarray &&other) noexcept;
+    dynarray &operator=(dynarray &&other) noexcept;
+
+    dynarray(const dynarray &other);
+    dynarray &operator=(const dynarray &other);
+
+    explicit dynarray(std::initializer_list<T> ilist);
+    dynarray &operator=(std::initializer_list<T> ilist);
+    void assign(std::initializer_list<T> ilist);
+
+    void swap(dynarray &other) noexcept;
+
+    const T *data() const noexcept;
+    T *data() noexcept;
+    size_t size() const noexcept;
+    bool empty() const noexcept;
+    size_t max_size() const noexcept;
+
+    void fill(const T &value);
+
+    T &operator[](size_t i) noexcept;
+    const T &operator[](size_t i) const noexcept;
+
+    T &at(size_t pos);
+    const T &at(size_t pos) const;
+
+    T &front() noexcept;
+    const T &front() const noexcept;
+    T &back() noexcept;
+    const T &back() const noexcept;
+
+    T *begin() noexcept;
+    const T *begin() const noexcept;
+    const T *cbegin() const noexcept;
+    T *end() noexcept;
+    const T *end() const noexcept;
+    const T *cend() const noexcept;
+
+private:
+    std::tuple<T *, size_t, A> _dsa{nullptr, 0, {}};
+    T *&_data() noexcept;
+    size_t &_size() noexcept;
+    A &_allocator() noexcept;
+    const A &_allocator() const noexcept;
+
+private:
+    static T *_new(A &a, size_t n);
+    static T *_new_init(A &a, size_t n, const T &v);
+    template <class I> static T *_duplicate(A &a, size_t n, I it);
+    static void _delete(A &a, T *p, size_t n) noexcept;
+    static void _delete_i(A &a, T *p, size_t i, size_t n) noexcept;
+};
+
+template <class T, class A>
+bool operator==(const dynarray<T, A> &a, const dynarray<T, A> &b);
+
+template <class T, class A>
+bool operator!=(const dynarray<T, A> &a, const dynarray<T, A> &b);
+
+}  // namespace jsl
+
+#include "bits/dynarray.tcc"

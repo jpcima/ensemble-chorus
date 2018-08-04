@@ -1,0 +1,46 @@
+// -*- C++ -*-
+//          Copyright Jean Pierre Cimalando 2018.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file LICENSE or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
+
+#pragma once
+#include <gsl.hpp>
+
+namespace jsl {
+
+template <class R>
+R clamp(R x, R min, R max);
+
+template <class R>
+R square(R x);
+
+template <class R>
+R cube(R x);
+
+// cardinal sine
+template <class R>
+R sinc(R x);
+
+// binomial coefficient
+template <class R>
+R binom(unsigned n, unsigned k);
+
+// polynomial from roots
+template <class R>
+void poly(gsl::span<const R> z, gsl::span<R> p);
+
+// polynomial evaluation
+template <class R>
+R polyval(gsl::span<const R> p, R x);
+
+// denormal disabler
+struct denormal_disabler;
+
+// integer base-2 logarithm
+template <class T>
+T ilog2(T value);
+
+}  // namespace jsl
+
+#include "bits/math.tcc"

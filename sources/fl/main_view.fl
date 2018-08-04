@@ -1,0 +1,346 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0304
+header_name {.h}
+code_name {.cxx}
+decl {\#include "main_controller.h"} {private local
+}
+
+decl {\#include "modulator_visu.h"} {private local
+}
+
+decl {\#include <ensemble_chorus.h>} {private local
+}
+
+decl {\#include <Fl_Knob/Fl_Knob.H>} {private global
+}
+
+decl {\#include <FL/Fl_Toggle_Button.H>} {private global
+}
+
+decl {\#include <cmath>} {private local
+}
+
+decl {class Main_Controller;} {public global
+}
+
+decl {class Modulator_Visu;} {public global
+}
+
+decl {class Fl_Knob;} {public global
+}
+
+decl {class Fl_Toggle_Button;} {public global
+}
+
+widget_class Main_View {open
+  xywh {585 373 570 280} type Double labelfont 13 visible
+} {
+  decl {static constexpr int W = 570;} {public local
+  }
+  decl {static constexpr int H = 280;} {public local
+  }
+  Fl_Slider sl_wet_ {
+    label Wet
+    callback {controller()->send_parameter(ECP_MIX_WET, from_logarithmic(o->value()))}
+    xywh {450 30 25 95} type {Vert Knob} box THIN_DOWN_BOX labeltype EMBOSSED_LABEL labelsize 12 minimum 1 maximum 0
+  }
+  Fl_Slider sl_dry_ {
+    label Dry
+    callback {controller()->send_parameter(ECP_MIX_DRY, from_logarithmic(o->value()))}
+    xywh {475 30 25 95} type {Vert Knob} box THIN_DOWN_BOX labeltype EMBOSSED_LABEL labelsize 12 minimum 1 maximum 0
+  }
+  Fl_Box {} {
+    label {JPC Ensemble Chorus}
+    xywh {0 0 230 42} box SHADOW_BOX labeltype EMBOSSED_LABEL labelfont 11 labelsize 16
+  }
+  decl {Main_Controller *controller_ = nullptr;} {private local
+  }
+  decl {Main_Controller *controller() const { return controller_; }} {public local
+  }
+  Function {controller(Main_Controller *x)} {open return_type void
+  } {
+    code {controller_ = x;
+x->set_parameter_callback(&parameter, this);
+x->set_modulation_callback(&modulation, this);} {}
+  }
+  Function {parameter(unsigned id, float value, void *userdata)} {open private return_type {static void}
+  } {}
+  Function {modulation(const float slow[6], const float fast[6], void *userdata)} {open private return_type {static void}
+  } {}
+  Function {from_logarithmic(double value)} {open return_type {static double}
+  } {}
+  Function {to_logarithmic(double value)} {open return_type {static double}
+  } {}
+  Fl_Check_Button tick_bypass_ {
+    label Bypass
+    callback {controller()->send_parameter(ECP_BYPASS, o->value())}
+    xywh {235 10 80 25} down_box DOWN_BOX labeltype EMBOSSED_LABEL
+  }
+  Fl_Box {} {
+    label Mix
+    xywh {450 5 50 25} labeltype EMBOSSED_LABEL labelfont 11
+  }
+  Fl_Box {} {
+    label Phase
+    xywh {65 55 105 25} labeltype EMBOSSED_LABEL labelfont 11 align 20
+  }
+  Fl_Button btn_enable1_ {
+    label 1
+    callback {controller()->send_parameter(ECP_ENABLE1, o->value())}
+    xywh {20 80 25 25} labeltype EMBOSSED_LABEL
+    class Fl_Toggle_Button
+  }
+  Fl_Value_Slider sl_phase1_ {
+    callback {controller()->send_parameter(ECP_PHASE1, o->value() * (1.0 / 360))}
+    xywh {65 80 105 25} type Horizontal maximum 359 step 1
+  }
+  Fl_Button btn_enable2_ {
+    label 2
+    callback {controller()->send_parameter(ECP_ENABLE2, o->value())}
+    xywh {20 105 25 25} labeltype EMBOSSED_LABEL
+    class Fl_Toggle_Button
+  }
+  Fl_Value_Slider sl_phase2_ {
+    callback {controller()->send_parameter(ECP_PHASE2, o->value() * (1.0 / 360))}
+    xywh {65 105 105 25} type Horizontal maximum 359 step 1
+  }
+  Fl_Button btn_enable3_ {
+    label 3
+    callback {controller()->send_parameter(ECP_ENABLE3, o->value())}
+    xywh {20 130 25 25} labeltype EMBOSSED_LABEL
+    class Fl_Toggle_Button
+  }
+  Fl_Value_Slider sl_phase3_ {
+    callback {controller()->send_parameter(ECP_PHASE3, o->value() * (1.0 / 360))}
+    xywh {65 130 105 25} type Horizontal maximum 359 step 1
+  }
+  Fl_Button btn_enable4_ {
+    label 4
+    callback {controller()->send_parameter(ECP_ENABLE4, o->value())}
+    xywh {20 155 25 25} labeltype EMBOSSED_LABEL
+    class Fl_Toggle_Button
+  }
+  Fl_Value_Slider sl_phase4_ {
+    callback {controller()->send_parameter(ECP_PHASE4, o->value() * (1.0 / 360))}
+    xywh {65 155 105 25} type Horizontal maximum 359 step 1
+  }
+  Fl_Button btn_enable5_ {
+    label 5
+    callback {controller()->send_parameter(ECP_ENABLE5, o->value())}
+    xywh {20 180 25 25} labeltype EMBOSSED_LABEL
+    class Fl_Toggle_Button
+  }
+  Fl_Value_Slider sl_phase5_ {
+    callback {controller()->send_parameter(ECP_PHASE5, o->value() * (1.0 / 360))}
+    xywh {65 180 105 25} type Horizontal maximum 359 step 1
+  }
+  Fl_Button btn_enable6_ {
+    label 6
+    callback {controller()->send_parameter(ECP_ENABLE6, o->value())}
+    xywh {20 205 25 25} labeltype EMBOSSED_LABEL
+    class Fl_Toggle_Button
+  }
+  Fl_Value_Slider sl_phase6_ {
+    callback {controller()->send_parameter(ECP_PHASE6, o->value() * (1.0 / 360))}
+    xywh {65 205 105 25} type Horizontal maximum 359 step 1
+  }
+  Fl_Slider sl_delay_ {
+    callback {controller()->send_parameter(ECP_DELAY, o->value())}
+    xywh {400 30 25 95} type {Vert Knob} box THIN_DOWN_BOX minimum 1 maximum 0
+  }
+  Fl_Box {} {
+    label Delay
+    xywh {400 5 25 25} labeltype EMBOSSED_LABEL labelfont 11
+  }
+  Fl_Choice cb_nstages_ {open
+    xywh {320 30 65 20} down_box BORDER_BOX
+  } {
+    MenuItem {} {
+      label 512
+      callback {controller()->send_parameter(ECP_NSTAGES, 512)}
+      xywh {0 0 100 20}
+    }
+    MenuItem {} {
+      label 1024
+      callback {controller()->send_parameter(ECP_NSTAGES, 1024)}
+      xywh {10 10 100 20}
+    }
+    MenuItem {} {
+      label 2048
+      callback {controller()->send_parameter(ECP_NSTAGES, 2048)}
+      xywh {20 20 100 20}
+    }
+    MenuItem {} {
+      label 4096
+      callback {controller()->send_parameter(ECP_NSTAGES, 4096)}
+      xywh {30 30 100 20}
+    }
+    MenuItem {} {
+      label 8192
+      callback {controller()->send_parameter(ECP_NSTAGES, 8192)}
+      xywh {40 40 100 20}
+    }
+  }
+  Fl_Box {} {
+    label Stages
+    xywh {320 5 65 25} labeltype EMBOSSED_LABEL labelfont 11
+  }
+  Fl_Box visu_mod1_ {
+    xywh {195 80 55 25} box DOWN_BOX
+    class Modulator_Visu
+  }
+  Fl_Box visu_mod2_ {
+    xywh {195 105 55 25} box DOWN_BOX
+    class Modulator_Visu
+  }
+  Fl_Box visu_mod3_ {
+    xywh {195 130 55 25} box DOWN_BOX
+    class Modulator_Visu
+  }
+  Fl_Box visu_mod4_ {
+    xywh {195 155 55 25} box DOWN_BOX
+    class Modulator_Visu
+  }
+  Fl_Box visu_mod5_ {
+    xywh {195 180 55 25} box DOWN_BOX
+    class Modulator_Visu
+  }
+  Fl_Box visu_mod6_ {
+    xywh {195 205 55 25} box DOWN_BOX
+    class Modulator_Visu
+  }
+  Fl_Box {} {
+    label Modulator
+    xywh {195 55 95 25} labeltype EMBOSSED_LABEL labelfont 11 align 20
+  }
+  Fl_Dial dl_slow_rate_ {
+    callback {controller()->send_parameter(ECP_SLOW_RATE, o->value())}
+    xywh {325 175 45 45}
+    class Fl_Knob
+  }
+  Fl_Dial dl_fast_rate_ {
+    callback {controller()->send_parameter(ECP_FAST_RATE, o->value())}
+    xywh {445 175 45 45}
+    class Fl_Knob
+  }
+  Fl_Box {} {
+    label Chorus
+    xywh {325 150 45 25} labeltype EMBOSSED_LABEL labelfont 11
+  }
+  Fl_Box {} {
+    label Vibrato
+    xywh {445 150 45 25} labeltype EMBOSSED_LABEL labelfont 11
+  }
+  Fl_Slider sl_depth1_ {
+    callback {controller()->send_parameter(ECP_DEPTH1, o->value())}
+    xywh {250 80 60 25} type Horizontal
+  }
+  Fl_Slider sl_depth2_ {
+    callback {controller()->send_parameter(ECP_DEPTH2, o->value())}
+    xywh {250 105 60 25} type Horizontal
+  }
+  Fl_Slider sl_depth3_ {
+    callback {controller()->send_parameter(ECP_DEPTH3, o->value())}
+    xywh {250 130 60 25} type Horizontal
+  }
+  Fl_Slider sl_depth4_ {
+    callback {controller()->send_parameter(ECP_DEPTH4, o->value())}
+    xywh {250 155 60 25} type Horizontal
+  }
+  Fl_Slider sl_depth5_ {
+    callback {controller()->send_parameter(ECP_DEPTH5, o->value())}
+    xywh {250 180 60 25} type Horizontal
+  }
+  Fl_Slider sl_depth6_ {
+    callback {controller()->send_parameter(ECP_DEPTH6, o->value())}
+    xywh {250 205 60 25} type Horizontal
+  }
+  Fl_Choice cb_slow_wave_ {
+    callback {controller()->send_parameter(ECP_SLOW_WAVE, o->value())} open
+    xywh {380 175 55 25} down_box BORDER_BOX
+  } {
+    MenuItem {} {
+      image {images/wave/sine.png} xywh {0 0 100 20}
+    }
+    MenuItem {} {
+      image {images/wave/square.png} xywh {10 10 100 20}
+    }
+    MenuItem {} {
+      image {images/wave/saw.png} xywh {20 20 100 20}
+    }
+    MenuItem {} {
+      image {images/wave/ramp.png} xywh {30 30 100 20}
+    }
+    MenuItem {} {
+      image {images/wave/triangle.png} xywh {40 40 100 20}
+    }
+  }
+  Fl_Choice cb_fast_wave_ {
+    callback {controller()->send_parameter(ECP_FAST_WAVE, o->value())} open
+    xywh {500 175 55 25} down_box BORDER_BOX
+  } {
+    MenuItem {} {
+      image {images/wave/sine.png} xywh {10 10 100 20}
+    }
+    MenuItem {} {
+      image {images/wave/square.png} xywh {20 20 100 20}
+    }
+    MenuItem {} {
+      image {images/wave/saw.png} xywh {30 30 100 20}
+    }
+    MenuItem {} {
+      image {images/wave/ramp.png} xywh {40 40 100 20}
+    }
+    MenuItem {} {
+      image {images/wave/triangle.png} xywh {50 50 100 20}
+    }
+  }
+  Fl_Slider sl_gain_in_ {
+    label In
+    callback {controller()->send_parameter(ECP_GAIN_IN, 3.0 * from_logarithmic(o->value()))}
+    xywh {510 30 25 95} type {Vert Knob} box THIN_DOWN_BOX labeltype EMBOSSED_LABEL labelsize 12 minimum 1 maximum 0
+  }
+  Fl_Slider sl_gain_out_ {
+    label Out
+    callback {controller()->send_parameter(ECP_GAIN_OUT, 3.0 * from_logarithmic(o->value()))}
+    xywh {535 30 25 95} type {Vert Knob} box THIN_DOWN_BOX labeltype EMBOSSED_LABEL labelsize 12 minimum 1 maximum 0
+  }
+  Fl_Box {} {
+    label Gain
+    xywh {510 5 50 25} labeltype EMBOSSED_LABEL labelfont 11
+  }
+  Fl_Dial dl_slow_rand_ {
+    label Rand
+    callback {controller()->send_parameter(ECP_SLOW_RAND, o->value())}
+    xywh {370 205 35 35} labeltype ENGRAVED_LABEL labelsize 12 align 8
+    class Fl_Knob
+  }
+  Fl_Dial dl_fast_rand_ {
+    label Rand
+    callback {controller()->send_parameter(ECP_FAST_RAND, o->value())}
+    xywh {490 205 35 35} labeltype ENGRAVED_LABEL labelsize 12 align 8
+    class Fl_Knob
+  }
+  Fl_Dial dl_mod_range_ {
+    label Range
+    callback {controller()->send_parameter(ECP_MOD_RANGE, o->value())}
+    xywh {320 80 45 45} labeltype ENGRAVED_LABEL labelsize 12
+    class Fl_Knob
+  }
+  Fl_Box {} {
+    label {Low-pass filter}
+    xywh {30 245 125 25} labeltype EMBOSSED_LABEL labelfont 11 align 20
+  }
+  Fl_Dial dl_lpf_cutoff_ {
+    label Cutoff
+    callback {controller()->send_parameter(ECP_LPF_CUTOFF, o->value())}
+    xywh {160 235 40 40} labeltype EMBOSSED_LABEL labelsize 12 align 14
+    class Fl_Knob
+  }
+  Fl_Dial dl_lpf_q_ {
+    label Q
+    callback {controller()->send_parameter(ECP_LPF_Q, o->value())} selected
+    xywh {255 235 40 40} labeltype EMBOSSED_LABEL labelsize 12 align 14
+    class Fl_Knob
+  }
+}
