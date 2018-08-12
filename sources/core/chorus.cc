@@ -185,28 +185,31 @@ void Chorus::process(float *inout[2], unsigned nframes, ec_channel_layout ecc, c
         }
 
         std::memset(tmp_out, 0, nframes * sizeof(float));
+
+        float input_gain = (input_channel[id] == (L|R)) ? M_SQRT1_2 : 1.0;
         if (input_channel[id] & L) {
             const float *channel_inout = tmp_in[0];
             for (unsigned i = 0; i < nframes; ++i)
-                tmp_out[i] += channel_inout[i];
+                tmp_out[i] += input_gain * channel_inout[i];
         }
         if (input_channel[id] & R) {
             const float *channel_inout = tmp_in[1];
             for (unsigned i = 0; i < nframes; ++i)
-                tmp_out[i] += channel_inout[i];
+                tmp_out[i] += input_gain * channel_inout[i];
         }
 
         line.process(nframes, tmp_out, tmp_clock);
 
+        float routing_gain = (line_routing[id] == (L|R)) ? M_SQRT1_2 : 1.0;
         if (line_routing[id] & L) {
             float *channel_inout = inout[0];
             for (unsigned i = 0; i < nframes; ++i)
-                channel_inout[i] += tmp_out[i];
+                channel_inout[i] += routing_gain * tmp_out[i];
         }
         if (line_routing[id] & R) {
             float *channel_inout = inout[1];
             for (unsigned i = 0; i < nframes; ++i)
-                channel_inout[i] += tmp_out[i];
+                channel_inout[i] += routing_gain * tmp_out[i];
         }
     }
 
