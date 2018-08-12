@@ -39,6 +39,7 @@ struct Chorus::Impl {
     float clock_mod_range_ = 0;
     float clock_mod_depth_[6] = {};
     float delay_ = 0;
+    float r_delay_ = 0;
     unsigned nstages_ = 0;
 
     BBD_Clock clock_[6];
@@ -69,7 +70,7 @@ void Chorus::setup(float samplerate, unsigned bufsize)
     P.samplerate_ = samplerate;
     P.bufsize_ = bufsize;
 
-    float delay = 0.1;
+    float r_delay = 0.5;
     unsigned nstages = 2048;
     unsigned num_delay_lines = 3;
     float lfo_slow_freq = 1.0;
@@ -81,9 +82,8 @@ void Chorus::setup(float samplerate, unsigned bufsize)
     P.clock_mod_range_ = 1.0;
     for (unsigned i = 0; i < 6; ++i)
         P.clock_mod_depth_[i] = 1.0;
-    P.delay_ = delay;
     P.nstages_ = nstages;
-    P.update_clock_freq();
+    delay(r_delay);
 
     for (unsigned i = 0; i < 6; ++i) {
         BBD_Line &line = P.delay_line_[i];
@@ -239,6 +239,7 @@ void Chorus::delay(float r_delay)
     float delay = min_delay + r_delay * (max_delay - min_delay);
 
     P.delay_ = delay;
+    P.r_delay_ = r_delay;
     P.update_clock_freq();
 }
 
@@ -265,7 +266,7 @@ void Chorus::nstages(unsigned n)
         line.nstages(d);
     }
     P.nstages_ = n;
-    P.update_clock_freq();
+    delay(P.r_delay_);
 }
 
 void Chorus::mod_range(float r)
