@@ -5,8 +5,11 @@
 
 #include "main_view.h"
 #include "modulator_visu.h"
+#include "widgets/Fl_Valuator_Ex.h"
 #include <ensemble_chorus.h>
 #include <Fl_Knob/Fl_Knob.H>
+#include <FL/Fl_Slider.H>
+#include <FL/Fl_Value_Slider.H>
 #include <FL/Fl_Toggle_Button.H>
 #include <string>
 #include <cmath>

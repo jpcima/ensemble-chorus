@@ -5,13 +5,14 @@
 #include <FL/Fl.H>
 class Main_Controller;
 class Modulator_Visu;
+template <class W> class Fl_Valuator_Ex; 
 class Fl_Knob;
+class Fl_Slider;
+class Fl_Value_Slider;
 class Fl_Toggle_Button;
 #include <FL/Fl_Group.H>
-#include <FL/Fl_Slider.H>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Check_Button.H>
-#include <FL/Fl_Value_Slider.H>
 #include <FL/Fl_Choice.H>
 
 class Main_View : public Fl_Group {
@@ -19,15 +20,15 @@ public:
   Main_View(int X, int Y, int W, int H, const char *L = 0);
   static constexpr int W = 570; 
   static constexpr int H = 280; 
-  Fl_Slider *sl_wet_;
+  Fl_Valuator_Ex<Fl_Slider> *sl_wet_;
 private:
-  inline void cb_sl_wet__i(Fl_Slider*, void*);
-  static void cb_sl_wet_(Fl_Slider*, void*);
+  inline void cb_sl_wet__i(Fl_Valuator_Ex<Fl_Slider>*, void*);
+  static void cb_sl_wet_(Fl_Valuator_Ex<Fl_Slider>*, void*);
 public:
-  Fl_Slider *sl_dry_;
+  Fl_Valuator_Ex<Fl_Slider> *sl_dry_;
 private:
-  inline void cb_sl_dry__i(Fl_Slider*, void*);
-  static void cb_sl_dry_(Fl_Slider*, void*);
+  inline void cb_sl_dry__i(Fl_Valuator_Ex<Fl_Slider>*, void*);
+  static void cb_sl_dry_(Fl_Valuator_Ex<Fl_Slider>*, void*);
   Main_Controller *controller_ = nullptr; 
 public:
   Main_Controller *controller() const { return controller_; }; 
@@ -41,65 +42,65 @@ private:
   inline void cb_btn_enable1__i(Fl_Toggle_Button*, void*);
   static void cb_btn_enable1_(Fl_Toggle_Button*, void*);
 public:
-  Fl_Value_Slider *sl_phase1_;
+  Fl_Valuator_Ex<Fl_Value_Slider> *sl_phase1_;
 private:
-  inline void cb_sl_phase1__i(Fl_Value_Slider*, void*);
-  static void cb_sl_phase1_(Fl_Value_Slider*, void*);
+  inline void cb_sl_phase1__i(Fl_Valuator_Ex<Fl_Value_Slider>*, void*);
+  static void cb_sl_phase1_(Fl_Valuator_Ex<Fl_Value_Slider>*, void*);
 public:
   Fl_Toggle_Button *btn_enable2_;
 private:
   inline void cb_btn_enable2__i(Fl_Toggle_Button*, void*);
   static void cb_btn_enable2_(Fl_Toggle_Button*, void*);
 public:
-  Fl_Value_Slider *sl_phase2_;
+  Fl_Valuator_Ex<Fl_Value_Slider> *sl_phase2_;
 private:
-  inline void cb_sl_phase2__i(Fl_Value_Slider*, void*);
-  static void cb_sl_phase2_(Fl_Value_Slider*, void*);
+  inline void cb_sl_phase2__i(Fl_Valuator_Ex<Fl_Value_Slider>*, void*);
+  static void cb_sl_phase2_(Fl_Valuator_Ex<Fl_Value_Slider>*, void*);
 public:
   Fl_Toggle_Button *btn_enable3_;
 private:
   inline void cb_btn_enable3__i(Fl_Toggle_Button*, void*);
   static void cb_btn_enable3_(Fl_Toggle_Button*, void*);
 public:
-  Fl_Value_Slider *sl_phase3_;
+  Fl_Valuator_Ex<Fl_Value_Slider> *sl_phase3_;
 private:
-  inline void cb_sl_phase3__i(Fl_Value_Slider*, void*);
-  static void cb_sl_phase3_(Fl_Value_Slider*, void*);
+  inline void cb_sl_phase3__i(Fl_Valuator_Ex<Fl_Value_Slider>*, void*);
+  static void cb_sl_phase3_(Fl_Valuator_Ex<Fl_Value_Slider>*, void*);
 public:
   Fl_Toggle_Button *btn_enable4_;
 private:
   inline void cb_btn_enable4__i(Fl_Toggle_Button*, void*);
   static void cb_btn_enable4_(Fl_Toggle_Button*, void*);
 public:
-  Fl_Value_Slider *sl_phase4_;
+  Fl_Valuator_Ex<Fl_Value_Slider> *sl_phase4_;
 private:
-  inline void cb_sl_phase4__i(Fl_Value_Slider*, void*);
-  static void cb_sl_phase4_(Fl_Value_Slider*, void*);
+  inline void cb_sl_phase4__i(Fl_Valuator_Ex<Fl_Value_Slider>*, void*);
+  static void cb_sl_phase4_(Fl_Valuator_Ex<Fl_Value_Slider>*, void*);
 public:
   Fl_Toggle_Button *btn_enable5_;
 private:
   inline void cb_btn_enable5__i(Fl_Toggle_Button*, void*);
   static void cb_btn_enable5_(Fl_Toggle_Button*, void*);
 public:
-  Fl_Value_Slider *sl_phase5_;
+  Fl_Valuator_Ex<Fl_Value_Slider> *sl_phase5_;
 private:
-  inline void cb_sl_phase5__i(Fl_Value_Slider*, void*);
-  static void cb_sl_phase5_(Fl_Value_Slider*, void*);
+  inline void cb_sl_phase5__i(Fl_Valuator_Ex<Fl_Value_Slider>*, void*);
+  static void cb_sl_phase5_(Fl_Valuator_Ex<Fl_Value_Slider>*, void*);
 public:
   Fl_Toggle_Button *btn_enable6_;
 private:
   inline void cb_btn_enable6__i(Fl_Toggle_Button*, void*);
   static void cb_btn_enable6_(Fl_Toggle_Button*, void*);
 public:
-  Fl_Value_Slider *sl_phase6_;
+  Fl_Valuator_Ex<Fl_Value_Slider> *sl_phase6_;
 private:
-  inline void cb_sl_phase6__i(Fl_Value_Slider*, void*);
-  static void cb_sl_phase6_(Fl_Value_Slider*, void*);
+  inline void cb_sl_phase6__i(Fl_Valuator_Ex<Fl_Value_Slider>*, void*);
+  static void cb_sl_phase6_(Fl_Valuator_Ex<Fl_Value_Slider>*, void*);
 public:
-  Fl_Slider *sl_delay_;
+  Fl_Valuator_Ex<Fl_Slider> *sl_delay_;
 private:
-  inline void cb_sl_delay__i(Fl_Slider*, void*);
-  static void cb_sl_delay_(Fl_Slider*, void*);
+  inline void cb_sl_delay__i(Fl_Valuator_Ex<Fl_Slider>*, void*);
+  static void cb_sl_delay_(Fl_Valuator_Ex<Fl_Slider>*, void*);
 public:
   Fl_Choice *cb_nstages_;
   static Fl_Menu_Item menu_cb_nstages_[];
@@ -121,45 +122,45 @@ public:
   Modulator_Visu *visu_mod4_;
   Modulator_Visu *visu_mod5_;
   Modulator_Visu *visu_mod6_;
-  Fl_Knob *dl_slow_rate_;
+  Fl_Valuator_Ex<Fl_Knob> *dl_slow_rate_;
 private:
-  inline void cb_dl_slow_rate__i(Fl_Knob*, void*);
-  static void cb_dl_slow_rate_(Fl_Knob*, void*);
+  inline void cb_dl_slow_rate__i(Fl_Valuator_Ex<Fl_Knob>*, void*);
+  static void cb_dl_slow_rate_(Fl_Valuator_Ex<Fl_Knob>*, void*);
 public:
-  Fl_Knob *dl_fast_rate_;
+  Fl_Valuator_Ex<Fl_Knob> *dl_fast_rate_;
 private:
-  inline void cb_dl_fast_rate__i(Fl_Knob*, void*);
-  static void cb_dl_fast_rate_(Fl_Knob*, void*);
+  inline void cb_dl_fast_rate__i(Fl_Valuator_Ex<Fl_Knob>*, void*);
+  static void cb_dl_fast_rate_(Fl_Valuator_Ex<Fl_Knob>*, void*);
 public:
-  Fl_Slider *sl_depth1_;
+  Fl_Valuator_Ex<Fl_Slider> *sl_depth1_;
 private:
-  inline void cb_sl_depth1__i(Fl_Slider*, void*);
-  static void cb_sl_depth1_(Fl_Slider*, void*);
+  inline void cb_sl_depth1__i(Fl_Valuator_Ex<Fl_Slider>*, void*);
+  static void cb_sl_depth1_(Fl_Valuator_Ex<Fl_Slider>*, void*);
 public:
-  Fl_Slider *sl_depth2_;
+  Fl_Valuator_Ex<Fl_Slider> *sl_depth2_;
 private:
-  inline void cb_sl_depth2__i(Fl_Slider*, void*);
-  static void cb_sl_depth2_(Fl_Slider*, void*);
+  inline void cb_sl_depth2__i(Fl_Valuator_Ex<Fl_Slider>*, void*);
+  static void cb_sl_depth2_(Fl_Valuator_Ex<Fl_Slider>*, void*);
 public:
-  Fl_Slider *sl_depth3_;
+  Fl_Valuator_Ex<Fl_Slider> *sl_depth3_;
 private:
-  inline void cb_sl_depth3__i(Fl_Slider*, void*);
-  static void cb_sl_depth3_(Fl_Slider*, void*);
+  inline void cb_sl_depth3__i(Fl_Valuator_Ex<Fl_Slider>*, void*);
+  static void cb_sl_depth3_(Fl_Valuator_Ex<Fl_Slider>*, void*);
 public:
-  Fl_Slider *sl_depth4_;
+  Fl_Valuator_Ex<Fl_Slider> *sl_depth4_;
 private:
-  inline void cb_sl_depth4__i(Fl_Slider*, void*);
-  static void cb_sl_depth4_(Fl_Slider*, void*);
+  inline void cb_sl_depth4__i(Fl_Valuator_Ex<Fl_Slider>*, void*);
+  static void cb_sl_depth4_(Fl_Valuator_Ex<Fl_Slider>*, void*);
 public:
-  Fl_Slider *sl_depth5_;
+  Fl_Valuator_Ex<Fl_Slider> *sl_depth5_;
 private:
-  inline void cb_sl_depth5__i(Fl_Slider*, void*);
-  static void cb_sl_depth5_(Fl_Slider*, void*);
+  inline void cb_sl_depth5__i(Fl_Valuator_Ex<Fl_Slider>*, void*);
+  static void cb_sl_depth5_(Fl_Valuator_Ex<Fl_Slider>*, void*);
 public:
-  Fl_Slider *sl_depth6_;
+  Fl_Valuator_Ex<Fl_Slider> *sl_depth6_;
 private:
-  inline void cb_sl_depth6__i(Fl_Slider*, void*);
-  static void cb_sl_depth6_(Fl_Slider*, void*);
+  inline void cb_sl_depth6__i(Fl_Valuator_Ex<Fl_Slider>*, void*);
+  static void cb_sl_depth6_(Fl_Valuator_Ex<Fl_Slider>*, void*);
 public:
   Fl_Choice *cb_slow_wave_;
 private:
@@ -173,40 +174,40 @@ private:
   static void cb_cb_fast_wave_(Fl_Choice*, void*);
   static Fl_Menu_Item menu_cb_fast_wave_[];
 public:
-  Fl_Slider *sl_gain_in_;
+  Fl_Valuator_Ex<Fl_Slider> *sl_gain_in_;
 private:
-  inline void cb_sl_gain_in__i(Fl_Slider*, void*);
-  static void cb_sl_gain_in_(Fl_Slider*, void*);
+  inline void cb_sl_gain_in__i(Fl_Valuator_Ex<Fl_Slider>*, void*);
+  static void cb_sl_gain_in_(Fl_Valuator_Ex<Fl_Slider>*, void*);
 public:
-  Fl_Slider *sl_gain_out_;
+  Fl_Valuator_Ex<Fl_Slider> *sl_gain_out_;
 private:
-  inline void cb_sl_gain_out__i(Fl_Slider*, void*);
-  static void cb_sl_gain_out_(Fl_Slider*, void*);
+  inline void cb_sl_gain_out__i(Fl_Valuator_Ex<Fl_Slider>*, void*);
+  static void cb_sl_gain_out_(Fl_Valuator_Ex<Fl_Slider>*, void*);
 public:
-  Fl_Knob *dl_slow_rand_;
+  Fl_Valuator_Ex<Fl_Knob> *dl_slow_rand_;
 private:
-  inline void cb_dl_slow_rand__i(Fl_Knob*, void*);
-  static void cb_dl_slow_rand_(Fl_Knob*, void*);
+  inline void cb_dl_slow_rand__i(Fl_Valuator_Ex<Fl_Knob>*, void*);
+  static void cb_dl_slow_rand_(Fl_Valuator_Ex<Fl_Knob>*, void*);
 public:
-  Fl_Knob *dl_fast_rand_;
+  Fl_Valuator_Ex<Fl_Knob> *dl_fast_rand_;
 private:
-  inline void cb_dl_fast_rand__i(Fl_Knob*, void*);
-  static void cb_dl_fast_rand_(Fl_Knob*, void*);
+  inline void cb_dl_fast_rand__i(Fl_Valuator_Ex<Fl_Knob>*, void*);
+  static void cb_dl_fast_rand_(Fl_Valuator_Ex<Fl_Knob>*, void*);
 public:
-  Fl_Knob *dl_mod_range_;
+  Fl_Valuator_Ex<Fl_Knob> *dl_mod_range_;
 private:
-  inline void cb_dl_mod_range__i(Fl_Knob*, void*);
-  static void cb_dl_mod_range_(Fl_Knob*, void*);
+  inline void cb_dl_mod_range__i(Fl_Valuator_Ex<Fl_Knob>*, void*);
+  static void cb_dl_mod_range_(Fl_Valuator_Ex<Fl_Knob>*, void*);
 public:
-  Fl_Knob *dl_lpf_cutoff_;
+  Fl_Valuator_Ex<Fl_Knob> *dl_lpf_cutoff_;
 private:
-  inline void cb_dl_lpf_cutoff__i(Fl_Knob*, void*);
-  static void cb_dl_lpf_cutoff_(Fl_Knob*, void*);
+  inline void cb_dl_lpf_cutoff__i(Fl_Valuator_Ex<Fl_Knob>*, void*);
+  static void cb_dl_lpf_cutoff_(Fl_Valuator_Ex<Fl_Knob>*, void*);
 public:
-  Fl_Knob *dl_lpf_q_;
+  Fl_Valuator_Ex<Fl_Knob> *dl_lpf_q_;
 private:
-  inline void cb_dl_lpf_q__i(Fl_Knob*, void*);
-  static void cb_dl_lpf_q_(Fl_Knob*, void*);
+  inline void cb_dl_lpf_q__i(Fl_Valuator_Ex<Fl_Knob>*, void*);
+  static void cb_dl_lpf_q_(Fl_Valuator_Ex<Fl_Knob>*, void*);
 public:
   void controller(Main_Controller *x);
 private:

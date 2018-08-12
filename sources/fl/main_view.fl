@@ -8,10 +8,19 @@ decl {\#include "main_controller.h"} {private local
 decl {\#include "modulator_visu.h"} {private local
 }
 
+decl {\#include "widgets/Fl_Valuator_Ex.h"} {private global
+}
+
 decl {\#include <ensemble_chorus.h>} {private local
 }
 
 decl {\#include <Fl_Knob/Fl_Knob.H>} {private global
+}
+
+decl {\#include <FL/Fl_Slider.H>} {selected private global
+}
+
+decl {\#include <FL/Fl_Value_Slider.H>} {private global
 }
 
 decl {\#include <FL/Fl_Toggle_Button.H>} {private global
@@ -26,7 +35,16 @@ decl {class Main_Controller;} {public global
 decl {class Modulator_Visu;} {public global
 }
 
+decl {template <class W> class Fl_Valuator_Ex;} {public global
+}
+
 decl {class Fl_Knob;} {public global
+}
+
+decl {class Fl_Slider;} {public global
+}
+
+decl {class Fl_Value_Slider;} {public global
 }
 
 decl {class Fl_Toggle_Button;} {public global
@@ -43,11 +61,13 @@ widget_class Main_View {open
     label Wet
     callback {controller()->send_parameter(ECP_MIX_WET, from_logarithmic(o->value()))}
     xywh {450 30 25 95} type {Vert Knob} box THIN_DOWN_BOX labeltype EMBOSSED_LABEL labelsize 12 minimum 1 maximum 0
+    class {Fl_Valuator_Ex<Fl_Slider>}
   }
   Fl_Slider sl_dry_ {
     label Dry
     callback {controller()->send_parameter(ECP_MIX_DRY, from_logarithmic(o->value()))}
     xywh {475 30 25 95} type {Vert Knob} box THIN_DOWN_BOX labeltype EMBOSSED_LABEL labelsize 12 minimum 1 maximum 0
+    class {Fl_Valuator_Ex<Fl_Slider>}
   }
   Fl_Box {} {
     label {JPC Ensemble Chorus}
@@ -93,6 +113,7 @@ x->set_modulation_callback(&modulation, this);} {}
   Fl_Value_Slider sl_phase1_ {
     callback {controller()->send_parameter(ECP_PHASE1, o->value() * (1.0 / 360))}
     xywh {65 80 105 25} type Horizontal maximum 359 step 1
+    class {Fl_Valuator_Ex<Fl_Value_Slider>}
   }
   Fl_Button btn_enable2_ {
     label 2
@@ -103,6 +124,7 @@ x->set_modulation_callback(&modulation, this);} {}
   Fl_Value_Slider sl_phase2_ {
     callback {controller()->send_parameter(ECP_PHASE2, o->value() * (1.0 / 360))}
     xywh {65 105 105 25} type Horizontal maximum 359 step 1
+    class {Fl_Valuator_Ex<Fl_Value_Slider>}
   }
   Fl_Button btn_enable3_ {
     label 3
@@ -113,6 +135,7 @@ x->set_modulation_callback(&modulation, this);} {}
   Fl_Value_Slider sl_phase3_ {
     callback {controller()->send_parameter(ECP_PHASE3, o->value() * (1.0 / 360))}
     xywh {65 130 105 25} type Horizontal maximum 359 step 1
+    class {Fl_Valuator_Ex<Fl_Value_Slider>}
   }
   Fl_Button btn_enable4_ {
     label 4
@@ -123,6 +146,7 @@ x->set_modulation_callback(&modulation, this);} {}
   Fl_Value_Slider sl_phase4_ {
     callback {controller()->send_parameter(ECP_PHASE4, o->value() * (1.0 / 360))}
     xywh {65 155 105 25} type Horizontal maximum 359 step 1
+    class {Fl_Valuator_Ex<Fl_Value_Slider>}
   }
   Fl_Button btn_enable5_ {
     label 5
@@ -133,6 +157,7 @@ x->set_modulation_callback(&modulation, this);} {}
   Fl_Value_Slider sl_phase5_ {
     callback {controller()->send_parameter(ECP_PHASE5, o->value() * (1.0 / 360))}
     xywh {65 180 105 25} type Horizontal maximum 359 step 1
+    class {Fl_Valuator_Ex<Fl_Value_Slider>}
   }
   Fl_Button btn_enable6_ {
     label 6
@@ -143,10 +168,12 @@ x->set_modulation_callback(&modulation, this);} {}
   Fl_Value_Slider sl_phase6_ {
     callback {controller()->send_parameter(ECP_PHASE6, o->value() * (1.0 / 360))}
     xywh {65 205 105 25} type Horizontal maximum 359 step 1
+    class {Fl_Valuator_Ex<Fl_Value_Slider>}
   }
   Fl_Slider sl_delay_ {
     callback {controller()->send_parameter(ECP_DELAY, o->value())}
     xywh {400 30 25 95} type {Vert Knob} box THIN_DOWN_BOX minimum 1 maximum 0
+    class {Fl_Valuator_Ex<Fl_Slider>}
   }
   Fl_Box {} {
     label Delay
@@ -216,12 +243,12 @@ x->set_modulation_callback(&modulation, this);} {}
   Fl_Dial dl_slow_rate_ {
     callback {controller()->send_parameter(ECP_SLOW_RATE, o->value())}
     xywh {325 175 45 45}
-    class Fl_Knob
+    class {Fl_Valuator_Ex<Fl_Knob>}
   }
   Fl_Dial dl_fast_rate_ {
     callback {controller()->send_parameter(ECP_FAST_RATE, o->value())}
     xywh {445 175 45 45}
-    class Fl_Knob
+    class {Fl_Valuator_Ex<Fl_Knob>}
   }
   Fl_Box {} {
     label Chorus
@@ -234,26 +261,32 @@ x->set_modulation_callback(&modulation, this);} {}
   Fl_Slider sl_depth1_ {
     callback {controller()->send_parameter(ECP_DEPTH1, o->value())}
     xywh {250 80 60 25} type Horizontal
+    class {Fl_Valuator_Ex<Fl_Slider>}
   }
   Fl_Slider sl_depth2_ {
     callback {controller()->send_parameter(ECP_DEPTH2, o->value())}
     xywh {250 105 60 25} type Horizontal
+    class {Fl_Valuator_Ex<Fl_Slider>}
   }
   Fl_Slider sl_depth3_ {
     callback {controller()->send_parameter(ECP_DEPTH3, o->value())}
     xywh {250 130 60 25} type Horizontal
+    class {Fl_Valuator_Ex<Fl_Slider>}
   }
   Fl_Slider sl_depth4_ {
     callback {controller()->send_parameter(ECP_DEPTH4, o->value())}
     xywh {250 155 60 25} type Horizontal
+    class {Fl_Valuator_Ex<Fl_Slider>}
   }
   Fl_Slider sl_depth5_ {
     callback {controller()->send_parameter(ECP_DEPTH5, o->value())}
     xywh {250 180 60 25} type Horizontal
+    class {Fl_Valuator_Ex<Fl_Slider>}
   }
   Fl_Slider sl_depth6_ {
     callback {controller()->send_parameter(ECP_DEPTH6, o->value())}
     xywh {250 205 60 25} type Horizontal
+    class {Fl_Valuator_Ex<Fl_Slider>}
   }
   Fl_Choice cb_slow_wave_ {
     callback {controller()->send_parameter(ECP_SLOW_WAVE, o->value())} open
@@ -299,11 +332,13 @@ x->set_modulation_callback(&modulation, this);} {}
     label In
     callback {controller()->send_parameter(ECP_GAIN_IN, 3.0 * from_logarithmic(o->value()))}
     xywh {510 30 25 95} type {Vert Knob} box THIN_DOWN_BOX labeltype EMBOSSED_LABEL labelsize 12 minimum 1 maximum 0
+    class {Fl_Valuator_Ex<Fl_Slider>}
   }
   Fl_Slider sl_gain_out_ {
     label Out
     callback {controller()->send_parameter(ECP_GAIN_OUT, 3.0 * from_logarithmic(o->value()))}
     xywh {535 30 25 95} type {Vert Knob} box THIN_DOWN_BOX labeltype EMBOSSED_LABEL labelsize 12 minimum 1 maximum 0
+    class {Fl_Valuator_Ex<Fl_Slider>}
   }
   Fl_Box {} {
     label Gain
@@ -313,19 +348,19 @@ x->set_modulation_callback(&modulation, this);} {}
     label Rand
     callback {controller()->send_parameter(ECP_SLOW_RAND, o->value())}
     xywh {370 205 35 35} labeltype ENGRAVED_LABEL labelsize 12 align 8
-    class Fl_Knob
+    class {Fl_Valuator_Ex<Fl_Knob>}
   }
   Fl_Dial dl_fast_rand_ {
     label Rand
     callback {controller()->send_parameter(ECP_FAST_RAND, o->value())}
     xywh {490 205 35 35} labeltype ENGRAVED_LABEL labelsize 12 align 8
-    class Fl_Knob
+    class {Fl_Valuator_Ex<Fl_Knob>}
   }
   Fl_Dial dl_mod_range_ {
     label Range
     callback {controller()->send_parameter(ECP_MOD_RANGE, o->value())}
     xywh {320 80 45 45} labeltype ENGRAVED_LABEL labelsize 12
-    class Fl_Knob
+    class {Fl_Valuator_Ex<Fl_Knob>}
   }
   Fl_Box {} {
     label {Low-pass filter}
@@ -335,12 +370,12 @@ x->set_modulation_callback(&modulation, this);} {}
     label Cutoff
     callback {controller()->send_parameter(ECP_LPF_CUTOFF, o->value())}
     xywh {160 235 40 40} labeltype EMBOSSED_LABEL labelsize 12 align 14
-    class Fl_Knob
+    class {Fl_Valuator_Ex<Fl_Knob>}
   }
   Fl_Dial dl_lpf_q_ {
     label Q
-    callback {controller()->send_parameter(ECP_LPF_Q, o->value())} selected
+    callback {controller()->send_parameter(ECP_LPF_Q, o->value())}
     xywh {255 235 40 40} labeltype EMBOSSED_LABEL labelsize 12 align 14
-    class Fl_Knob
+    class {Fl_Valuator_Ex<Fl_Knob>}
   }
 }

@@ -3,22 +3,25 @@
 #include "main_view.h"
 #include "main_controller.h"
 #include "modulator_visu.h"
+#include "widgets/Fl_Valuator_Ex.h"
 #include <ensemble_chorus.h>
 #include <Fl_Knob/Fl_Knob.H>
+#include <FL/Fl_Slider.H>
+#include <FL/Fl_Value_Slider.H>
 #include <FL/Fl_Toggle_Button.H>
 #include <cmath>
 
-void Main_View::cb_sl_wet__i(Fl_Slider* o, void*) {
+void Main_View::cb_sl_wet__i(Fl_Valuator_Ex<Fl_Slider>* o, void*) {
   controller()->send_parameter(ECP_MIX_WET, from_logarithmic(o->value()));
 }
-void Main_View::cb_sl_wet_(Fl_Slider* o, void* v) {
+void Main_View::cb_sl_wet_(Fl_Valuator_Ex<Fl_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_wet__i(o,v);
 }
 
-void Main_View::cb_sl_dry__i(Fl_Slider* o, void*) {
+void Main_View::cb_sl_dry__i(Fl_Valuator_Ex<Fl_Slider>* o, void*) {
   controller()->send_parameter(ECP_MIX_DRY, from_logarithmic(o->value()));
 }
-void Main_View::cb_sl_dry_(Fl_Slider* o, void* v) {
+void Main_View::cb_sl_dry_(Fl_Valuator_Ex<Fl_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_dry__i(o,v);
 }
 
@@ -36,10 +39,10 @@ void Main_View::cb_btn_enable1_(Fl_Toggle_Button* o, void* v) {
   ((Main_View*)(o->parent()))->cb_btn_enable1__i(o,v);
 }
 
-void Main_View::cb_sl_phase1__i(Fl_Value_Slider* o, void*) {
+void Main_View::cb_sl_phase1__i(Fl_Valuator_Ex<Fl_Value_Slider>* o, void*) {
   controller()->send_parameter(ECP_PHASE1, o->value() * (1.0 / 360));
 }
-void Main_View::cb_sl_phase1_(Fl_Value_Slider* o, void* v) {
+void Main_View::cb_sl_phase1_(Fl_Valuator_Ex<Fl_Value_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_phase1__i(o,v);
 }
 
@@ -50,10 +53,10 @@ void Main_View::cb_btn_enable2_(Fl_Toggle_Button* o, void* v) {
   ((Main_View*)(o->parent()))->cb_btn_enable2__i(o,v);
 }
 
-void Main_View::cb_sl_phase2__i(Fl_Value_Slider* o, void*) {
+void Main_View::cb_sl_phase2__i(Fl_Valuator_Ex<Fl_Value_Slider>* o, void*) {
   controller()->send_parameter(ECP_PHASE2, o->value() * (1.0 / 360));
 }
-void Main_View::cb_sl_phase2_(Fl_Value_Slider* o, void* v) {
+void Main_View::cb_sl_phase2_(Fl_Valuator_Ex<Fl_Value_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_phase2__i(o,v);
 }
 
@@ -64,10 +67,10 @@ void Main_View::cb_btn_enable3_(Fl_Toggle_Button* o, void* v) {
   ((Main_View*)(o->parent()))->cb_btn_enable3__i(o,v);
 }
 
-void Main_View::cb_sl_phase3__i(Fl_Value_Slider* o, void*) {
+void Main_View::cb_sl_phase3__i(Fl_Valuator_Ex<Fl_Value_Slider>* o, void*) {
   controller()->send_parameter(ECP_PHASE3, o->value() * (1.0 / 360));
 }
-void Main_View::cb_sl_phase3_(Fl_Value_Slider* o, void* v) {
+void Main_View::cb_sl_phase3_(Fl_Valuator_Ex<Fl_Value_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_phase3__i(o,v);
 }
 
@@ -78,10 +81,10 @@ void Main_View::cb_btn_enable4_(Fl_Toggle_Button* o, void* v) {
   ((Main_View*)(o->parent()))->cb_btn_enable4__i(o,v);
 }
 
-void Main_View::cb_sl_phase4__i(Fl_Value_Slider* o, void*) {
+void Main_View::cb_sl_phase4__i(Fl_Valuator_Ex<Fl_Value_Slider>* o, void*) {
   controller()->send_parameter(ECP_PHASE4, o->value() * (1.0 / 360));
 }
-void Main_View::cb_sl_phase4_(Fl_Value_Slider* o, void* v) {
+void Main_View::cb_sl_phase4_(Fl_Valuator_Ex<Fl_Value_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_phase4__i(o,v);
 }
 
@@ -92,10 +95,10 @@ void Main_View::cb_btn_enable5_(Fl_Toggle_Button* o, void* v) {
   ((Main_View*)(o->parent()))->cb_btn_enable5__i(o,v);
 }
 
-void Main_View::cb_sl_phase5__i(Fl_Value_Slider* o, void*) {
+void Main_View::cb_sl_phase5__i(Fl_Valuator_Ex<Fl_Value_Slider>* o, void*) {
   controller()->send_parameter(ECP_PHASE5, o->value() * (1.0 / 360));
 }
-void Main_View::cb_sl_phase5_(Fl_Value_Slider* o, void* v) {
+void Main_View::cb_sl_phase5_(Fl_Valuator_Ex<Fl_Value_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_phase5__i(o,v);
 }
 
@@ -106,17 +109,17 @@ void Main_View::cb_btn_enable6_(Fl_Toggle_Button* o, void* v) {
   ((Main_View*)(o->parent()))->cb_btn_enable6__i(o,v);
 }
 
-void Main_View::cb_sl_phase6__i(Fl_Value_Slider* o, void*) {
+void Main_View::cb_sl_phase6__i(Fl_Valuator_Ex<Fl_Value_Slider>* o, void*) {
   controller()->send_parameter(ECP_PHASE6, o->value() * (1.0 / 360));
 }
-void Main_View::cb_sl_phase6_(Fl_Value_Slider* o, void* v) {
+void Main_View::cb_sl_phase6_(Fl_Valuator_Ex<Fl_Value_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_phase6__i(o,v);
 }
 
-void Main_View::cb_sl_delay__i(Fl_Slider* o, void*) {
+void Main_View::cb_sl_delay__i(Fl_Valuator_Ex<Fl_Slider>* o, void*) {
   controller()->send_parameter(ECP_DELAY, o->value());
 }
-void Main_View::cb_sl_delay_(Fl_Slider* o, void* v) {
+void Main_View::cb_sl_delay_(Fl_Valuator_Ex<Fl_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_delay__i(o,v);
 }
 
@@ -164,59 +167,59 @@ Fl_Menu_Item Main_View::menu_cb_nstages_[] = {
  {0,0,0,0,0,0,0,0,0}
 };
 
-void Main_View::cb_dl_slow_rate__i(Fl_Knob* o, void*) {
+void Main_View::cb_dl_slow_rate__i(Fl_Valuator_Ex<Fl_Knob>* o, void*) {
   controller()->send_parameter(ECP_SLOW_RATE, o->value());
 }
-void Main_View::cb_dl_slow_rate_(Fl_Knob* o, void* v) {
+void Main_View::cb_dl_slow_rate_(Fl_Valuator_Ex<Fl_Knob>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_dl_slow_rate__i(o,v);
 }
 
-void Main_View::cb_dl_fast_rate__i(Fl_Knob* o, void*) {
+void Main_View::cb_dl_fast_rate__i(Fl_Valuator_Ex<Fl_Knob>* o, void*) {
   controller()->send_parameter(ECP_FAST_RATE, o->value());
 }
-void Main_View::cb_dl_fast_rate_(Fl_Knob* o, void* v) {
+void Main_View::cb_dl_fast_rate_(Fl_Valuator_Ex<Fl_Knob>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_dl_fast_rate__i(o,v);
 }
 
-void Main_View::cb_sl_depth1__i(Fl_Slider* o, void*) {
+void Main_View::cb_sl_depth1__i(Fl_Valuator_Ex<Fl_Slider>* o, void*) {
   controller()->send_parameter(ECP_DEPTH1, o->value());
 }
-void Main_View::cb_sl_depth1_(Fl_Slider* o, void* v) {
+void Main_View::cb_sl_depth1_(Fl_Valuator_Ex<Fl_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_depth1__i(o,v);
 }
 
-void Main_View::cb_sl_depth2__i(Fl_Slider* o, void*) {
+void Main_View::cb_sl_depth2__i(Fl_Valuator_Ex<Fl_Slider>* o, void*) {
   controller()->send_parameter(ECP_DEPTH2, o->value());
 }
-void Main_View::cb_sl_depth2_(Fl_Slider* o, void* v) {
+void Main_View::cb_sl_depth2_(Fl_Valuator_Ex<Fl_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_depth2__i(o,v);
 }
 
-void Main_View::cb_sl_depth3__i(Fl_Slider* o, void*) {
+void Main_View::cb_sl_depth3__i(Fl_Valuator_Ex<Fl_Slider>* o, void*) {
   controller()->send_parameter(ECP_DEPTH3, o->value());
 }
-void Main_View::cb_sl_depth3_(Fl_Slider* o, void* v) {
+void Main_View::cb_sl_depth3_(Fl_Valuator_Ex<Fl_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_depth3__i(o,v);
 }
 
-void Main_View::cb_sl_depth4__i(Fl_Slider* o, void*) {
+void Main_View::cb_sl_depth4__i(Fl_Valuator_Ex<Fl_Slider>* o, void*) {
   controller()->send_parameter(ECP_DEPTH4, o->value());
 }
-void Main_View::cb_sl_depth4_(Fl_Slider* o, void* v) {
+void Main_View::cb_sl_depth4_(Fl_Valuator_Ex<Fl_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_depth4__i(o,v);
 }
 
-void Main_View::cb_sl_depth5__i(Fl_Slider* o, void*) {
+void Main_View::cb_sl_depth5__i(Fl_Valuator_Ex<Fl_Slider>* o, void*) {
   controller()->send_parameter(ECP_DEPTH5, o->value());
 }
-void Main_View::cb_sl_depth5_(Fl_Slider* o, void* v) {
+void Main_View::cb_sl_depth5_(Fl_Valuator_Ex<Fl_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_depth5__i(o,v);
 }
 
-void Main_View::cb_sl_depth6__i(Fl_Slider* o, void*) {
+void Main_View::cb_sl_depth6__i(Fl_Valuator_Ex<Fl_Slider>* o, void*) {
   controller()->send_parameter(ECP_DEPTH6, o->value());
 }
-void Main_View::cb_sl_depth6_(Fl_Slider* o, void* v) {
+void Main_View::cb_sl_depth6_(Fl_Valuator_Ex<Fl_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_depth6__i(o,v);
 }
 
@@ -669,75 +672,87 @@ Fl_Menu_Item Main_View::menu_cb_fast_wave_[] = {
  {0,0,0,0,0,0,0,0,0}
 };
 
-void Main_View::cb_sl_gain_in__i(Fl_Slider* o, void*) {
+void Main_View::cb_sl_gain_in__i(Fl_Valuator_Ex<Fl_Slider>* o, void*) {
   controller()->send_parameter(ECP_GAIN_IN, 3.0 * from_logarithmic(o->value()));
 }
-void Main_View::cb_sl_gain_in_(Fl_Slider* o, void* v) {
+void Main_View::cb_sl_gain_in_(Fl_Valuator_Ex<Fl_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_gain_in__i(o,v);
 }
 
-void Main_View::cb_sl_gain_out__i(Fl_Slider* o, void*) {
+void Main_View::cb_sl_gain_out__i(Fl_Valuator_Ex<Fl_Slider>* o, void*) {
   controller()->send_parameter(ECP_GAIN_OUT, 3.0 * from_logarithmic(o->value()));
 }
-void Main_View::cb_sl_gain_out_(Fl_Slider* o, void* v) {
+void Main_View::cb_sl_gain_out_(Fl_Valuator_Ex<Fl_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_gain_out__i(o,v);
 }
 
-void Main_View::cb_dl_slow_rand__i(Fl_Knob* o, void*) {
+void Main_View::cb_dl_slow_rand__i(Fl_Valuator_Ex<Fl_Knob>* o, void*) {
   controller()->send_parameter(ECP_SLOW_RAND, o->value());
 }
-void Main_View::cb_dl_slow_rand_(Fl_Knob* o, void* v) {
+void Main_View::cb_dl_slow_rand_(Fl_Valuator_Ex<Fl_Knob>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_dl_slow_rand__i(o,v);
 }
 
-void Main_View::cb_dl_fast_rand__i(Fl_Knob* o, void*) {
+void Main_View::cb_dl_fast_rand__i(Fl_Valuator_Ex<Fl_Knob>* o, void*) {
   controller()->send_parameter(ECP_FAST_RAND, o->value());
 }
-void Main_View::cb_dl_fast_rand_(Fl_Knob* o, void* v) {
+void Main_View::cb_dl_fast_rand_(Fl_Valuator_Ex<Fl_Knob>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_dl_fast_rand__i(o,v);
 }
 
-void Main_View::cb_dl_mod_range__i(Fl_Knob* o, void*) {
+void Main_View::cb_dl_mod_range__i(Fl_Valuator_Ex<Fl_Knob>* o, void*) {
   controller()->send_parameter(ECP_MOD_RANGE, o->value());
 }
-void Main_View::cb_dl_mod_range_(Fl_Knob* o, void* v) {
+void Main_View::cb_dl_mod_range_(Fl_Valuator_Ex<Fl_Knob>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_dl_mod_range__i(o,v);
 }
 
-void Main_View::cb_dl_lpf_cutoff__i(Fl_Knob* o, void*) {
+void Main_View::cb_dl_lpf_cutoff__i(Fl_Valuator_Ex<Fl_Knob>* o, void*) {
   controller()->send_parameter(ECP_LPF_CUTOFF, o->value());
 }
-void Main_View::cb_dl_lpf_cutoff_(Fl_Knob* o, void* v) {
+void Main_View::cb_dl_lpf_cutoff_(Fl_Valuator_Ex<Fl_Knob>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_dl_lpf_cutoff__i(o,v);
 }
 
-void Main_View::cb_dl_lpf_q__i(Fl_Knob* o, void*) {
+void Main_View::cb_dl_lpf_q__i(Fl_Valuator_Ex<Fl_Knob>* o, void*) {
   controller()->send_parameter(ECP_LPF_Q, o->value());
 }
-void Main_View::cb_dl_lpf_q_(Fl_Knob* o, void* v) {
+void Main_View::cb_dl_lpf_q_(Fl_Valuator_Ex<Fl_Knob>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_dl_lpf_q__i(o,v);
 }
 Main_View::Main_View(int X, int Y, int W, int H, const char *L)
   : Fl_Group(X, Y, W, H, L) {
 this->labelfont(13);
-{ sl_wet_ = new Fl_Slider(450, 30, 25, 95, "Wet");
+{ sl_wet_ = new Fl_Valuator_Ex<Fl_Slider>(450, 30, 25, 95, "Wet");
   sl_wet_->type(4);
   sl_wet_->box(FL_THIN_DOWN_BOX);
+  sl_wet_->color(FL_BACKGROUND_COLOR);
+  sl_wet_->selection_color(FL_BACKGROUND_COLOR);
   sl_wet_->labeltype(FL_EMBOSSED_LABEL);
+  sl_wet_->labelfont(0);
   sl_wet_->labelsize(12);
+  sl_wet_->labelcolor(FL_FOREGROUND_COLOR);
   sl_wet_->minimum(1);
   sl_wet_->maximum(0);
   sl_wet_->callback((Fl_Callback*)cb_sl_wet_);
-} // Fl_Slider* sl_wet_
-{ sl_dry_ = new Fl_Slider(475, 30, 25, 95, "Dry");
+  sl_wet_->align(Fl_Align(FL_ALIGN_BOTTOM));
+  sl_wet_->when(FL_WHEN_CHANGED);
+} // Fl_Valuator_Ex<Fl_Slider>* sl_wet_
+{ sl_dry_ = new Fl_Valuator_Ex<Fl_Slider>(475, 30, 25, 95, "Dry");
   sl_dry_->type(4);
   sl_dry_->box(FL_THIN_DOWN_BOX);
+  sl_dry_->color(FL_BACKGROUND_COLOR);
+  sl_dry_->selection_color(FL_BACKGROUND_COLOR);
   sl_dry_->labeltype(FL_EMBOSSED_LABEL);
+  sl_dry_->labelfont(0);
   sl_dry_->labelsize(12);
+  sl_dry_->labelcolor(FL_FOREGROUND_COLOR);
   sl_dry_->minimum(1);
   sl_dry_->maximum(0);
   sl_dry_->callback((Fl_Callback*)cb_sl_dry_);
-} // Fl_Slider* sl_dry_
+  sl_dry_->align(Fl_Align(FL_ALIGN_BOTTOM));
+  sl_dry_->when(FL_WHEN_CHANGED);
+} // Fl_Valuator_Ex<Fl_Slider>* sl_dry_
 { Fl_Box* o = new Fl_Box(0, 0, 230, 42, "JPC Ensemble Chorus");
   o->box(FL_SHADOW_BOX);
   o->labeltype(FL_EMBOSSED_LABEL);
@@ -770,12 +785,21 @@ this->labelfont(13);
   btn_enable1_->align(Fl_Align(FL_ALIGN_CENTER));
   btn_enable1_->when(FL_WHEN_RELEASE);
 } // Fl_Toggle_Button* btn_enable1_
-{ sl_phase1_ = new Fl_Value_Slider(65, 80, 105, 25);
+{ sl_phase1_ = new Fl_Valuator_Ex<Fl_Value_Slider>(65, 80, 105, 25);
   sl_phase1_->type(1);
+  sl_phase1_->box(FL_DOWN_BOX);
+  sl_phase1_->color(FL_BACKGROUND_COLOR);
+  sl_phase1_->selection_color(FL_BACKGROUND_COLOR);
+  sl_phase1_->labeltype(FL_NORMAL_LABEL);
+  sl_phase1_->labelfont(0);
+  sl_phase1_->labelsize(14);
+  sl_phase1_->labelcolor(FL_FOREGROUND_COLOR);
   sl_phase1_->maximum(359);
   sl_phase1_->step(1);
   sl_phase1_->callback((Fl_Callback*)cb_sl_phase1_);
-} // Fl_Value_Slider* sl_phase1_
+  sl_phase1_->align(Fl_Align(FL_ALIGN_BOTTOM));
+  sl_phase1_->when(FL_WHEN_CHANGED);
+} // Fl_Valuator_Ex<Fl_Value_Slider>* sl_phase1_
 { btn_enable2_ = new Fl_Toggle_Button(20, 105, 25, 25, "2");
   btn_enable2_->box(FL_UP_BOX);
   btn_enable2_->color(FL_BACKGROUND_COLOR);
@@ -788,12 +812,21 @@ this->labelfont(13);
   btn_enable2_->align(Fl_Align(FL_ALIGN_CENTER));
   btn_enable2_->when(FL_WHEN_RELEASE);
 } // Fl_Toggle_Button* btn_enable2_
-{ sl_phase2_ = new Fl_Value_Slider(65, 105, 105, 25);
+{ sl_phase2_ = new Fl_Valuator_Ex<Fl_Value_Slider>(65, 105, 105, 25);
   sl_phase2_->type(1);
+  sl_phase2_->box(FL_DOWN_BOX);
+  sl_phase2_->color(FL_BACKGROUND_COLOR);
+  sl_phase2_->selection_color(FL_BACKGROUND_COLOR);
+  sl_phase2_->labeltype(FL_NORMAL_LABEL);
+  sl_phase2_->labelfont(0);
+  sl_phase2_->labelsize(14);
+  sl_phase2_->labelcolor(FL_FOREGROUND_COLOR);
   sl_phase2_->maximum(359);
   sl_phase2_->step(1);
   sl_phase2_->callback((Fl_Callback*)cb_sl_phase2_);
-} // Fl_Value_Slider* sl_phase2_
+  sl_phase2_->align(Fl_Align(FL_ALIGN_BOTTOM));
+  sl_phase2_->when(FL_WHEN_CHANGED);
+} // Fl_Valuator_Ex<Fl_Value_Slider>* sl_phase2_
 { btn_enable3_ = new Fl_Toggle_Button(20, 130, 25, 25, "3");
   btn_enable3_->box(FL_UP_BOX);
   btn_enable3_->color(FL_BACKGROUND_COLOR);
@@ -806,12 +839,21 @@ this->labelfont(13);
   btn_enable3_->align(Fl_Align(FL_ALIGN_CENTER));
   btn_enable3_->when(FL_WHEN_RELEASE);
 } // Fl_Toggle_Button* btn_enable3_
-{ sl_phase3_ = new Fl_Value_Slider(65, 130, 105, 25);
+{ sl_phase3_ = new Fl_Valuator_Ex<Fl_Value_Slider>(65, 130, 105, 25);
   sl_phase3_->type(1);
+  sl_phase3_->box(FL_DOWN_BOX);
+  sl_phase3_->color(FL_BACKGROUND_COLOR);
+  sl_phase3_->selection_color(FL_BACKGROUND_COLOR);
+  sl_phase3_->labeltype(FL_NORMAL_LABEL);
+  sl_phase3_->labelfont(0);
+  sl_phase3_->labelsize(14);
+  sl_phase3_->labelcolor(FL_FOREGROUND_COLOR);
   sl_phase3_->maximum(359);
   sl_phase3_->step(1);
   sl_phase3_->callback((Fl_Callback*)cb_sl_phase3_);
-} // Fl_Value_Slider* sl_phase3_
+  sl_phase3_->align(Fl_Align(FL_ALIGN_BOTTOM));
+  sl_phase3_->when(FL_WHEN_CHANGED);
+} // Fl_Valuator_Ex<Fl_Value_Slider>* sl_phase3_
 { btn_enable4_ = new Fl_Toggle_Button(20, 155, 25, 25, "4");
   btn_enable4_->box(FL_UP_BOX);
   btn_enable4_->color(FL_BACKGROUND_COLOR);
@@ -824,12 +866,21 @@ this->labelfont(13);
   btn_enable4_->align(Fl_Align(FL_ALIGN_CENTER));
   btn_enable4_->when(FL_WHEN_RELEASE);
 } // Fl_Toggle_Button* btn_enable4_
-{ sl_phase4_ = new Fl_Value_Slider(65, 155, 105, 25);
+{ sl_phase4_ = new Fl_Valuator_Ex<Fl_Value_Slider>(65, 155, 105, 25);
   sl_phase4_->type(1);
+  sl_phase4_->box(FL_DOWN_BOX);
+  sl_phase4_->color(FL_BACKGROUND_COLOR);
+  sl_phase4_->selection_color(FL_BACKGROUND_COLOR);
+  sl_phase4_->labeltype(FL_NORMAL_LABEL);
+  sl_phase4_->labelfont(0);
+  sl_phase4_->labelsize(14);
+  sl_phase4_->labelcolor(FL_FOREGROUND_COLOR);
   sl_phase4_->maximum(359);
   sl_phase4_->step(1);
   sl_phase4_->callback((Fl_Callback*)cb_sl_phase4_);
-} // Fl_Value_Slider* sl_phase4_
+  sl_phase4_->align(Fl_Align(FL_ALIGN_BOTTOM));
+  sl_phase4_->when(FL_WHEN_CHANGED);
+} // Fl_Valuator_Ex<Fl_Value_Slider>* sl_phase4_
 { btn_enable5_ = new Fl_Toggle_Button(20, 180, 25, 25, "5");
   btn_enable5_->box(FL_UP_BOX);
   btn_enable5_->color(FL_BACKGROUND_COLOR);
@@ -842,12 +893,21 @@ this->labelfont(13);
   btn_enable5_->align(Fl_Align(FL_ALIGN_CENTER));
   btn_enable5_->when(FL_WHEN_RELEASE);
 } // Fl_Toggle_Button* btn_enable5_
-{ sl_phase5_ = new Fl_Value_Slider(65, 180, 105, 25);
+{ sl_phase5_ = new Fl_Valuator_Ex<Fl_Value_Slider>(65, 180, 105, 25);
   sl_phase5_->type(1);
+  sl_phase5_->box(FL_DOWN_BOX);
+  sl_phase5_->color(FL_BACKGROUND_COLOR);
+  sl_phase5_->selection_color(FL_BACKGROUND_COLOR);
+  sl_phase5_->labeltype(FL_NORMAL_LABEL);
+  sl_phase5_->labelfont(0);
+  sl_phase5_->labelsize(14);
+  sl_phase5_->labelcolor(FL_FOREGROUND_COLOR);
   sl_phase5_->maximum(359);
   sl_phase5_->step(1);
   sl_phase5_->callback((Fl_Callback*)cb_sl_phase5_);
-} // Fl_Value_Slider* sl_phase5_
+  sl_phase5_->align(Fl_Align(FL_ALIGN_BOTTOM));
+  sl_phase5_->when(FL_WHEN_CHANGED);
+} // Fl_Valuator_Ex<Fl_Value_Slider>* sl_phase5_
 { btn_enable6_ = new Fl_Toggle_Button(20, 205, 25, 25, "6");
   btn_enable6_->box(FL_UP_BOX);
   btn_enable6_->color(FL_BACKGROUND_COLOR);
@@ -860,19 +920,36 @@ this->labelfont(13);
   btn_enable6_->align(Fl_Align(FL_ALIGN_CENTER));
   btn_enable6_->when(FL_WHEN_RELEASE);
 } // Fl_Toggle_Button* btn_enable6_
-{ sl_phase6_ = new Fl_Value_Slider(65, 205, 105, 25);
+{ sl_phase6_ = new Fl_Valuator_Ex<Fl_Value_Slider>(65, 205, 105, 25);
   sl_phase6_->type(1);
+  sl_phase6_->box(FL_DOWN_BOX);
+  sl_phase6_->color(FL_BACKGROUND_COLOR);
+  sl_phase6_->selection_color(FL_BACKGROUND_COLOR);
+  sl_phase6_->labeltype(FL_NORMAL_LABEL);
+  sl_phase6_->labelfont(0);
+  sl_phase6_->labelsize(14);
+  sl_phase6_->labelcolor(FL_FOREGROUND_COLOR);
   sl_phase6_->maximum(359);
   sl_phase6_->step(1);
   sl_phase6_->callback((Fl_Callback*)cb_sl_phase6_);
-} // Fl_Value_Slider* sl_phase6_
-{ sl_delay_ = new Fl_Slider(400, 30, 25, 95);
+  sl_phase6_->align(Fl_Align(FL_ALIGN_BOTTOM));
+  sl_phase6_->when(FL_WHEN_CHANGED);
+} // Fl_Valuator_Ex<Fl_Value_Slider>* sl_phase6_
+{ sl_delay_ = new Fl_Valuator_Ex<Fl_Slider>(400, 30, 25, 95);
   sl_delay_->type(4);
   sl_delay_->box(FL_THIN_DOWN_BOX);
+  sl_delay_->color(FL_BACKGROUND_COLOR);
+  sl_delay_->selection_color(FL_BACKGROUND_COLOR);
+  sl_delay_->labeltype(FL_NORMAL_LABEL);
+  sl_delay_->labelfont(0);
+  sl_delay_->labelsize(14);
+  sl_delay_->labelcolor(FL_FOREGROUND_COLOR);
   sl_delay_->minimum(1);
   sl_delay_->maximum(0);
   sl_delay_->callback((Fl_Callback*)cb_sl_delay_);
-} // Fl_Slider* sl_delay_
+  sl_delay_->align(Fl_Align(FL_ALIGN_BOTTOM));
+  sl_delay_->when(FL_WHEN_CHANGED);
+} // Fl_Valuator_Ex<Fl_Slider>* sl_delay_
 { Fl_Box* o = new Fl_Box(400, 5, 25, 25, "Delay");
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
@@ -956,7 +1033,7 @@ this->labelfont(13);
   o->labelfont(11);
   o->align(Fl_Align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE));
 } // Fl_Box* o
-{ dl_slow_rate_ = new Fl_Knob(325, 175, 45, 45);
+{ dl_slow_rate_ = new Fl_Valuator_Ex<Fl_Knob>(325, 175, 45, 45);
   dl_slow_rate_->box(FL_OVAL_BOX);
   dl_slow_rate_->color(FL_BACKGROUND_COLOR);
   dl_slow_rate_->selection_color(FL_INACTIVE_COLOR);
@@ -967,8 +1044,8 @@ this->labelfont(13);
   dl_slow_rate_->callback((Fl_Callback*)cb_dl_slow_rate_);
   dl_slow_rate_->align(Fl_Align(FL_ALIGN_BOTTOM));
   dl_slow_rate_->when(FL_WHEN_CHANGED);
-} // Fl_Knob* dl_slow_rate_
-{ dl_fast_rate_ = new Fl_Knob(445, 175, 45, 45);
+} // Fl_Valuator_Ex<Fl_Knob>* dl_slow_rate_
+{ dl_fast_rate_ = new Fl_Valuator_Ex<Fl_Knob>(445, 175, 45, 45);
   dl_fast_rate_->box(FL_OVAL_BOX);
   dl_fast_rate_->color(FL_BACKGROUND_COLOR);
   dl_fast_rate_->selection_color(FL_INACTIVE_COLOR);
@@ -979,7 +1056,7 @@ this->labelfont(13);
   dl_fast_rate_->callback((Fl_Callback*)cb_dl_fast_rate_);
   dl_fast_rate_->align(Fl_Align(FL_ALIGN_BOTTOM));
   dl_fast_rate_->when(FL_WHEN_CHANGED);
-} // Fl_Knob* dl_fast_rate_
+} // Fl_Valuator_Ex<Fl_Knob>* dl_fast_rate_
 { Fl_Box* o = new Fl_Box(325, 150, 45, 25, "Chorus");
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
@@ -988,30 +1065,84 @@ this->labelfont(13);
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
 } // Fl_Box* o
-{ sl_depth1_ = new Fl_Slider(250, 80, 60, 25);
+{ sl_depth1_ = new Fl_Valuator_Ex<Fl_Slider>(250, 80, 60, 25);
   sl_depth1_->type(1);
+  sl_depth1_->box(FL_DOWN_BOX);
+  sl_depth1_->color(FL_BACKGROUND_COLOR);
+  sl_depth1_->selection_color(FL_BACKGROUND_COLOR);
+  sl_depth1_->labeltype(FL_NORMAL_LABEL);
+  sl_depth1_->labelfont(0);
+  sl_depth1_->labelsize(14);
+  sl_depth1_->labelcolor(FL_FOREGROUND_COLOR);
   sl_depth1_->callback((Fl_Callback*)cb_sl_depth1_);
-} // Fl_Slider* sl_depth1_
-{ sl_depth2_ = new Fl_Slider(250, 105, 60, 25);
+  sl_depth1_->align(Fl_Align(FL_ALIGN_BOTTOM));
+  sl_depth1_->when(FL_WHEN_CHANGED);
+} // Fl_Valuator_Ex<Fl_Slider>* sl_depth1_
+{ sl_depth2_ = new Fl_Valuator_Ex<Fl_Slider>(250, 105, 60, 25);
   sl_depth2_->type(1);
+  sl_depth2_->box(FL_DOWN_BOX);
+  sl_depth2_->color(FL_BACKGROUND_COLOR);
+  sl_depth2_->selection_color(FL_BACKGROUND_COLOR);
+  sl_depth2_->labeltype(FL_NORMAL_LABEL);
+  sl_depth2_->labelfont(0);
+  sl_depth2_->labelsize(14);
+  sl_depth2_->labelcolor(FL_FOREGROUND_COLOR);
   sl_depth2_->callback((Fl_Callback*)cb_sl_depth2_);
-} // Fl_Slider* sl_depth2_
-{ sl_depth3_ = new Fl_Slider(250, 130, 60, 25);
+  sl_depth2_->align(Fl_Align(FL_ALIGN_BOTTOM));
+  sl_depth2_->when(FL_WHEN_CHANGED);
+} // Fl_Valuator_Ex<Fl_Slider>* sl_depth2_
+{ sl_depth3_ = new Fl_Valuator_Ex<Fl_Slider>(250, 130, 60, 25);
   sl_depth3_->type(1);
+  sl_depth3_->box(FL_DOWN_BOX);
+  sl_depth3_->color(FL_BACKGROUND_COLOR);
+  sl_depth3_->selection_color(FL_BACKGROUND_COLOR);
+  sl_depth3_->labeltype(FL_NORMAL_LABEL);
+  sl_depth3_->labelfont(0);
+  sl_depth3_->labelsize(14);
+  sl_depth3_->labelcolor(FL_FOREGROUND_COLOR);
   sl_depth3_->callback((Fl_Callback*)cb_sl_depth3_);
-} // Fl_Slider* sl_depth3_
-{ sl_depth4_ = new Fl_Slider(250, 155, 60, 25);
+  sl_depth3_->align(Fl_Align(FL_ALIGN_BOTTOM));
+  sl_depth3_->when(FL_WHEN_CHANGED);
+} // Fl_Valuator_Ex<Fl_Slider>* sl_depth3_
+{ sl_depth4_ = new Fl_Valuator_Ex<Fl_Slider>(250, 155, 60, 25);
   sl_depth4_->type(1);
+  sl_depth4_->box(FL_DOWN_BOX);
+  sl_depth4_->color(FL_BACKGROUND_COLOR);
+  sl_depth4_->selection_color(FL_BACKGROUND_COLOR);
+  sl_depth4_->labeltype(FL_NORMAL_LABEL);
+  sl_depth4_->labelfont(0);
+  sl_depth4_->labelsize(14);
+  sl_depth4_->labelcolor(FL_FOREGROUND_COLOR);
   sl_depth4_->callback((Fl_Callback*)cb_sl_depth4_);
-} // Fl_Slider* sl_depth4_
-{ sl_depth5_ = new Fl_Slider(250, 180, 60, 25);
+  sl_depth4_->align(Fl_Align(FL_ALIGN_BOTTOM));
+  sl_depth4_->when(FL_WHEN_CHANGED);
+} // Fl_Valuator_Ex<Fl_Slider>* sl_depth4_
+{ sl_depth5_ = new Fl_Valuator_Ex<Fl_Slider>(250, 180, 60, 25);
   sl_depth5_->type(1);
+  sl_depth5_->box(FL_DOWN_BOX);
+  sl_depth5_->color(FL_BACKGROUND_COLOR);
+  sl_depth5_->selection_color(FL_BACKGROUND_COLOR);
+  sl_depth5_->labeltype(FL_NORMAL_LABEL);
+  sl_depth5_->labelfont(0);
+  sl_depth5_->labelsize(14);
+  sl_depth5_->labelcolor(FL_FOREGROUND_COLOR);
   sl_depth5_->callback((Fl_Callback*)cb_sl_depth5_);
-} // Fl_Slider* sl_depth5_
-{ sl_depth6_ = new Fl_Slider(250, 205, 60, 25);
+  sl_depth5_->align(Fl_Align(FL_ALIGN_BOTTOM));
+  sl_depth5_->when(FL_WHEN_CHANGED);
+} // Fl_Valuator_Ex<Fl_Slider>* sl_depth5_
+{ sl_depth6_ = new Fl_Valuator_Ex<Fl_Slider>(250, 205, 60, 25);
   sl_depth6_->type(1);
+  sl_depth6_->box(FL_DOWN_BOX);
+  sl_depth6_->color(FL_BACKGROUND_COLOR);
+  sl_depth6_->selection_color(FL_BACKGROUND_COLOR);
+  sl_depth6_->labeltype(FL_NORMAL_LABEL);
+  sl_depth6_->labelfont(0);
+  sl_depth6_->labelsize(14);
+  sl_depth6_->labelcolor(FL_FOREGROUND_COLOR);
   sl_depth6_->callback((Fl_Callback*)cb_sl_depth6_);
-} // Fl_Slider* sl_depth6_
+  sl_depth6_->align(Fl_Align(FL_ALIGN_BOTTOM));
+  sl_depth6_->when(FL_WHEN_CHANGED);
+} // Fl_Valuator_Ex<Fl_Slider>* sl_depth6_
 { cb_slow_wave_ = new Fl_Choice(380, 175, 55, 25);
   cb_slow_wave_->down_box(FL_BORDER_BOX);
   cb_slow_wave_->callback((Fl_Callback*)cb_cb_slow_wave_);
@@ -1052,29 +1183,41 @@ this->labelfont(13);
   }
   cb_fast_wave_->menu(menu_cb_fast_wave_);
 } // Fl_Choice* cb_fast_wave_
-{ sl_gain_in_ = new Fl_Slider(510, 30, 25, 95, "In");
+{ sl_gain_in_ = new Fl_Valuator_Ex<Fl_Slider>(510, 30, 25, 95, "In");
   sl_gain_in_->type(4);
   sl_gain_in_->box(FL_THIN_DOWN_BOX);
+  sl_gain_in_->color(FL_BACKGROUND_COLOR);
+  sl_gain_in_->selection_color(FL_BACKGROUND_COLOR);
   sl_gain_in_->labeltype(FL_EMBOSSED_LABEL);
+  sl_gain_in_->labelfont(0);
   sl_gain_in_->labelsize(12);
+  sl_gain_in_->labelcolor(FL_FOREGROUND_COLOR);
   sl_gain_in_->minimum(1);
   sl_gain_in_->maximum(0);
   sl_gain_in_->callback((Fl_Callback*)cb_sl_gain_in_);
-} // Fl_Slider* sl_gain_in_
-{ sl_gain_out_ = new Fl_Slider(535, 30, 25, 95, "Out");
+  sl_gain_in_->align(Fl_Align(FL_ALIGN_BOTTOM));
+  sl_gain_in_->when(FL_WHEN_CHANGED);
+} // Fl_Valuator_Ex<Fl_Slider>* sl_gain_in_
+{ sl_gain_out_ = new Fl_Valuator_Ex<Fl_Slider>(535, 30, 25, 95, "Out");
   sl_gain_out_->type(4);
   sl_gain_out_->box(FL_THIN_DOWN_BOX);
+  sl_gain_out_->color(FL_BACKGROUND_COLOR);
+  sl_gain_out_->selection_color(FL_BACKGROUND_COLOR);
   sl_gain_out_->labeltype(FL_EMBOSSED_LABEL);
+  sl_gain_out_->labelfont(0);
   sl_gain_out_->labelsize(12);
+  sl_gain_out_->labelcolor(FL_FOREGROUND_COLOR);
   sl_gain_out_->minimum(1);
   sl_gain_out_->maximum(0);
   sl_gain_out_->callback((Fl_Callback*)cb_sl_gain_out_);
-} // Fl_Slider* sl_gain_out_
+  sl_gain_out_->align(Fl_Align(FL_ALIGN_BOTTOM));
+  sl_gain_out_->when(FL_WHEN_CHANGED);
+} // Fl_Valuator_Ex<Fl_Slider>* sl_gain_out_
 { Fl_Box* o = new Fl_Box(510, 5, 50, 25, "Gain");
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
 } // Fl_Box* o
-{ dl_slow_rand_ = new Fl_Knob(370, 205, 35, 35, "Rand");
+{ dl_slow_rand_ = new Fl_Valuator_Ex<Fl_Knob>(370, 205, 35, 35, "Rand");
   dl_slow_rand_->box(FL_OVAL_BOX);
   dl_slow_rand_->color(FL_BACKGROUND_COLOR);
   dl_slow_rand_->selection_color(FL_INACTIVE_COLOR);
@@ -1085,8 +1228,8 @@ this->labelfont(13);
   dl_slow_rand_->callback((Fl_Callback*)cb_dl_slow_rand_);
   dl_slow_rand_->align(Fl_Align(FL_ALIGN_RIGHT));
   dl_slow_rand_->when(FL_WHEN_CHANGED);
-} // Fl_Knob* dl_slow_rand_
-{ dl_fast_rand_ = new Fl_Knob(490, 205, 35, 35, "Rand");
+} // Fl_Valuator_Ex<Fl_Knob>* dl_slow_rand_
+{ dl_fast_rand_ = new Fl_Valuator_Ex<Fl_Knob>(490, 205, 35, 35, "Rand");
   dl_fast_rand_->box(FL_OVAL_BOX);
   dl_fast_rand_->color(FL_BACKGROUND_COLOR);
   dl_fast_rand_->selection_color(FL_INACTIVE_COLOR);
@@ -1097,8 +1240,8 @@ this->labelfont(13);
   dl_fast_rand_->callback((Fl_Callback*)cb_dl_fast_rand_);
   dl_fast_rand_->align(Fl_Align(FL_ALIGN_RIGHT));
   dl_fast_rand_->when(FL_WHEN_CHANGED);
-} // Fl_Knob* dl_fast_rand_
-{ dl_mod_range_ = new Fl_Knob(320, 80, 45, 45, "Range");
+} // Fl_Valuator_Ex<Fl_Knob>* dl_fast_rand_
+{ dl_mod_range_ = new Fl_Valuator_Ex<Fl_Knob>(320, 80, 45, 45, "Range");
   dl_mod_range_->box(FL_OVAL_BOX);
   dl_mod_range_->color(FL_BACKGROUND_COLOR);
   dl_mod_range_->selection_color(FL_INACTIVE_COLOR);
@@ -1109,13 +1252,13 @@ this->labelfont(13);
   dl_mod_range_->callback((Fl_Callback*)cb_dl_mod_range_);
   dl_mod_range_->align(Fl_Align(FL_ALIGN_BOTTOM));
   dl_mod_range_->when(FL_WHEN_CHANGED);
-} // Fl_Knob* dl_mod_range_
+} // Fl_Valuator_Ex<Fl_Knob>* dl_mod_range_
 { Fl_Box* o = new Fl_Box(30, 245, 125, 25, "Low-pass filter");
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
   o->align(Fl_Align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE));
 } // Fl_Box* o
-{ dl_lpf_cutoff_ = new Fl_Knob(160, 235, 40, 40, "Cutoff");
+{ dl_lpf_cutoff_ = new Fl_Valuator_Ex<Fl_Knob>(160, 235, 40, 40, "Cutoff");
   dl_lpf_cutoff_->box(FL_OVAL_BOX);
   dl_lpf_cutoff_->color(FL_BACKGROUND_COLOR);
   dl_lpf_cutoff_->selection_color(FL_INACTIVE_COLOR);
@@ -1126,8 +1269,8 @@ this->labelfont(13);
   dl_lpf_cutoff_->callback((Fl_Callback*)cb_dl_lpf_cutoff_);
   dl_lpf_cutoff_->align(Fl_Align(FL_ALIGN_RIGHT_BOTTOM));
   dl_lpf_cutoff_->when(FL_WHEN_CHANGED);
-} // Fl_Knob* dl_lpf_cutoff_
-{ dl_lpf_q_ = new Fl_Knob(255, 235, 40, 40, "Q");
+} // Fl_Valuator_Ex<Fl_Knob>* dl_lpf_cutoff_
+{ dl_lpf_q_ = new Fl_Valuator_Ex<Fl_Knob>(255, 235, 40, 40, "Q");
   dl_lpf_q_->box(FL_OVAL_BOX);
   dl_lpf_q_->color(FL_BACKGROUND_COLOR);
   dl_lpf_q_->selection_color(FL_INACTIVE_COLOR);
@@ -1138,7 +1281,7 @@ this->labelfont(13);
   dl_lpf_q_->callback((Fl_Callback*)cb_dl_lpf_q_);
   dl_lpf_q_->align(Fl_Align(FL_ALIGN_RIGHT_BOTTOM));
   dl_lpf_q_->when(FL_WHEN_CHANGED);
-} // Fl_Knob* dl_lpf_q_
+} // Fl_Valuator_Ex<Fl_Knob>* dl_lpf_q_
 end();
 }
 
