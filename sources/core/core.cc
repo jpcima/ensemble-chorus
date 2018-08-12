@@ -66,6 +66,13 @@ bool ensemble_chorus_init(chorus_t *ec, float samplerate, unsigned bufsize)
         parameters[ECP_DEPTH1 + i * (ECP_ENABLE2 - ECP_ENABLE1)] = 0.5;
     }
 
+    parameters[ECP_ROUTE_L1] = 1;
+    parameters[ECP_ROUTE_L2] = 1; parameters[ECP_ROUTE_R2] = 1;
+                                  parameters[ECP_ROUTE_R3] = 1;
+                                  parameters[ECP_ROUTE_R4] = 1;
+    parameters[ECP_ROUTE_L5] = 1; parameters[ECP_ROUTE_R5] = 1;
+    parameters[ECP_ROUTE_L6] = 1;
+
     for (unsigned i = 0; i < EC_PARAMETER_COUNT; ++i)
         ensemble_chorus_set_parameter(ec, (ec_parameter)i, parameters[i]);
 
@@ -103,7 +110,15 @@ void ensemble_chorus_process(chorus_t *ec, float *inout[], unsigned nframes)
         std::memcpy(chorus_inouts[c], channel_inout, nframes * sizeof(float));
     }
 
-    chorus.process(chorus_inouts, nframes, ecc);
+    unsigned line_routing[6] = {};
+    enum { L = 1, R = 2 };
+    for (unsigned i = 0; i < 6; ++i) {
+        unsigned off = ECP_ENABLE2 - ECP_ENABLE1;
+        line_routing[i] |= parameters[ECP_ROUTE_L1 + i * off] ? L : 0;
+        line_routing[i] |= parameters[ECP_ROUTE_R1 + i * off] ? R : 0;
+    }
+
+    chorus.process(chorus_inouts, nframes, ecc, line_routing);
 
     for (unsigned c = 0; c < 2; ++c) {
         float *channel_inout = inout[c];
@@ -243,11 +258,24 @@ void ensemble_chorus_set_parameter(chorus_t *ec, ec_parameter p, float value)
     case ECP_DEPTH3:
     case ECP_DEPTH4:
     case ECP_DEPTH5:
-    case ECP_DEPTH6: {
+    case ECP_DEPTH6:
         value = jsl::clamp(value, 0.0f, 1.0f);
         must_update_lfo_depths = true;
         break;
-    }
+    case ECP_ROUTE_L1:
+    case ECP_ROUTE_L2:
+    case ECP_ROUTE_L3:
+    case ECP_ROUTE_L4:
+    case ECP_ROUTE_L5:
+    case ECP_ROUTE_L6:
+    case ECP_ROUTE_R1:
+    case ECP_ROUTE_R2:
+    case ECP_ROUTE_R3:
+    case ECP_ROUTE_R4:
+    case ECP_ROUTE_R5:
+    case ECP_ROUTE_R6:
+        value = value ? 1.0f : 0.0f;
+        break;
     default:
         return;
     }

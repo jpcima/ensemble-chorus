@@ -53,26 +53,38 @@ typedef enum ec_parameter {
     ECP_ENABLE1,
     ECP_PHASE1,
     ECP_DEPTH1,
+    ECP_ROUTE_L1,
+    ECP_ROUTE_R1,
 
     ECP_ENABLE2,
     ECP_PHASE2,
     ECP_DEPTH2,
+    ECP_ROUTE_L2,
+    ECP_ROUTE_R2,
 
     ECP_ENABLE3,
     ECP_PHASE3,
     ECP_DEPTH3,
+    ECP_ROUTE_L3,
+    ECP_ROUTE_R3,
 
     ECP_ENABLE4,
     ECP_PHASE4,
     ECP_DEPTH4,
+    ECP_ROUTE_L4,
+    ECP_ROUTE_R4,
 
     ECP_ENABLE5,
     ECP_PHASE5,
     ECP_DEPTH5,
+    ECP_ROUTE_L5,
+    ECP_ROUTE_R5,
 
     ECP_ENABLE6,
     ECP_PHASE6,
     ECP_DEPTH6,
+    ECP_ROUTE_L6,
+    ECP_ROUTE_R6,
 
     EC_PARAMETER_COUNT
 } ec_parameter_t;

@@ -18,7 +18,7 @@ class Fl_Toggle_Button;
 class Main_View : public Fl_Group {
 public:
   Main_View(int X, int Y, int W, int H, const char *L = 0);
-  static constexpr int W = 570; 
+  static constexpr int W = 625; 
   static constexpr int H = 280; 
   Fl_Valuator_Ex<Fl_Slider> *sl_wet_;
 private:
@@ -218,6 +218,66 @@ public:
 private:
   inline void cb_btn_stereo__i(Fl_Toggle_Button*, void*);
   static void cb_btn_stereo_(Fl_Toggle_Button*, void*);
+public:
+  Fl_Toggle_Button *btn_routeL1_;
+private:
+  inline void cb_btn_routeL1__i(Fl_Toggle_Button*, void*);
+  static void cb_btn_routeL1_(Fl_Toggle_Button*, void*);
+public:
+  Fl_Toggle_Button *btn_routeR1_;
+private:
+  inline void cb_btn_routeR1__i(Fl_Toggle_Button*, void*);
+  static void cb_btn_routeR1_(Fl_Toggle_Button*, void*);
+public:
+  Fl_Toggle_Button *btn_routeL2_;
+private:
+  inline void cb_btn_routeL2__i(Fl_Toggle_Button*, void*);
+  static void cb_btn_routeL2_(Fl_Toggle_Button*, void*);
+public:
+  Fl_Toggle_Button *btn_routeR2_;
+private:
+  inline void cb_btn_routeR2__i(Fl_Toggle_Button*, void*);
+  static void cb_btn_routeR2_(Fl_Toggle_Button*, void*);
+public:
+  Fl_Toggle_Button *btn_routeL3_;
+private:
+  inline void cb_btn_routeL3__i(Fl_Toggle_Button*, void*);
+  static void cb_btn_routeL3_(Fl_Toggle_Button*, void*);
+public:
+  Fl_Toggle_Button *btn_routeR3_;
+private:
+  inline void cb_btn_routeR3__i(Fl_Toggle_Button*, void*);
+  static void cb_btn_routeR3_(Fl_Toggle_Button*, void*);
+public:
+  Fl_Toggle_Button *btn_routeL4_;
+private:
+  inline void cb_btn_routeL4__i(Fl_Toggle_Button*, void*);
+  static void cb_btn_routeL4_(Fl_Toggle_Button*, void*);
+public:
+  Fl_Toggle_Button *btn_routeR4_;
+private:
+  inline void cb_btn_routeR4__i(Fl_Toggle_Button*, void*);
+  static void cb_btn_routeR4_(Fl_Toggle_Button*, void*);
+public:
+  Fl_Toggle_Button *btn_routeL5_;
+private:
+  inline void cb_btn_routeL5__i(Fl_Toggle_Button*, void*);
+  static void cb_btn_routeL5_(Fl_Toggle_Button*, void*);
+public:
+  Fl_Toggle_Button *btn_routeR5_;
+private:
+  inline void cb_btn_routeR5__i(Fl_Toggle_Button*, void*);
+  static void cb_btn_routeR5_(Fl_Toggle_Button*, void*);
+public:
+  Fl_Toggle_Button *btn_routeL6_;
+private:
+  inline void cb_btn_routeL6__i(Fl_Toggle_Button*, void*);
+  static void cb_btn_routeL6_(Fl_Toggle_Button*, void*);
+public:
+  Fl_Toggle_Button *btn_routeR6_;
+private:
+  inline void cb_btn_routeR6__i(Fl_Toggle_Button*, void*);
+  static void cb_btn_routeR6_(Fl_Toggle_Button*, void*);
 public:
   void controller(Main_Controller *x);
 private:

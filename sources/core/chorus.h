@@ -13,7 +13,7 @@ public:
     ~Chorus();
 
     void setup(float samplerate, unsigned bufsize);
-    void process(float *inout[2], unsigned nframes, ec_channel_layout ecc);
+    void process(float *inout[2], unsigned nframes, ec_channel_layout ecc, const unsigned line_routing[6]);
 
     unsigned id() const;
     void id(unsigned i);

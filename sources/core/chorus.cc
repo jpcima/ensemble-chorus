@@ -121,7 +121,7 @@ void Chorus::setup(float samplerate, unsigned bufsize)
     }
 }
 
-void Chorus::process(float *inout[2], unsigned nframes, ec_channel_layout ecc)
+void Chorus::process(float *inout[2], unsigned nframes, ec_channel_layout ecc, const unsigned line_routing[6])
 {
     Impl &P = *this->P;
 
@@ -162,8 +162,6 @@ void Chorus::process(float *inout[2], unsigned nframes, ec_channel_layout ecc)
 
     ///
     enum { L = 1, R = 2 };
-    const unsigned line_routing[6] =
-        {L, L|R, R, R, L|R, L};
     const unsigned mono_input_channel[6] =
         {L|R, L|R, L|R, L|R, L|R, L|R};
     const unsigned stereo_input_channel[6] =

@@ -744,10 +744,94 @@ else {
 void Main_View::cb_btn_stereo_(Fl_Toggle_Button* o, void* v) {
   ((Main_View*)(o->parent()))->cb_btn_stereo__i(o,v);
 }
+
+void Main_View::cb_btn_routeL1__i(Fl_Toggle_Button* o, void*) {
+  controller()->send_parameter(ECP_ROUTE_L1, o->value());
+}
+void Main_View::cb_btn_routeL1_(Fl_Toggle_Button* o, void* v) {
+  ((Main_View*)(o->parent()))->cb_btn_routeL1__i(o,v);
+}
+
+void Main_View::cb_btn_routeR1__i(Fl_Toggle_Button* o, void*) {
+  controller()->send_parameter(ECP_ROUTE_R1, o->value());
+}
+void Main_View::cb_btn_routeR1_(Fl_Toggle_Button* o, void* v) {
+  ((Main_View*)(o->parent()))->cb_btn_routeR1__i(o,v);
+}
+
+void Main_View::cb_btn_routeL2__i(Fl_Toggle_Button* o, void*) {
+  controller()->send_parameter(ECP_ROUTE_L2, o->value());
+}
+void Main_View::cb_btn_routeL2_(Fl_Toggle_Button* o, void* v) {
+  ((Main_View*)(o->parent()))->cb_btn_routeL2__i(o,v);
+}
+
+void Main_View::cb_btn_routeR2__i(Fl_Toggle_Button* o, void*) {
+  controller()->send_parameter(ECP_ROUTE_R2, o->value());
+}
+void Main_View::cb_btn_routeR2_(Fl_Toggle_Button* o, void* v) {
+  ((Main_View*)(o->parent()))->cb_btn_routeR2__i(o,v);
+}
+
+void Main_View::cb_btn_routeL3__i(Fl_Toggle_Button* o, void*) {
+  controller()->send_parameter(ECP_ROUTE_L3, o->value());
+}
+void Main_View::cb_btn_routeL3_(Fl_Toggle_Button* o, void* v) {
+  ((Main_View*)(o->parent()))->cb_btn_routeL3__i(o,v);
+}
+
+void Main_View::cb_btn_routeR3__i(Fl_Toggle_Button* o, void*) {
+  controller()->send_parameter(ECP_ROUTE_R3, o->value());
+}
+void Main_View::cb_btn_routeR3_(Fl_Toggle_Button* o, void* v) {
+  ((Main_View*)(o->parent()))->cb_btn_routeR3__i(o,v);
+}
+
+void Main_View::cb_btn_routeL4__i(Fl_Toggle_Button* o, void*) {
+  controller()->send_parameter(ECP_ROUTE_L4, o->value());
+}
+void Main_View::cb_btn_routeL4_(Fl_Toggle_Button* o, void* v) {
+  ((Main_View*)(o->parent()))->cb_btn_routeL4__i(o,v);
+}
+
+void Main_View::cb_btn_routeR4__i(Fl_Toggle_Button* o, void*) {
+  controller()->send_parameter(ECP_ROUTE_R4, o->value());
+}
+void Main_View::cb_btn_routeR4_(Fl_Toggle_Button* o, void* v) {
+  ((Main_View*)(o->parent()))->cb_btn_routeR4__i(o,v);
+}
+
+void Main_View::cb_btn_routeL5__i(Fl_Toggle_Button* o, void*) {
+  controller()->send_parameter(ECP_ROUTE_L5, o->value());
+}
+void Main_View::cb_btn_routeL5_(Fl_Toggle_Button* o, void* v) {
+  ((Main_View*)(o->parent()))->cb_btn_routeL5__i(o,v);
+}
+
+void Main_View::cb_btn_routeR5__i(Fl_Toggle_Button* o, void*) {
+  controller()->send_parameter(ECP_ROUTE_R5, o->value());
+}
+void Main_View::cb_btn_routeR5_(Fl_Toggle_Button* o, void* v) {
+  ((Main_View*)(o->parent()))->cb_btn_routeR5__i(o,v);
+}
+
+void Main_View::cb_btn_routeL6__i(Fl_Toggle_Button* o, void*) {
+  controller()->send_parameter(ECP_ROUTE_L6, o->value());
+}
+void Main_View::cb_btn_routeL6_(Fl_Toggle_Button* o, void* v) {
+  ((Main_View*)(o->parent()))->cb_btn_routeL6__i(o,v);
+}
+
+void Main_View::cb_btn_routeR6__i(Fl_Toggle_Button* o, void*) {
+  controller()->send_parameter(ECP_ROUTE_R6, o->value());
+}
+void Main_View::cb_btn_routeR6_(Fl_Toggle_Button* o, void* v) {
+  ((Main_View*)(o->parent()))->cb_btn_routeR6__i(o,v);
+}
 Main_View::Main_View(int X, int Y, int W, int H, const char *L)
   : Fl_Group(X, Y, W, H, L) {
 this->labelfont(13);
-{ sl_wet_ = new Fl_Valuator_Ex<Fl_Slider>(450, 30, 25, 95, "Wet");
+{ sl_wet_ = new Fl_Valuator_Ex<Fl_Slider>(500, 30, 25, 95, "Wet");
   sl_wet_->type(4);
   sl_wet_->box(FL_THIN_DOWN_BOX);
   sl_wet_->color(FL_BACKGROUND_COLOR);
@@ -762,7 +846,7 @@ this->labelfont(13);
   sl_wet_->align(Fl_Align(FL_ALIGN_BOTTOM));
   sl_wet_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Slider>* sl_wet_
-{ sl_dry_ = new Fl_Valuator_Ex<Fl_Slider>(475, 30, 25, 95, "Dry");
+{ sl_dry_ = new Fl_Valuator_Ex<Fl_Slider>(525, 30, 25, 95, "Dry");
   sl_dry_->type(4);
   sl_dry_->box(FL_THIN_DOWN_BOX);
   sl_dry_->color(FL_BACKGROUND_COLOR);
@@ -788,7 +872,7 @@ this->labelfont(13);
   tick_bypass_->labeltype(FL_EMBOSSED_LABEL);
   tick_bypass_->callback((Fl_Callback*)cb_tick_bypass_);
 } // Fl_Check_Button* tick_bypass_
-{ Fl_Box* o = new Fl_Box(450, 5, 50, 25, "Mix");
+{ Fl_Box* o = new Fl_Box(500, 5, 50, 25, "Mix");
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
 } // Fl_Box* o
@@ -959,7 +1043,7 @@ this->labelfont(13);
   sl_phase6_->align(Fl_Align(FL_ALIGN_BOTTOM));
   sl_phase6_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Value_Slider>* sl_phase6_
-{ sl_delay_ = new Fl_Valuator_Ex<Fl_Slider>(400, 30, 25, 95);
+{ sl_delay_ = new Fl_Valuator_Ex<Fl_Slider>(450, 30, 25, 95);
   sl_delay_->type(4);
   sl_delay_->box(FL_THIN_DOWN_BOX);
   sl_delay_->color(FL_BACKGROUND_COLOR);
@@ -974,7 +1058,7 @@ this->labelfont(13);
   sl_delay_->align(Fl_Align(FL_ALIGN_BOTTOM));
   sl_delay_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Slider>* sl_delay_
-{ Fl_Box* o = new Fl_Box(400, 5, 25, 25, "Delay");
+{ Fl_Box* o = new Fl_Box(450, 5, 25, 25, "Delay");
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
 } // Fl_Box* o
@@ -986,7 +1070,7 @@ this->labelfont(13);
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
 } // Fl_Box* o
-{ visu_mod1_ = new Modulator_Visu(195, 80, 55, 25);
+{ visu_mod1_ = new Modulator_Visu(245, 80, 55, 25);
   visu_mod1_->box(FL_DOWN_BOX);
   visu_mod1_->color(FL_BACKGROUND_COLOR);
   visu_mod1_->selection_color(FL_BACKGROUND_COLOR);
@@ -997,7 +1081,7 @@ this->labelfont(13);
   visu_mod1_->align(Fl_Align(FL_ALIGN_CENTER));
   visu_mod1_->when(FL_WHEN_RELEASE);
 } // Modulator_Visu* visu_mod1_
-{ visu_mod2_ = new Modulator_Visu(195, 105, 55, 25);
+{ visu_mod2_ = new Modulator_Visu(245, 105, 55, 25);
   visu_mod2_->box(FL_DOWN_BOX);
   visu_mod2_->color(FL_BACKGROUND_COLOR);
   visu_mod2_->selection_color(FL_BACKGROUND_COLOR);
@@ -1008,7 +1092,7 @@ this->labelfont(13);
   visu_mod2_->align(Fl_Align(FL_ALIGN_CENTER));
   visu_mod2_->when(FL_WHEN_RELEASE);
 } // Modulator_Visu* visu_mod2_
-{ visu_mod3_ = new Modulator_Visu(195, 130, 55, 25);
+{ visu_mod3_ = new Modulator_Visu(245, 130, 55, 25);
   visu_mod3_->box(FL_DOWN_BOX);
   visu_mod3_->color(FL_BACKGROUND_COLOR);
   visu_mod3_->selection_color(FL_BACKGROUND_COLOR);
@@ -1019,7 +1103,7 @@ this->labelfont(13);
   visu_mod3_->align(Fl_Align(FL_ALIGN_CENTER));
   visu_mod3_->when(FL_WHEN_RELEASE);
 } // Modulator_Visu* visu_mod3_
-{ visu_mod4_ = new Modulator_Visu(195, 155, 55, 25);
+{ visu_mod4_ = new Modulator_Visu(245, 155, 55, 25);
   visu_mod4_->box(FL_DOWN_BOX);
   visu_mod4_->color(FL_BACKGROUND_COLOR);
   visu_mod4_->selection_color(FL_BACKGROUND_COLOR);
@@ -1030,7 +1114,7 @@ this->labelfont(13);
   visu_mod4_->align(Fl_Align(FL_ALIGN_CENTER));
   visu_mod4_->when(FL_WHEN_RELEASE);
 } // Modulator_Visu* visu_mod4_
-{ visu_mod5_ = new Modulator_Visu(195, 180, 55, 25);
+{ visu_mod5_ = new Modulator_Visu(245, 180, 55, 25);
   visu_mod5_->box(FL_DOWN_BOX);
   visu_mod5_->color(FL_BACKGROUND_COLOR);
   visu_mod5_->selection_color(FL_BACKGROUND_COLOR);
@@ -1041,7 +1125,7 @@ this->labelfont(13);
   visu_mod5_->align(Fl_Align(FL_ALIGN_CENTER));
   visu_mod5_->when(FL_WHEN_RELEASE);
 } // Modulator_Visu* visu_mod5_
-{ visu_mod6_ = new Modulator_Visu(195, 205, 55, 25);
+{ visu_mod6_ = new Modulator_Visu(245, 205, 55, 25);
   visu_mod6_->box(FL_DOWN_BOX);
   visu_mod6_->color(FL_BACKGROUND_COLOR);
   visu_mod6_->selection_color(FL_BACKGROUND_COLOR);
@@ -1052,12 +1136,12 @@ this->labelfont(13);
   visu_mod6_->align(Fl_Align(FL_ALIGN_CENTER));
   visu_mod6_->when(FL_WHEN_RELEASE);
 } // Modulator_Visu* visu_mod6_
-{ Fl_Box* o = new Fl_Box(195, 55, 95, 25, "Modulator");
+{ Fl_Box* o = new Fl_Box(245, 55, 95, 25, "Modulator");
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
   o->align(Fl_Align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE));
 } // Fl_Box* o
-{ dl_slow_rate_ = new Fl_Valuator_Ex<Fl_Knob>(325, 210, 45, 45);
+{ dl_slow_rate_ = new Fl_Valuator_Ex<Fl_Knob>(380, 210, 45, 45);
   dl_slow_rate_->box(FL_OVAL_BOX);
   dl_slow_rate_->color(FL_BACKGROUND_COLOR);
   dl_slow_rate_->selection_color(FL_INACTIVE_COLOR);
@@ -1069,7 +1153,7 @@ this->labelfont(13);
   dl_slow_rate_->align(Fl_Align(FL_ALIGN_BOTTOM));
   dl_slow_rate_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Knob>* dl_slow_rate_
-{ dl_fast_rate_ = new Fl_Valuator_Ex<Fl_Knob>(445, 210, 45, 45);
+{ dl_fast_rate_ = new Fl_Valuator_Ex<Fl_Knob>(500, 210, 45, 45);
   dl_fast_rate_->box(FL_OVAL_BOX);
   dl_fast_rate_->color(FL_BACKGROUND_COLOR);
   dl_fast_rate_->selection_color(FL_INACTIVE_COLOR);
@@ -1081,15 +1165,15 @@ this->labelfont(13);
   dl_fast_rate_->align(Fl_Align(FL_ALIGN_BOTTOM));
   dl_fast_rate_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Knob>* dl_fast_rate_
-{ Fl_Box* o = new Fl_Box(325, 185, 45, 25, "Chorus");
+{ Fl_Box* o = new Fl_Box(380, 185, 45, 25, "Chorus");
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
 } // Fl_Box* o
-{ Fl_Box* o = new Fl_Box(445, 185, 45, 25, "Vibrato");
+{ Fl_Box* o = new Fl_Box(500, 185, 45, 25, "Vibrato");
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
 } // Fl_Box* o
-{ sl_depth1_ = new Fl_Valuator_Ex<Fl_Slider>(250, 80, 60, 25);
+{ sl_depth1_ = new Fl_Valuator_Ex<Fl_Slider>(300, 80, 60, 25);
   sl_depth1_->type(1);
   sl_depth1_->box(FL_DOWN_BOX);
   sl_depth1_->color(FL_BACKGROUND_COLOR);
@@ -1102,7 +1186,7 @@ this->labelfont(13);
   sl_depth1_->align(Fl_Align(FL_ALIGN_BOTTOM));
   sl_depth1_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Slider>* sl_depth1_
-{ sl_depth2_ = new Fl_Valuator_Ex<Fl_Slider>(250, 105, 60, 25);
+{ sl_depth2_ = new Fl_Valuator_Ex<Fl_Slider>(300, 105, 60, 25);
   sl_depth2_->type(1);
   sl_depth2_->box(FL_DOWN_BOX);
   sl_depth2_->color(FL_BACKGROUND_COLOR);
@@ -1115,7 +1199,7 @@ this->labelfont(13);
   sl_depth2_->align(Fl_Align(FL_ALIGN_BOTTOM));
   sl_depth2_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Slider>* sl_depth2_
-{ sl_depth3_ = new Fl_Valuator_Ex<Fl_Slider>(250, 130, 60, 25);
+{ sl_depth3_ = new Fl_Valuator_Ex<Fl_Slider>(300, 130, 60, 25);
   sl_depth3_->type(1);
   sl_depth3_->box(FL_DOWN_BOX);
   sl_depth3_->color(FL_BACKGROUND_COLOR);
@@ -1128,7 +1212,7 @@ this->labelfont(13);
   sl_depth3_->align(Fl_Align(FL_ALIGN_BOTTOM));
   sl_depth3_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Slider>* sl_depth3_
-{ sl_depth4_ = new Fl_Valuator_Ex<Fl_Slider>(250, 155, 60, 25);
+{ sl_depth4_ = new Fl_Valuator_Ex<Fl_Slider>(300, 155, 60, 25);
   sl_depth4_->type(1);
   sl_depth4_->box(FL_DOWN_BOX);
   sl_depth4_->color(FL_BACKGROUND_COLOR);
@@ -1141,7 +1225,7 @@ this->labelfont(13);
   sl_depth4_->align(Fl_Align(FL_ALIGN_BOTTOM));
   sl_depth4_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Slider>* sl_depth4_
-{ sl_depth5_ = new Fl_Valuator_Ex<Fl_Slider>(250, 180, 60, 25);
+{ sl_depth5_ = new Fl_Valuator_Ex<Fl_Slider>(300, 180, 60, 25);
   sl_depth5_->type(1);
   sl_depth5_->box(FL_DOWN_BOX);
   sl_depth5_->color(FL_BACKGROUND_COLOR);
@@ -1154,7 +1238,7 @@ this->labelfont(13);
   sl_depth5_->align(Fl_Align(FL_ALIGN_BOTTOM));
   sl_depth5_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Slider>* sl_depth5_
-{ sl_depth6_ = new Fl_Valuator_Ex<Fl_Slider>(250, 205, 60, 25);
+{ sl_depth6_ = new Fl_Valuator_Ex<Fl_Slider>(300, 205, 60, 25);
   sl_depth6_->type(1);
   sl_depth6_->box(FL_DOWN_BOX);
   sl_depth6_->color(FL_BACKGROUND_COLOR);
@@ -1167,7 +1251,7 @@ this->labelfont(13);
   sl_depth6_->align(Fl_Align(FL_ALIGN_BOTTOM));
   sl_depth6_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Slider>* sl_depth6_
-{ cb_slow_wave_ = new Fl_Choice(380, 210, 55, 25);
+{ cb_slow_wave_ = new Fl_Choice(435, 210, 55, 25);
   cb_slow_wave_->down_box(FL_BORDER_BOX);
   cb_slow_wave_->callback((Fl_Callback*)cb_cb_slow_wave_);
   { Fl_Menu_Item* o = &menu_cb_slow_wave_[0];
@@ -1187,7 +1271,7 @@ this->labelfont(13);
   }
   cb_slow_wave_->menu(menu_cb_slow_wave_);
 } // Fl_Choice* cb_slow_wave_
-{ cb_fast_wave_ = new Fl_Choice(500, 210, 55, 25);
+{ cb_fast_wave_ = new Fl_Choice(555, 210, 55, 25);
   cb_fast_wave_->down_box(FL_BORDER_BOX);
   cb_fast_wave_->callback((Fl_Callback*)cb_cb_fast_wave_);
   { Fl_Menu_Item* o = &menu_cb_fast_wave_[0];
@@ -1207,7 +1291,7 @@ this->labelfont(13);
   }
   cb_fast_wave_->menu(menu_cb_fast_wave_);
 } // Fl_Choice* cb_fast_wave_
-{ sl_gain_in_ = new Fl_Valuator_Ex<Fl_Slider>(510, 30, 25, 95, "In");
+{ sl_gain_in_ = new Fl_Valuator_Ex<Fl_Slider>(560, 30, 25, 95, "In");
   sl_gain_in_->type(4);
   sl_gain_in_->box(FL_THIN_DOWN_BOX);
   sl_gain_in_->color(FL_BACKGROUND_COLOR);
@@ -1222,7 +1306,7 @@ this->labelfont(13);
   sl_gain_in_->align(Fl_Align(FL_ALIGN_BOTTOM));
   sl_gain_in_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Slider>* sl_gain_in_
-{ sl_gain_out_ = new Fl_Valuator_Ex<Fl_Slider>(535, 30, 25, 95, "Out");
+{ sl_gain_out_ = new Fl_Valuator_Ex<Fl_Slider>(585, 30, 25, 95, "Out");
   sl_gain_out_->type(4);
   sl_gain_out_->box(FL_THIN_DOWN_BOX);
   sl_gain_out_->color(FL_BACKGROUND_COLOR);
@@ -1237,11 +1321,11 @@ this->labelfont(13);
   sl_gain_out_->align(Fl_Align(FL_ALIGN_BOTTOM));
   sl_gain_out_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Slider>* sl_gain_out_
-{ Fl_Box* o = new Fl_Box(510, 5, 50, 25, "Gain");
+{ Fl_Box* o = new Fl_Box(560, 5, 50, 25, "Gain");
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
 } // Fl_Box* o
-{ dl_slow_rand_ = new Fl_Valuator_Ex<Fl_Knob>(370, 240, 35, 35, "Rand");
+{ dl_slow_rand_ = new Fl_Valuator_Ex<Fl_Knob>(425, 240, 35, 35, "Rand");
   dl_slow_rand_->box(FL_OVAL_BOX);
   dl_slow_rand_->color(FL_BACKGROUND_COLOR);
   dl_slow_rand_->selection_color(FL_INACTIVE_COLOR);
@@ -1253,7 +1337,7 @@ this->labelfont(13);
   dl_slow_rand_->align(Fl_Align(FL_ALIGN_RIGHT));
   dl_slow_rand_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Knob>* dl_slow_rand_
-{ dl_fast_rand_ = new Fl_Valuator_Ex<Fl_Knob>(490, 240, 35, 35, "Rand");
+{ dl_fast_rand_ = new Fl_Valuator_Ex<Fl_Knob>(545, 240, 35, 35, "Rand");
   dl_fast_rand_->box(FL_OVAL_BOX);
   dl_fast_rand_->color(FL_BACKGROUND_COLOR);
   dl_fast_rand_->selection_color(FL_INACTIVE_COLOR);
@@ -1265,7 +1349,7 @@ this->labelfont(13);
   dl_fast_rand_->align(Fl_Align(FL_ALIGN_RIGHT));
   dl_fast_rand_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Knob>* dl_fast_rand_
-{ dl_mod_range_ = new Fl_Valuator_Ex<Fl_Knob>(320, 80, 45, 45, "Range");
+{ dl_mod_range_ = new Fl_Valuator_Ex<Fl_Knob>(370, 80, 45, 45, "Range");
   dl_mod_range_->box(FL_OVAL_BOX);
   dl_mod_range_->color(FL_BACKGROUND_COLOR);
   dl_mod_range_->selection_color(FL_INACTIVE_COLOR);
@@ -1306,7 +1390,7 @@ this->labelfont(13);
   dl_lpf_q_->align(Fl_Align(FL_ALIGN_RIGHT_BOTTOM));
   dl_lpf_q_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Knob>* dl_lpf_q_
-{ btn_mono_ = new Fl_Toggle_Button(505, 150, 55, 25, "Mono");
+{ btn_mono_ = new Fl_Toggle_Button(555, 150, 55, 25, "Mono");
   btn_mono_->box(FL_UP_BOX);
   btn_mono_->color(FL_BACKGROUND_COLOR);
   btn_mono_->selection_color(FL_BACKGROUND_COLOR);
@@ -1318,7 +1402,7 @@ this->labelfont(13);
   btn_mono_->align(Fl_Align(FL_ALIGN_CENTER));
   btn_mono_->when(FL_WHEN_RELEASE);
 } // Fl_Toggle_Button* btn_mono_
-{ btn_stereo_ = new Fl_Toggle_Button(450, 150, 55, 25, "Stereo");
+{ btn_stereo_ = new Fl_Toggle_Button(500, 150, 55, 25, "Stereo");
   btn_stereo_->box(FL_UP_BOX);
   btn_stereo_->color(FL_BACKGROUND_COLOR);
   btn_stereo_->selection_color(FL_BACKGROUND_COLOR);
@@ -1330,6 +1414,155 @@ this->labelfont(13);
   btn_stereo_->align(Fl_Align(FL_ALIGN_CENTER));
   btn_stereo_->when(FL_WHEN_RELEASE);
 } // Fl_Toggle_Button* btn_stereo_
+{ btn_routeL1_ = new Fl_Toggle_Button(180, 80, 25, 25, "L");
+  btn_routeL1_->box(FL_UP_BOX);
+  btn_routeL1_->color(FL_BACKGROUND_COLOR);
+  btn_routeL1_->selection_color(FL_BACKGROUND_COLOR);
+  btn_routeL1_->labeltype(FL_EMBOSSED_LABEL);
+  btn_routeL1_->labelfont(0);
+  btn_routeL1_->labelsize(14);
+  btn_routeL1_->labelcolor(FL_FOREGROUND_COLOR);
+  btn_routeL1_->callback((Fl_Callback*)cb_btn_routeL1_);
+  btn_routeL1_->align(Fl_Align(FL_ALIGN_CENTER));
+  btn_routeL1_->when(FL_WHEN_RELEASE);
+} // Fl_Toggle_Button* btn_routeL1_
+{ Fl_Box* o = new Fl_Box(170, 55, 75, 25, "Routing");
+  o->labeltype(FL_EMBOSSED_LABEL);
+  o->labelfont(11);
+  o->align(Fl_Align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE));
+} // Fl_Box* o
+{ btn_routeR1_ = new Fl_Toggle_Button(210, 80, 25, 25, "R");
+  btn_routeR1_->box(FL_UP_BOX);
+  btn_routeR1_->color(FL_BACKGROUND_COLOR);
+  btn_routeR1_->selection_color(FL_BACKGROUND_COLOR);
+  btn_routeR1_->labeltype(FL_EMBOSSED_LABEL);
+  btn_routeR1_->labelfont(0);
+  btn_routeR1_->labelsize(14);
+  btn_routeR1_->labelcolor(FL_FOREGROUND_COLOR);
+  btn_routeR1_->callback((Fl_Callback*)cb_btn_routeR1_);
+  btn_routeR1_->align(Fl_Align(FL_ALIGN_CENTER));
+  btn_routeR1_->when(FL_WHEN_RELEASE);
+} // Fl_Toggle_Button* btn_routeR1_
+{ btn_routeL2_ = new Fl_Toggle_Button(180, 105, 25, 25, "L");
+  btn_routeL2_->box(FL_UP_BOX);
+  btn_routeL2_->color(FL_BACKGROUND_COLOR);
+  btn_routeL2_->selection_color(FL_BACKGROUND_COLOR);
+  btn_routeL2_->labeltype(FL_EMBOSSED_LABEL);
+  btn_routeL2_->labelfont(0);
+  btn_routeL2_->labelsize(14);
+  btn_routeL2_->labelcolor(FL_FOREGROUND_COLOR);
+  btn_routeL2_->callback((Fl_Callback*)cb_btn_routeL2_);
+  btn_routeL2_->align(Fl_Align(FL_ALIGN_CENTER));
+  btn_routeL2_->when(FL_WHEN_RELEASE);
+} // Fl_Toggle_Button* btn_routeL2_
+{ btn_routeR2_ = new Fl_Toggle_Button(210, 105, 25, 25, "R");
+  btn_routeR2_->box(FL_UP_BOX);
+  btn_routeR2_->color(FL_BACKGROUND_COLOR);
+  btn_routeR2_->selection_color(FL_BACKGROUND_COLOR);
+  btn_routeR2_->labeltype(FL_EMBOSSED_LABEL);
+  btn_routeR2_->labelfont(0);
+  btn_routeR2_->labelsize(14);
+  btn_routeR2_->labelcolor(FL_FOREGROUND_COLOR);
+  btn_routeR2_->callback((Fl_Callback*)cb_btn_routeR2_);
+  btn_routeR2_->align(Fl_Align(FL_ALIGN_CENTER));
+  btn_routeR2_->when(FL_WHEN_RELEASE);
+} // Fl_Toggle_Button* btn_routeR2_
+{ btn_routeL3_ = new Fl_Toggle_Button(180, 130, 25, 25, "L");
+  btn_routeL3_->box(FL_UP_BOX);
+  btn_routeL3_->color(FL_BACKGROUND_COLOR);
+  btn_routeL3_->selection_color(FL_BACKGROUND_COLOR);
+  btn_routeL3_->labeltype(FL_EMBOSSED_LABEL);
+  btn_routeL3_->labelfont(0);
+  btn_routeL3_->labelsize(14);
+  btn_routeL3_->labelcolor(FL_FOREGROUND_COLOR);
+  btn_routeL3_->callback((Fl_Callback*)cb_btn_routeL3_);
+  btn_routeL3_->align(Fl_Align(FL_ALIGN_CENTER));
+  btn_routeL3_->when(FL_WHEN_RELEASE);
+} // Fl_Toggle_Button* btn_routeL3_
+{ btn_routeR3_ = new Fl_Toggle_Button(210, 130, 25, 25, "R");
+  btn_routeR3_->box(FL_UP_BOX);
+  btn_routeR3_->color(FL_BACKGROUND_COLOR);
+  btn_routeR3_->selection_color(FL_BACKGROUND_COLOR);
+  btn_routeR3_->labeltype(FL_EMBOSSED_LABEL);
+  btn_routeR3_->labelfont(0);
+  btn_routeR3_->labelsize(14);
+  btn_routeR3_->labelcolor(FL_FOREGROUND_COLOR);
+  btn_routeR3_->callback((Fl_Callback*)cb_btn_routeR3_);
+  btn_routeR3_->align(Fl_Align(FL_ALIGN_CENTER));
+  btn_routeR3_->when(FL_WHEN_RELEASE);
+} // Fl_Toggle_Button* btn_routeR3_
+{ btn_routeL4_ = new Fl_Toggle_Button(180, 155, 25, 25, "L");
+  btn_routeL4_->box(FL_UP_BOX);
+  btn_routeL4_->color(FL_BACKGROUND_COLOR);
+  btn_routeL4_->selection_color(FL_BACKGROUND_COLOR);
+  btn_routeL4_->labeltype(FL_EMBOSSED_LABEL);
+  btn_routeL4_->labelfont(0);
+  btn_routeL4_->labelsize(14);
+  btn_routeL4_->labelcolor(FL_FOREGROUND_COLOR);
+  btn_routeL4_->callback((Fl_Callback*)cb_btn_routeL4_);
+  btn_routeL4_->align(Fl_Align(FL_ALIGN_CENTER));
+  btn_routeL4_->when(FL_WHEN_RELEASE);
+} // Fl_Toggle_Button* btn_routeL4_
+{ btn_routeR4_ = new Fl_Toggle_Button(210, 155, 25, 25, "R");
+  btn_routeR4_->box(FL_UP_BOX);
+  btn_routeR4_->color(FL_BACKGROUND_COLOR);
+  btn_routeR4_->selection_color(FL_BACKGROUND_COLOR);
+  btn_routeR4_->labeltype(FL_EMBOSSED_LABEL);
+  btn_routeR4_->labelfont(0);
+  btn_routeR4_->labelsize(14);
+  btn_routeR4_->labelcolor(FL_FOREGROUND_COLOR);
+  btn_routeR4_->callback((Fl_Callback*)cb_btn_routeR4_);
+  btn_routeR4_->align(Fl_Align(FL_ALIGN_CENTER));
+  btn_routeR4_->when(FL_WHEN_RELEASE);
+} // Fl_Toggle_Button* btn_routeR4_
+{ btn_routeL5_ = new Fl_Toggle_Button(180, 180, 25, 25, "L");
+  btn_routeL5_->box(FL_UP_BOX);
+  btn_routeL5_->color(FL_BACKGROUND_COLOR);
+  btn_routeL5_->selection_color(FL_BACKGROUND_COLOR);
+  btn_routeL5_->labeltype(FL_EMBOSSED_LABEL);
+  btn_routeL5_->labelfont(0);
+  btn_routeL5_->labelsize(14);
+  btn_routeL5_->labelcolor(FL_FOREGROUND_COLOR);
+  btn_routeL5_->callback((Fl_Callback*)cb_btn_routeL5_);
+  btn_routeL5_->align(Fl_Align(FL_ALIGN_CENTER));
+  btn_routeL5_->when(FL_WHEN_RELEASE);
+} // Fl_Toggle_Button* btn_routeL5_
+{ btn_routeR5_ = new Fl_Toggle_Button(210, 180, 25, 25, "R");
+  btn_routeR5_->box(FL_UP_BOX);
+  btn_routeR5_->color(FL_BACKGROUND_COLOR);
+  btn_routeR5_->selection_color(FL_BACKGROUND_COLOR);
+  btn_routeR5_->labeltype(FL_EMBOSSED_LABEL);
+  btn_routeR5_->labelfont(0);
+  btn_routeR5_->labelsize(14);
+  btn_routeR5_->labelcolor(FL_FOREGROUND_COLOR);
+  btn_routeR5_->callback((Fl_Callback*)cb_btn_routeR5_);
+  btn_routeR5_->align(Fl_Align(FL_ALIGN_CENTER));
+  btn_routeR5_->when(FL_WHEN_RELEASE);
+} // Fl_Toggle_Button* btn_routeR5_
+{ btn_routeL6_ = new Fl_Toggle_Button(180, 205, 25, 25, "L");
+  btn_routeL6_->box(FL_UP_BOX);
+  btn_routeL6_->color(FL_BACKGROUND_COLOR);
+  btn_routeL6_->selection_color(FL_BACKGROUND_COLOR);
+  btn_routeL6_->labeltype(FL_EMBOSSED_LABEL);
+  btn_routeL6_->labelfont(0);
+  btn_routeL6_->labelsize(14);
+  btn_routeL6_->labelcolor(FL_FOREGROUND_COLOR);
+  btn_routeL6_->callback((Fl_Callback*)cb_btn_routeL6_);
+  btn_routeL6_->align(Fl_Align(FL_ALIGN_CENTER));
+  btn_routeL6_->when(FL_WHEN_RELEASE);
+} // Fl_Toggle_Button* btn_routeL6_
+{ btn_routeR6_ = new Fl_Toggle_Button(210, 205, 25, 25, "R");
+  btn_routeR6_->box(FL_UP_BOX);
+  btn_routeR6_->color(FL_BACKGROUND_COLOR);
+  btn_routeR6_->selection_color(FL_BACKGROUND_COLOR);
+  btn_routeR6_->labeltype(FL_EMBOSSED_LABEL);
+  btn_routeR6_->labelfont(0);
+  btn_routeR6_->labelsize(14);
+  btn_routeR6_->labelcolor(FL_FOREGROUND_COLOR);
+  btn_routeR6_->callback((Fl_Callback*)cb_btn_routeR6_);
+  btn_routeR6_->align(Fl_Align(FL_ALIGN_CENTER));
+  btn_routeR6_->when(FL_WHEN_RELEASE);
+} // Fl_Toggle_Button* btn_routeR6_
 end();
 }
 

@@ -69,26 +69,38 @@ void Main_View::parameter(unsigned id, float value, void *userdata)
     case ECP_ENABLE1: self.btn_enable1_->value(value); break;
     case ECP_PHASE1: self.sl_phase1_->value(value * 360); break;
     case ECP_DEPTH1: self.sl_depth1_->value(value); break;
+    case ECP_ROUTE_L1: self.btn_routeL1_->value(value); break;
+    case ECP_ROUTE_R1: self.btn_routeR1_->value(value); break;
 
     case ECP_ENABLE2: self.btn_enable2_->value(value); break;
     case ECP_PHASE2: self.sl_phase2_->value(value * 360); break;
     case ECP_DEPTH2: self.sl_depth2_->value(value); break;
+    case ECP_ROUTE_L2: self.btn_routeL2_->value(value); break;
+    case ECP_ROUTE_R2: self.btn_routeR2_->value(value); break;
 
     case ECP_ENABLE3: self.btn_enable3_->value(value); break;
     case ECP_PHASE3: self.sl_phase3_->value(value * 360); break;
     case ECP_DEPTH3: self.sl_depth3_->value(value); break;
+    case ECP_ROUTE_L3: self.btn_routeL3_->value(value); break;
+    case ECP_ROUTE_R3: self.btn_routeR3_->value(value); break;
 
     case ECP_ENABLE4: self.btn_enable4_->value(value); break;
     case ECP_PHASE4: self.sl_phase4_->value(value * 360); break;
     case ECP_DEPTH4: self.sl_depth4_->value(value); break;
+    case ECP_ROUTE_L4: self.btn_routeL4_->value(value); break;
+    case ECP_ROUTE_R4: self.btn_routeR4_->value(value); break;
 
     case ECP_ENABLE5: self.btn_enable5_->value(value); break;
     case ECP_PHASE5: self.sl_phase5_->value(value * 360); break;
     case ECP_DEPTH5: self.sl_depth5_->value(value); break;
+    case ECP_ROUTE_L5: self.btn_routeL5_->value(value); break;
+    case ECP_ROUTE_R5: self.btn_routeR5_->value(value); break;
 
     case ECP_ENABLE6: self.btn_enable6_->value(value); break;
     case ECP_PHASE6: self.sl_phase6_->value(value * 360); break;
     case ECP_DEPTH6: self.sl_depth6_->value(value); break;
+    case ECP_ROUTE_L6: self.btn_routeL6_->value(value); break;
+    case ECP_ROUTE_R6: self.btn_routeR6_->value(value); break;
     }
 }
 
