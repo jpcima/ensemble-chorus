@@ -209,6 +209,16 @@ private:
   inline void cb_dl_lpf_q__i(Fl_Valuator_Ex<Fl_Knob>*, void*);
   static void cb_dl_lpf_q_(Fl_Valuator_Ex<Fl_Knob>*, void*);
 public:
+  Fl_Toggle_Button *btn_mono_;
+private:
+  inline void cb_btn_mono__i(Fl_Toggle_Button*, void*);
+  static void cb_btn_mono_(Fl_Toggle_Button*, void*);
+public:
+  Fl_Toggle_Button *btn_stereo_;
+private:
+  inline void cb_btn_stereo__i(Fl_Toggle_Button*, void*);
+  static void cb_btn_stereo_(Fl_Toggle_Button*, void*);
+public:
   void controller(Main_Controller *x);
 private:
   static void parameter(unsigned id, float value, void *userdata);

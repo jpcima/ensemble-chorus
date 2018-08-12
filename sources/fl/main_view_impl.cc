@@ -13,6 +13,7 @@
 #include <FL/Fl_Toggle_Button.H>
 #include <string>
 #include <cmath>
+#include <cassert>
 
 double Main_View::from_logarithmic(double value)
 {
@@ -29,6 +30,21 @@ void Main_View::parameter(unsigned id, float value, void *userdata)
     auto &self = *reinterpret_cast<Main_View *>(userdata);
     switch (id) {
     case ECP_BYPASS: self.tick_bypass_->value(value); break;
+    case ECP_CHANNEL_LAYOUT: {
+        switch ((int)value) {
+        case ECC_STEREO:
+            self.btn_stereo_->value(1);
+            self.btn_mono_->value(0);
+            break;
+        case ECC_MONO:
+            self.btn_stereo_->value(0);
+            self.btn_mono_->value(1);
+            break;
+        default:
+            assert(false);
+        }
+        break;
+    };
     case ECP_DELAY: self.sl_delay_->value(value); break;
     case ECP_NSTAGES: {
         std::string label = std::to_string((int)value);

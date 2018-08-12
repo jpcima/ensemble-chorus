@@ -35,8 +35,7 @@ struct Audio_Context {
 };
 
 static unsigned audiobufsize = 1024;
-static unsigned audiochannels = 2;
-static constexpr unsigned maxaudiochannels = 8;
+static constexpr unsigned audiochannels = 2;
 
 static bool setup_audio(Audio_Context &ctx);
 static int process_audio(void *output, void *input, unsigned nframes, double time, RtAudioStreamStatus status, void *userdata);
@@ -52,22 +51,13 @@ int main(int argc, char *argv[])
 {
     Audio_Context ctx;
 
-    for (int c; (c = getopt(argc, argv, "b:c:")) != -1;) {
+    for (int c; (c = getopt(argc, argv, "b:")) != -1;) {
         switch (c) {
         case 'b': {
             unsigned count;
             if (sscanf(optarg, "%u%n", &::audiobufsize, &count) != 1 ||
                 strlen(optarg) != count || ::audiobufsize <= 0)
                 return 1;
-            break;
-        }
-        case 'c': {
-            unsigned count;
-            if (sscanf(optarg, "%u%n", &::audiochannels, &count) != 1 ||
-                strlen(optarg) != count ||
-                ::audiochannels <= 0 || ::audiochannels > maxaudiochannels)
-                return 1;
-            break;
             break;
         }
         default:
@@ -122,7 +112,6 @@ static bool setup_audio(Audio_Context &ctx)
     RtAudio::StreamParameters in_param;
     RtAudio::StreamParameters out_param;
 
-    unsigned audiochannels = ::audiochannels;
     in_param.deviceId = audiosys->getDefaultInputDevice();
     in_param.nChannels = audiochannels;
     out_param.deviceId = audiosys->getDefaultOutputDevice();
@@ -146,7 +135,7 @@ static bool setup_audio(Audio_Context &ctx)
     ctx.mq_to_user.reset(new Message_Queue(1024));
     ctx.msg_buffer.reset(Messages::allocate_buffer());
 
-    if (!ensemble_chorus_init(effect, samplerate, ::audiobufsize, audiochannels))
+    if (!ensemble_chorus_init(effect, samplerate, ::audiobufsize))
         return false;
 
     audiosys->startStream();
@@ -167,13 +156,12 @@ static int process_audio(void *output_, void *input_, unsigned nframes, double t
     while (mq_in.read_message(msg))
         process_message(msg, ctx);
 
-    unsigned audiochannels = ::audiochannels;
     float *output = reinterpret_cast<float *>(output_);
     const float *input = reinterpret_cast<float *>(input_);
 
     std::memcpy(output, input, nframes * audiochannels * sizeof(float));
 
-    float *bufs[maxaudiochannels];
+    float *bufs[audiochannels];
     for (unsigned i = 0; i < audiochannels; ++i)
         bufs[i] = output + i * nframes;
 

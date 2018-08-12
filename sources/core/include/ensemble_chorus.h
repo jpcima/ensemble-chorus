@@ -21,13 +21,19 @@ typedef struct chorus chorus_t;
 
 EC_API chorus_t *ensemble_chorus_alloc();
 EC_API void ensemble_chorus_free(chorus_t *ec);
-EC_API bool ensemble_chorus_init(chorus_t *ec, float samplerate, unsigned bufsize, unsigned channels);
+EC_API bool ensemble_chorus_init(chorus_t *ec, float samplerate, unsigned bufsize);
 EC_API void ensemble_chorus_process(chorus_t *ec, float *inout[], unsigned nframes);
 
 EC_API void ensemble_chorus_get_current_modulation(chorus_t *ec, float slow[6], float fast[6]);
 
+typedef enum ec_channel_layout {
+    ECC_STEREO,
+    ECC_MONO
+} ec_channel_layout_t;
+
 typedef enum ec_parameter {
     ECP_BYPASS,
+    ECP_CHANNEL_LAYOUT,
     ECP_DELAY,
     ECP_NSTAGES,
     ECP_MOD_RANGE,

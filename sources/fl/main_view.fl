@@ -17,7 +17,7 @@ decl {\#include <ensemble_chorus.h>} {private local
 decl {\#include <Fl_Knob/Fl_Knob.H>} {private global
 }
 
-decl {\#include <FL/Fl_Slider.H>} {selected private global
+decl {\#include <FL/Fl_Slider.H>} {private global
 }
 
 decl {\#include <FL/Fl_Value_Slider.H>} {private global
@@ -51,7 +51,7 @@ decl {class Fl_Toggle_Button;} {public global
 }
 
 widget_class Main_View {open
-  xywh {585 373 570 280} type Double labelfont 13 visible
+  xywh {626 592 570 280} type Double labelfont 13 visible
 } {
   decl {static constexpr int W = 570;} {public local
   }
@@ -242,21 +242,21 @@ x->set_modulation_callback(&modulation, this);} {}
   }
   Fl_Dial dl_slow_rate_ {
     callback {controller()->send_parameter(ECP_SLOW_RATE, o->value())}
-    xywh {325 175 45 45}
+    xywh {325 210 45 45}
     class {Fl_Valuator_Ex<Fl_Knob>}
   }
   Fl_Dial dl_fast_rate_ {
     callback {controller()->send_parameter(ECP_FAST_RATE, o->value())}
-    xywh {445 175 45 45}
+    xywh {445 210 45 45}
     class {Fl_Valuator_Ex<Fl_Knob>}
   }
   Fl_Box {} {
     label Chorus
-    xywh {325 150 45 25} labeltype EMBOSSED_LABEL labelfont 11
+    xywh {325 185 45 25} labeltype EMBOSSED_LABEL labelfont 11
   }
   Fl_Box {} {
     label Vibrato
-    xywh {445 150 45 25} labeltype EMBOSSED_LABEL labelfont 11
+    xywh {445 185 45 25} labeltype EMBOSSED_LABEL labelfont 11
   }
   Fl_Slider sl_depth1_ {
     callback {controller()->send_parameter(ECP_DEPTH1, o->value())}
@@ -290,7 +290,7 @@ x->set_modulation_callback(&modulation, this);} {}
   }
   Fl_Choice cb_slow_wave_ {
     callback {controller()->send_parameter(ECP_SLOW_WAVE, o->value())} open
-    xywh {380 175 55 25} down_box BORDER_BOX
+    xywh {380 210 55 25} down_box BORDER_BOX
   } {
     MenuItem {} {
       image {images/wave/sine.png} xywh {0 0 100 20}
@@ -310,7 +310,7 @@ x->set_modulation_callback(&modulation, this);} {}
   }
   Fl_Choice cb_fast_wave_ {
     callback {controller()->send_parameter(ECP_FAST_WAVE, o->value())} open
-    xywh {500 175 55 25} down_box BORDER_BOX
+    xywh {500 210 55 25} down_box BORDER_BOX
   } {
     MenuItem {} {
       image {images/wave/sine.png} xywh {10 10 100 20}
@@ -347,13 +347,13 @@ x->set_modulation_callback(&modulation, this);} {}
   Fl_Dial dl_slow_rand_ {
     label Rand
     callback {controller()->send_parameter(ECP_SLOW_RAND, o->value())}
-    xywh {370 205 35 35} labeltype ENGRAVED_LABEL labelsize 12 align 8
+    xywh {370 240 35 35} labeltype ENGRAVED_LABEL labelsize 12 align 8
     class {Fl_Valuator_Ex<Fl_Knob>}
   }
   Fl_Dial dl_fast_rand_ {
     label Rand
     callback {controller()->send_parameter(ECP_FAST_RAND, o->value())}
-    xywh {490 205 35 35} labeltype ENGRAVED_LABEL labelsize 12 align 8
+    xywh {490 240 35 35} labeltype ENGRAVED_LABEL labelsize 12 align 8
     class {Fl_Valuator_Ex<Fl_Knob>}
   }
   Fl_Dial dl_mod_range_ {
@@ -377,5 +377,27 @@ x->set_modulation_callback(&modulation, this);} {}
     callback {controller()->send_parameter(ECP_LPF_Q, o->value())}
     xywh {255 235 40 40} labeltype EMBOSSED_LABEL labelsize 12 align 14
     class {Fl_Valuator_Ex<Fl_Knob>}
+  }
+  Fl_Button btn_mono_ {
+    label Mono
+    callback {if (!o->value())
+    o->value(1);
+else {
+    controller()->send_parameter(ECP_CHANNEL_LAYOUT, ECC_MONO);
+    btn_stereo_->value(0);
+}} selected
+    xywh {505 150 55 25} labeltype ENGRAVED_LABEL
+    class Fl_Toggle_Button
+  }
+  Fl_Button btn_stereo_ {
+    label Stereo
+    callback {if (!o->value())
+    o->value(1);
+else {
+    controller()->send_parameter(ECP_CHANNEL_LAYOUT, ECC_STEREO);
+    btn_mono_->value(0);
+}}
+    xywh {450 150 55 25} labeltype ENGRAVED_LABEL
+    class Fl_Toggle_Button
   }
 }

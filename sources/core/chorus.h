@@ -4,21 +4,22 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #pragma once
+#include "ensemble_chorus.h"
 #include <memory>
 
-class Mono_Chorus {
+class Chorus {
 public:
-    Mono_Chorus();
-    ~Mono_Chorus();
+    Chorus();
+    ~Chorus();
 
     void setup(float samplerate, unsigned bufsize);
-    void process(float *inout, unsigned nframes);
+    void process(float *inout[2], unsigned nframes, ec_channel_layout ecc);
 
     unsigned id() const;
     void id(unsigned i);
 
     void delay(float r_delay);
-    void delays(const float *phases, unsigned count);
+    void delays(const float phases[], const unsigned nums[], unsigned count);
 
     void nstages(unsigned n);
     void mod_range(float r);

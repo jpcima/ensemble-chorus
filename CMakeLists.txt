@@ -10,7 +10,7 @@ option(ENABLE_PROFILING "Enable profiling" OFF)
 
 add_library(ensemble_chorus STATIC
   "sources/core/bbd.cc"
-  "sources/core/mono.cc"
+  "sources/core/chorus.cc"
   "sources/core/lfos.cc"
   "sources/core/core.cc")
 target_include_directories(ensemble_chorus PUBLIC

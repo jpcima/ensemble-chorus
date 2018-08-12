@@ -720,6 +720,30 @@ void Main_View::cb_dl_lpf_q__i(Fl_Valuator_Ex<Fl_Knob>* o, void*) {
 void Main_View::cb_dl_lpf_q_(Fl_Valuator_Ex<Fl_Knob>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_dl_lpf_q__i(o,v);
 }
+
+void Main_View::cb_btn_mono__i(Fl_Toggle_Button* o, void*) {
+  if (!o->value())
+    o->value(1);
+else {
+    controller()->send_parameter(ECP_CHANNEL_LAYOUT, ECC_MONO);
+    btn_stereo_->value(0);
+};
+}
+void Main_View::cb_btn_mono_(Fl_Toggle_Button* o, void* v) {
+  ((Main_View*)(o->parent()))->cb_btn_mono__i(o,v);
+}
+
+void Main_View::cb_btn_stereo__i(Fl_Toggle_Button* o, void*) {
+  if (!o->value())
+    o->value(1);
+else {
+    controller()->send_parameter(ECP_CHANNEL_LAYOUT, ECC_STEREO);
+    btn_mono_->value(0);
+};
+}
+void Main_View::cb_btn_stereo_(Fl_Toggle_Button* o, void* v) {
+  ((Main_View*)(o->parent()))->cb_btn_stereo__i(o,v);
+}
 Main_View::Main_View(int X, int Y, int W, int H, const char *L)
   : Fl_Group(X, Y, W, H, L) {
 this->labelfont(13);
@@ -1033,7 +1057,7 @@ this->labelfont(13);
   o->labelfont(11);
   o->align(Fl_Align(FL_ALIGN_LEFT|FL_ALIGN_INSIDE));
 } // Fl_Box* o
-{ dl_slow_rate_ = new Fl_Valuator_Ex<Fl_Knob>(325, 175, 45, 45);
+{ dl_slow_rate_ = new Fl_Valuator_Ex<Fl_Knob>(325, 210, 45, 45);
   dl_slow_rate_->box(FL_OVAL_BOX);
   dl_slow_rate_->color(FL_BACKGROUND_COLOR);
   dl_slow_rate_->selection_color(FL_INACTIVE_COLOR);
@@ -1045,7 +1069,7 @@ this->labelfont(13);
   dl_slow_rate_->align(Fl_Align(FL_ALIGN_BOTTOM));
   dl_slow_rate_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Knob>* dl_slow_rate_
-{ dl_fast_rate_ = new Fl_Valuator_Ex<Fl_Knob>(445, 175, 45, 45);
+{ dl_fast_rate_ = new Fl_Valuator_Ex<Fl_Knob>(445, 210, 45, 45);
   dl_fast_rate_->box(FL_OVAL_BOX);
   dl_fast_rate_->color(FL_BACKGROUND_COLOR);
   dl_fast_rate_->selection_color(FL_INACTIVE_COLOR);
@@ -1057,11 +1081,11 @@ this->labelfont(13);
   dl_fast_rate_->align(Fl_Align(FL_ALIGN_BOTTOM));
   dl_fast_rate_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Knob>* dl_fast_rate_
-{ Fl_Box* o = new Fl_Box(325, 150, 45, 25, "Chorus");
+{ Fl_Box* o = new Fl_Box(325, 185, 45, 25, "Chorus");
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
 } // Fl_Box* o
-{ Fl_Box* o = new Fl_Box(445, 150, 45, 25, "Vibrato");
+{ Fl_Box* o = new Fl_Box(445, 185, 45, 25, "Vibrato");
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
 } // Fl_Box* o
@@ -1143,7 +1167,7 @@ this->labelfont(13);
   sl_depth6_->align(Fl_Align(FL_ALIGN_BOTTOM));
   sl_depth6_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Slider>* sl_depth6_
-{ cb_slow_wave_ = new Fl_Choice(380, 175, 55, 25);
+{ cb_slow_wave_ = new Fl_Choice(380, 210, 55, 25);
   cb_slow_wave_->down_box(FL_BORDER_BOX);
   cb_slow_wave_->callback((Fl_Callback*)cb_cb_slow_wave_);
   { Fl_Menu_Item* o = &menu_cb_slow_wave_[0];
@@ -1163,7 +1187,7 @@ this->labelfont(13);
   }
   cb_slow_wave_->menu(menu_cb_slow_wave_);
 } // Fl_Choice* cb_slow_wave_
-{ cb_fast_wave_ = new Fl_Choice(500, 175, 55, 25);
+{ cb_fast_wave_ = new Fl_Choice(500, 210, 55, 25);
   cb_fast_wave_->down_box(FL_BORDER_BOX);
   cb_fast_wave_->callback((Fl_Callback*)cb_cb_fast_wave_);
   { Fl_Menu_Item* o = &menu_cb_fast_wave_[0];
@@ -1217,7 +1241,7 @@ this->labelfont(13);
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
 } // Fl_Box* o
-{ dl_slow_rand_ = new Fl_Valuator_Ex<Fl_Knob>(370, 205, 35, 35, "Rand");
+{ dl_slow_rand_ = new Fl_Valuator_Ex<Fl_Knob>(370, 240, 35, 35, "Rand");
   dl_slow_rand_->box(FL_OVAL_BOX);
   dl_slow_rand_->color(FL_BACKGROUND_COLOR);
   dl_slow_rand_->selection_color(FL_INACTIVE_COLOR);
@@ -1229,7 +1253,7 @@ this->labelfont(13);
   dl_slow_rand_->align(Fl_Align(FL_ALIGN_RIGHT));
   dl_slow_rand_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Knob>* dl_slow_rand_
-{ dl_fast_rand_ = new Fl_Valuator_Ex<Fl_Knob>(490, 205, 35, 35, "Rand");
+{ dl_fast_rand_ = new Fl_Valuator_Ex<Fl_Knob>(490, 240, 35, 35, "Rand");
   dl_fast_rand_->box(FL_OVAL_BOX);
   dl_fast_rand_->color(FL_BACKGROUND_COLOR);
   dl_fast_rand_->selection_color(FL_INACTIVE_COLOR);
@@ -1282,6 +1306,30 @@ this->labelfont(13);
   dl_lpf_q_->align(Fl_Align(FL_ALIGN_RIGHT_BOTTOM));
   dl_lpf_q_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Knob>* dl_lpf_q_
+{ btn_mono_ = new Fl_Toggle_Button(505, 150, 55, 25, "Mono");
+  btn_mono_->box(FL_UP_BOX);
+  btn_mono_->color(FL_BACKGROUND_COLOR);
+  btn_mono_->selection_color(FL_BACKGROUND_COLOR);
+  btn_mono_->labeltype(FL_ENGRAVED_LABEL);
+  btn_mono_->labelfont(0);
+  btn_mono_->labelsize(14);
+  btn_mono_->labelcolor(FL_FOREGROUND_COLOR);
+  btn_mono_->callback((Fl_Callback*)cb_btn_mono_);
+  btn_mono_->align(Fl_Align(FL_ALIGN_CENTER));
+  btn_mono_->when(FL_WHEN_RELEASE);
+} // Fl_Toggle_Button* btn_mono_
+{ btn_stereo_ = new Fl_Toggle_Button(450, 150, 55, 25, "Stereo");
+  btn_stereo_->box(FL_UP_BOX);
+  btn_stereo_->color(FL_BACKGROUND_COLOR);
+  btn_stereo_->selection_color(FL_BACKGROUND_COLOR);
+  btn_stereo_->labeltype(FL_ENGRAVED_LABEL);
+  btn_stereo_->labelfont(0);
+  btn_stereo_->labelsize(14);
+  btn_stereo_->labelcolor(FL_FOREGROUND_COLOR);
+  btn_stereo_->callback((Fl_Callback*)cb_btn_stereo_);
+  btn_stereo_->align(Fl_Align(FL_ALIGN_CENTER));
+  btn_stereo_->when(FL_WHEN_RELEASE);
+} // Fl_Toggle_Button* btn_stereo_
 end();
 }
 

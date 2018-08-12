@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include "mono.h"
+#include "chorus.h"
 #include "bbd.h"
 #include "lfos.h"
 #include "dsp.h"
@@ -12,7 +12,6 @@
 #include <cstring>
 #include <cassert>
 
-static constexpr unsigned max_delay_lines = 6;
 static constexpr float min_clock_rate = 1500;
 static constexpr float max_clock_rate = 22050/*100000*/; // TODO high clock rates
 static constexpr float clock_mod_depth_range = 0.25;  // in Hz/stages
@@ -26,43 +25,44 @@ static constexpr float lowpass_cutoff_max = 20e3;
 static constexpr float lowpass_q_min = 0.05;
 static constexpr float lowpass_q_max = 1.0;
 
-struct Mono_Chorus::Impl {
+struct Chorus::Impl {
     unsigned id_ = 0;
 
     float samplerate_ = 0;
     unsigned bufsize_ = 0;
 
     unsigned num_delay_lines_ = 0;
+    unsigned id_delay_line_[6] = {};
     float lfo_slow_freq_ = 0;
     float lfo_fast_freq_ = 0;
     float clock_freq_ = 0;
     float clock_mod_range_ = 0;
-    float clock_mod_depth_[max_delay_lines] = {};
+    float clock_mod_depth_[6] = {};
     float delay_ = 0;
     unsigned nstages_ = 0;
 
-    BBD_Clock clock_[max_delay_lines];
-    BBD_Line delay_line_[max_delay_lines];
+    BBD_Clock clock_[6];
+    BBD_Line delay_line_[6];
     LFOs lfos_slow_;
     LFOs lfos_fast_;
 
-    Dsp::SimpleFilter<Dsp::RBJ::LowPass, 1> lowpass_;
+    Dsp::SimpleFilter<Dsp::RBJ::LowPass, 1> lowpass_[2];
 
     std::unique_ptr<float[]> tmpbuf_;
 
     void update_clock_freq();
 };
 
-Mono_Chorus::Mono_Chorus()
+Chorus::Chorus()
     : P(new Impl)
 {
 }
 
-Mono_Chorus::~Mono_Chorus()
+Chorus::~Chorus()
 {
 }
 
-void Mono_Chorus::setup(float samplerate, unsigned bufsize)
+void Chorus::setup(float samplerate, unsigned bufsize)
 {
     Impl &P = *this->P;
 
@@ -79,34 +79,36 @@ void Mono_Chorus::setup(float samplerate, unsigned bufsize)
     P.lfo_slow_freq_ = lfo_slow_freq;
     P.lfo_fast_freq_ = lfo_fast_freq;
     P.clock_mod_range_ = 1.0;
-    for (unsigned i = 0; i < max_delay_lines; ++i)
+    for (unsigned i = 0; i < 6; ++i)
         P.clock_mod_depth_[i] = 1.0;
     P.delay_ = delay;
     P.nstages_ = nstages;
     P.update_clock_freq();
 
-    for (unsigned i = 0; i < max_delay_lines; ++i) {
+    for (unsigned i = 0; i < 6; ++i) {
         BBD_Line &line = P.delay_line_[i];
         line.setup(samplerate, max_clock_rate, nstages);
     }
 
     LFOs &lfos_slow = P.lfos_slow_;
     LFOs &lfos_fast = P.lfos_fast_;
-    lfos_slow.setup(samplerate, bufsize, max_delay_lines);
-    lfos_fast.setup(samplerate, bufsize, max_delay_lines);
+    lfos_slow.setup(samplerate, bufsize, 6);
+    lfos_fast.setup(samplerate, bufsize, 6);
 
-    float phases[max_delay_lines];
+    float phases[6];
     for (unsigned i = 0; i < num_delay_lines; ++i)
         phases[i] = i / (float)num_delay_lines;
     lfos_slow.phases(phases, num_delay_lines);
     lfos_fast.phases(phases, num_delay_lines);
 
-    auto &lowpass = P.lowpass_;
     float lowpass_cutoff = lowpass_cutoff_max;
     float lowpass_q = M_SQRT1_2;
-    lowpass.setup(samplerate, lowpass_cutoff, lowpass_q);
+    for (unsigned c = 0; c < 2; ++c)  { // XXX optimize to compute once only
+        auto &lowpass = P.lowpass_[c];
+        lowpass.setup(samplerate, lowpass_cutoff, lowpass_q);
+    }
 
-    P.tmpbuf_.reset(new float[(3 + 2 * max_delay_lines) * bufsize]);
+    P.tmpbuf_.reset(new float[(4 + 2 * 6) * bufsize]);
 
 #pragma message("XXX remove")
     if (true && P.id_ == 0) {
@@ -119,7 +121,7 @@ void Mono_Chorus::setup(float samplerate, unsigned bufsize)
     }
 }
 
-void Mono_Chorus::process(float *inout, unsigned nframes)
+void Chorus::process(float *inout[2], unsigned nframes, ec_channel_layout ecc)
 {
     Impl &P = *this->P;
 
@@ -133,17 +135,21 @@ void Mono_Chorus::process(float *inout, unsigned nframes)
     unsigned nstages = P.nstages_;
     float *tmp = P.tmpbuf_.get();
 
-    float *tmp_in = tmp; tmp += bufsize;
+    float *tmp_in[2] = {tmp, tmp + bufsize};
+    tmp += 2 * bufsize;
     float *tmp_out = tmp; tmp += bufsize;
     float *tmp_clock = tmp; tmp += bufsize;
 
-    std::memcpy(tmp_in, inout, nframes * sizeof(float));
-    std::memset(inout, 0, nframes * sizeof(float));
+    for (unsigned c = 0; c < 2; ++c) {
+        float *channel_inout = inout[c];
+        std::memcpy(tmp_in[c], channel_inout, nframes * sizeof(float));
+        std::memset(channel_inout, 0, nframes * sizeof(float));
+    }
 
     LFOs &lfos_slow = P.lfos_slow_;
     LFOs &lfos_fast = P.lfos_fast_;
-    float *lfo_slow_outs[max_delay_lines];
-    float *lfo_fast_outs[max_delay_lines];
+    float *lfo_slow_outs[6];
+    float *lfo_fast_outs[6];
     for (unsigned d = 0; d < num_delay_lines; ++d) {
         lfo_slow_outs[d] = tmp; tmp += bufsize;
         lfo_fast_outs[d] = tmp; tmp += bufsize;
@@ -154,7 +160,20 @@ void Mono_Chorus::process(float *inout, unsigned nframes)
     lfos_slow.perform(lfo_slow_freq, lfo_slow_outs, nframes);
     lfos_fast.perform(lfo_fast_freq, lfo_fast_outs, nframes);
 
+    ///
+    enum { L = 1, R = 2 };
+    const unsigned line_routing[6] =
+        {L, L|R, R, R, L|R, L};
+    const unsigned mono_input_channel[6] =
+        {L|R, L|R, L|R, L|R, L|R, L|R};
+    const unsigned stereo_input_channel[6] =
+        {L, L|R, R, L, L|R, R};
+    ///
+    const unsigned *input_channel = (ecc == ECC_STEREO) ?
+        stereo_input_channel : mono_input_channel;
+
     for (unsigned d = 0; d < num_delay_lines; ++d) {
+        unsigned id = P.id_delay_line_[d];
         BBD_Clock &clock = P.clock_[d];
         BBD_Line &line = P.delay_line_[d];
         float *lfo_slow_out = lfo_slow_outs[d];
@@ -167,30 +186,51 @@ void Mono_Chorus::process(float *inout, unsigned nframes)
             tmp_clock[i] = clock.tick(clock_f * ts);
         }
 
-        std::memcpy(tmp_out, tmp_in, nframes * sizeof(float));
+        std::memset(tmp_out, 0, nframes * sizeof(float));
+        if (input_channel[id] & L) {
+            const float *channel_inout = tmp_in[0];
+            for (unsigned i = 0; i < nframes; ++i)
+                tmp_out[i] += channel_inout[i];
+        }
+        if (input_channel[id] & R) {
+            const float *channel_inout = tmp_in[1];
+            for (unsigned i = 0; i < nframes; ++i)
+                tmp_out[i] += channel_inout[i];
+        }
+
         line.process(nframes, tmp_out, tmp_clock);
 
-        for (unsigned i = 0; i < nframes; ++i)
-            inout[i] += tmp_out[i];
+        if (line_routing[id] & L) {
+            float *channel_inout = inout[0];
+            for (unsigned i = 0; i < nframes; ++i)
+                channel_inout[i] += tmp_out[i];
+        }
+        if (line_routing[id] & R) {
+            float *channel_inout = inout[1];
+            for (unsigned i = 0; i < nframes; ++i)
+                channel_inout[i] += tmp_out[i];
+        }
     }
 
-    auto &lowpass = P.lowpass_;
-    dsp::process_mono_DspFilter(lowpass, inout, nframes);
+    for (unsigned c = 0; c < 2; ++c) {
+        auto &lowpass = P.lowpass_[c];
+        dsp::process_mono_DspFilter(lowpass, inout[c], nframes);
+    }
 }
 
-unsigned Mono_Chorus::id() const
+unsigned Chorus::id() const
 {
     const Impl &P = *this->P;
     return P.id_;
 }
 
-void Mono_Chorus::id(unsigned i)
+void Chorus::id(unsigned i)
 {
     Impl &P = *this->P;
     P.id_ = i;
 }
 
-void Mono_Chorus::delay(float r_delay)
+void Chorus::delay(float r_delay)
 {
     Impl &P = *this->P;
     unsigned nstages = P.nstages_;
@@ -204,23 +244,25 @@ void Mono_Chorus::delay(float r_delay)
     P.update_clock_freq();
 }
 
-void Mono_Chorus::delays(const float *phases, unsigned count)
+void Chorus::delays(const float phases[], const unsigned nums[], unsigned count)
 {
-    assert(count <= max_delay_lines);
+    assert(count <= 6);
 
     Impl &P = *this->P;
     LFOs &lfos_slow = P.lfos_slow_;
     LFOs &lfos_fast = P.lfos_fast_;
 
     P.num_delay_lines_ = count;
+    for (unsigned i = 0; i < count; ++i)
+        P.id_delay_line_[i] = nums[i];
     lfos_slow.phases(phases, count);
     lfos_fast.phases(phases, count);
 }
 
-void Mono_Chorus::nstages(unsigned n)
+void Chorus::nstages(unsigned n)
 {
     Impl &P = *this->P;
-    for (unsigned d = 0; d < max_delay_lines; ++d) {
+    for (unsigned d = 0; d < 6; ++d) {
         BBD_Line &line = P.delay_line_[d];
         line.nstages(d);
     }
@@ -228,76 +270,78 @@ void Mono_Chorus::nstages(unsigned n)
     P.update_clock_freq();
 }
 
-void Mono_Chorus::mod_range(float r)
+void Chorus::mod_range(float r)
 {
     Impl &P = *this->P;
     P.clock_mod_range_ = 2 * r;
 }
 
-void Mono_Chorus::slow_rate(float r)
+void Chorus::slow_rate(float r)
 {
     Impl &P = *this->P;
     P.lfo_slow_freq_ = lfo_slow_freq_min + r * (lfo_slow_freq_max - lfo_slow_freq_min);
 }
 
-void Mono_Chorus::fast_rate(float r)
+void Chorus::fast_rate(float r)
 {
     Impl &P = *this->P;
     P.lfo_fast_freq_ = lfo_fast_freq_min + r * (lfo_fast_freq_max - lfo_fast_freq_min);
 }
 
-void Mono_Chorus::slow_wave(unsigned w)
+void Chorus::slow_wave(unsigned w)
 {
     Impl &P = *this->P;
     P.lfos_slow_.shape((LFOs::Shape)w);
 }
 
-void Mono_Chorus::fast_wave(unsigned w)
+void Chorus::fast_wave(unsigned w)
 {
     Impl &P = *this->P;
     P.lfos_fast_.shape((LFOs::Shape)w);
 }
 
-void Mono_Chorus::slow_rand(float r)
+void Chorus::slow_rand(float r)
 {
     Impl &P = *this->P;
     P.lfos_slow_.random(100.0f * r);
 }
 
-void Mono_Chorus::fast_rand(float r)
+void Chorus::fast_rand(float r)
 {
     Impl &P = *this->P;
     P.lfos_fast_.random(100.0f * r);
 }
 
-void Mono_Chorus::modulation_depth(unsigned lfo, float depth)
+void Chorus::modulation_depth(unsigned lfo, float depth)
 {
     Impl &P = *this->P;
     P.clock_mod_depth_[lfo] = depth;
 }
 
-void Mono_Chorus::lpf(float r_cutoff, float r_q)
+void Chorus::lpf(float r_cutoff, float r_q)
 {
     Impl &P = *this->P;
-    auto &lowpass = P.lowpass_;
     float cutoff = lowpass_cutoff_min + r_cutoff * (lowpass_cutoff_max - lowpass_cutoff_min);
     float q = lowpass_q_min + r_q * (lowpass_q_max - lowpass_q_min);
-    lowpass.setup(P.samplerate_, cutoff, q);
+    for (unsigned c = 0; c < 2; ++c) {  // XXX optimize to compute once only
+        auto &lowpass = P.lowpass_[c];
+        lowpass.setup(P.samplerate_, cutoff, q);
+    }
 }
 
-float Mono_Chorus::current_slow_modulation(unsigned lfo) const
+float Chorus::current_slow_modulation(unsigned lfo) const
 {
     const Impl &P = *this->P;
     return P.lfos_slow_.last_value()[lfo];
 }
 
-float Mono_Chorus::current_fast_modulation(unsigned lfo) const
+float Chorus::current_fast_modulation(unsigned lfo) const
 {
     const Impl &P = *this->P;
     return P.lfos_fast_.last_value()[lfo];
 }
 
-void Mono_Chorus::Impl::update_clock_freq()
+void Chorus::Impl::update_clock_freq()
 {
     float delay = delay_;
     unsigned nstages = nstages_;
