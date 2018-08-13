@@ -15,6 +15,7 @@ Listen to the biniou:
 - `git`
 - `build-essential`
 - `cmake`
+- `fluid`
 - `libfltk1.3-dev`
 - `libasound2-dev`
 - `libjack-jackd2-dev` or `libjack-dev` (for Jack 2 or Jack 1 respectively)
