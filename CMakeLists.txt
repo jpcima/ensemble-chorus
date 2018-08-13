@@ -73,4 +73,11 @@ if(FLTK_FOUND)
     find_library(PROFILER_LIBRARY "profiler" REQUIRED)
     target_link_libraries(ensemble_chorus_fl PRIVATE "${PROFILER_LIBRARY}")
   endif()
+
+  install(TARGETS ensemble_chorus_fl
+    DESTINATION "bin")
+  install(FILES "resources/icon/ensemble_chorus.xpm" "resources/icon/ensemble_chorus.png"
+    DESTINATION "share/pixmaps")
+  install(FILES "resources/desktop/ensemble_chorus.desktop"
+    DESTINATION "share/applications")
 endif()
