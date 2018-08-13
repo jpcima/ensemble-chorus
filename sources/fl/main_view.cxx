@@ -9,6 +9,7 @@
 #include <FL/Fl_Slider.H>
 #include <FL/Fl_Value_Slider.H>
 #include <FL/Fl_Toggle_Button.H>
+#include <FL/fl_ask.H>
 #include <cmath>
 
 void Main_View::cb_sl_wet__i(Fl_Valuator_Ex<Fl_Slider>* o, void*) {
@@ -828,6 +829,26 @@ void Main_View::cb_btn_routeR6__i(Fl_Toggle_Button* o, void*) {
 void Main_View::cb_btn_routeR6_(Fl_Toggle_Button* o, void* v) {
   ((Main_View*)(o->parent()))->cb_btn_routeR6__i(o,v);
 }
+
+void Main_View::cb_Load_i(Fl_Button*, void*) {
+  if (!controller()->load_parameters()) {
+    fl_message_title("Error");
+    fl_alert("Could not load the preset file.");
+};
+}
+void Main_View::cb_Load(Fl_Button* o, void* v) {
+  ((Main_View*)(o->parent()))->cb_Load_i(o,v);
+}
+
+void Main_View::cb_Save_i(Fl_Button*, void*) {
+  if (!controller()->save_parameters()) {
+    fl_message_title("Error");
+    fl_alert("Could not save the preset file.");
+};
+}
+void Main_View::cb_Save(Fl_Button* o, void* v) {
+  ((Main_View*)(o->parent()))->cb_Save_i(o,v);
+}
 Main_View::Main_View(int X, int Y, int W, int H, const char *L)
   : Fl_Group(X, Y, W, H, L) {
 this->labelfont(13);
@@ -1062,11 +1083,11 @@ this->labelfont(13);
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
 } // Fl_Box* o
-{ cb_nstages_ = new Fl_Choice(320, 30, 65, 20);
+{ cb_nstages_ = new Fl_Choice(365, 30, 65, 20);
   cb_nstages_->down_box(FL_BORDER_BOX);
   cb_nstages_->menu(menu_cb_nstages_);
 } // Fl_Choice* cb_nstages_
-{ Fl_Box* o = new Fl_Box(320, 5, 65, 25, "Stages");
+{ Fl_Box* o = new Fl_Box(365, 5, 65, 25, "Stages");
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
 } // Fl_Box* o
@@ -1563,6 +1584,14 @@ this->labelfont(13);
   btn_routeR6_->align(Fl_Align(FL_ALIGN_CENTER));
   btn_routeR6_->when(FL_WHEN_RELEASE);
 } // Fl_Toggle_Button* btn_routeR6_
+{ Fl_Button* o = new Fl_Button(310, 5, 45, 25, "Load");
+  o->labeltype(FL_ENGRAVED_LABEL);
+  o->callback((Fl_Callback*)cb_Load);
+} // Fl_Button* o
+{ Fl_Button* o = new Fl_Button(310, 30, 45, 25, "Save");
+  o->labeltype(FL_ENGRAVED_LABEL);
+  o->callback((Fl_Callback*)cb_Save);
+} // Fl_Button* o
 end();
 }
 

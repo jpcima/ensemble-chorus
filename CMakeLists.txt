@@ -64,7 +64,10 @@ if(FLTK_FOUND)
 
   set(RtAudio_SOURCE_DIR "${PROJECT_SOURCE_DIR}/thirdparty/rtaudio")
   include(RtAudio)
-  target_link_libraries(ensemble_chorus_fl PRIVATE ensemble_chorus RtAudio ring_buffer)
+
+  add_subdirectory("thirdparty/pugixml" EXCLUDE_FROM_ALL)
+
+  target_link_libraries(ensemble_chorus_fl PRIVATE ensemble_chorus RtAudio pugixml ring_buffer)
 
   if(ENABLE_PROFILING)
     find_library(PROFILER_LIBRARY "profiler" REQUIRED)

@@ -31,66 +31,74 @@ typedef enum ec_channel_layout {
     ECC_MONO
 } ec_channel_layout_t;
 
+#define EC_EACH_PARAMETER(P)                    \
+    P(BYPASS)                                   \
+    P(CHANNEL_LAYOUT)                           \
+    P(DELAY)                                    \
+    P(NSTAGES)                                  \
+    P(MOD_RANGE)                                \
+    P(SLOW_RATE)                                \
+    P(SLOW_WAVE)                                \
+    P(SLOW_RAND)                                \
+    P(FAST_RATE)                                \
+    P(FAST_WAVE)                                \
+    P(FAST_RAND)                                \
+    P(LPF_CUTOFF)                               \
+    P(LPF_Q)                                    \
+    P(GAIN_IN)                                  \
+    P(GAIN_OUT)                                 \
+    P(MIX_DRY)                                  \
+    P(MIX_WET)                                  \
+    /* */                                       \
+    P(ENABLE1)                                  \
+    P(PHASE1)                                   \
+    P(DEPTH1)                                   \
+    P(ROUTE_L1)                                 \
+    P(ROUTE_R1)                                 \
+    /* */                                       \
+    P(ENABLE2)                                  \
+    P(PHASE2)                                   \
+    P(DEPTH2)                                   \
+    P(ROUTE_L2)                                 \
+    P(ROUTE_R2)                                 \
+    /* */                                       \
+    P(ENABLE3)                                  \
+    P(PHASE3)                                   \
+    P(DEPTH3)                                   \
+    P(ROUTE_L3)                                 \
+    P(ROUTE_R3)                                 \
+    /* */                                       \
+    P(ENABLE4)                                  \
+    P(PHASE4)                                   \
+    P(DEPTH4)                                   \
+    P(ROUTE_L4)                                 \
+    P(ROUTE_R4)                                 \
+    /* */                                       \
+    P(ENABLE5)                                  \
+    P(PHASE5)                                   \
+    P(DEPTH5)                                   \
+    P(ROUTE_L5)                                 \
+    P(ROUTE_R5)                                 \
+    /* */                                       \
+    P(ENABLE6)                                  \
+    P(PHASE6)                                   \
+    P(DEPTH6)                                   \
+    P(ROUTE_L6)                                 \
+    P(ROUTE_R6)
+
 typedef enum ec_parameter {
-    ECP_BYPASS,
-    ECP_CHANNEL_LAYOUT,
-    ECP_DELAY,
-    ECP_NSTAGES,
-    ECP_MOD_RANGE,
-    ECP_SLOW_RATE,
-    ECP_SLOW_WAVE,
-    ECP_SLOW_RAND,
-    ECP_FAST_RATE,
-    ECP_FAST_WAVE,
-    ECP_FAST_RAND,
-    ECP_LPF_CUTOFF,
-    ECP_LPF_Q,
-    ECP_GAIN_IN,
-    ECP_GAIN_OUT,
-    ECP_MIX_DRY,
-    ECP_MIX_WET,
-
-    ECP_ENABLE1,
-    ECP_PHASE1,
-    ECP_DEPTH1,
-    ECP_ROUTE_L1,
-    ECP_ROUTE_R1,
-
-    ECP_ENABLE2,
-    ECP_PHASE2,
-    ECP_DEPTH2,
-    ECP_ROUTE_L2,
-    ECP_ROUTE_R2,
-
-    ECP_ENABLE3,
-    ECP_PHASE3,
-    ECP_DEPTH3,
-    ECP_ROUTE_L3,
-    ECP_ROUTE_R3,
-
-    ECP_ENABLE4,
-    ECP_PHASE4,
-    ECP_DEPTH4,
-    ECP_ROUTE_L4,
-    ECP_ROUTE_R4,
-
-    ECP_ENABLE5,
-    ECP_PHASE5,
-    ECP_DEPTH5,
-    ECP_ROUTE_L5,
-    ECP_ROUTE_R5,
-
-    ECP_ENABLE6,
-    ECP_PHASE6,
-    ECP_DEPTH6,
-    ECP_ROUTE_L6,
-    ECP_ROUTE_R6,
-
+    #define EACH(p) ECP_##p,
+    EC_EACH_PARAMETER(EACH)
+    #undef EACH
     EC_PARAMETER_COUNT
 } ec_parameter_t;
 
-EC_API void ensemble_chorus_set_parameter(chorus_t *ec, ec_parameter p, float value);
-EC_API float ensemble_chorus_get_parameter(chorus_t *ec, ec_parameter p);
+EC_API void ensemble_chorus_set_parameter(chorus_t *ec, ec_parameter_t p, float value);
+EC_API float ensemble_chorus_get_parameter(chorus_t *ec, ec_parameter_t p);
+
+EC_API unsigned ensemble_chorus_parameter_count();
+EC_API const char *ensemble_chorus_parameter_name(ec_parameter_t p);
+EC_API ec_parameter_t ensemble_chorus_parameter_by_name(const char *name);
 
 #if defined(__cplusplus)
 }  // extern "C"

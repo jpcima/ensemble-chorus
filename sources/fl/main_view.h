@@ -14,6 +14,7 @@ class Fl_Toggle_Button;
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Check_Button.H>
 #include <FL/Fl_Choice.H>
+#include <FL/Fl_Button.H>
 
 class Main_View : public Fl_Group {
 public:
@@ -278,6 +279,10 @@ public:
 private:
   inline void cb_btn_routeR6__i(Fl_Toggle_Button*, void*);
   static void cb_btn_routeR6_(Fl_Toggle_Button*, void*);
+  inline void cb_Load_i(Fl_Button*, void*);
+  static void cb_Load(Fl_Button*, void*);
+  inline void cb_Save_i(Fl_Button*, void*);
+  static void cb_Save(Fl_Button*, void*);
 public:
   void controller(Main_Controller *x);
 private:

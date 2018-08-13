@@ -19,10 +19,14 @@ public:
     void set_modulation_callback(void (*callback)(const float[6], const float[6], void *), void *userdata);
     void send_parameter(unsigned id, double value);
 
+    bool load_parameters();
+    bool save_parameters();
+
 private:
     Message_Queue &mq_in_;
     Message_Queue &mq_out_;
     std::unique_ptr<uint8_t[]> msg_buffer_;
+    std::unique_ptr<float[]> parameter_value_;
 
     void (*parameter_callback_)(unsigned, float, void *) = nullptr;
     void *parameter_userdata_ = nullptr;

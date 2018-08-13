@@ -10,3 +10,6 @@
 [submodule "thirdparty/boost/predef"]
 	path = thirdparty/boost/predef
 	url = https://github.com/boostorg/predef
+[submodule "thirdparty/pugixml"]
+	path = thirdparty/pugixml
+	url = https://github.com/zeux/pugixml.git

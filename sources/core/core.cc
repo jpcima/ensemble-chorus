@@ -151,7 +151,7 @@ void ensemble_chorus_get_current_modulation(chorus_t *ec, float slow[6], float f
     }
 }
 
-void ensemble_chorus_set_parameter(chorus_t *ec, ec_parameter p, float value)
+void ensemble_chorus_set_parameter(chorus_t *ec, ec_parameter_t p, float value)
 {
     Chorus &chorus = *ec->chorus_;
     float *parameter = ec->parameter_.get();
@@ -314,9 +314,33 @@ void ensemble_chorus_set_parameter(chorus_t *ec, ec_parameter p, float value)
     }
 }
 
-float ensemble_chorus_get_parameter(chorus_t *ec, ec_parameter p)
+float ensemble_chorus_get_parameter(chorus_t *ec, ec_parameter_t p)
 {
     if (p >= EC_PARAMETER_COUNT)
         return 0;
     return ec->parameter_[p];
+}
+
+unsigned ensemble_chorus_parameter_count()
+{
+    return EC_PARAMETER_COUNT;
+}
+
+const char *ensemble_chorus_parameter_name(ec_parameter_t p)
+{
+    switch (p) {
+    #define EACH(p) case ECP_##p: return #p;
+    EC_EACH_PARAMETER(EACH)
+    #undef EACH
+    default:
+        return nullptr;
+    }
+}
+
+ec_parameter_t ensemble_chorus_parameter_by_name(const char *name)
+{
+    for (unsigned i = 0; i < EC_PARAMETER_COUNT; ++i)
+        if (!std::strcmp(name, ensemble_chorus_parameter_name((ec_parameter)i)))
+            return (ec_parameter)i;
+    return (ec_parameter)-1;
 }
