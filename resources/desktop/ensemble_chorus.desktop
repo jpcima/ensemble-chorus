@@ -2,8 +2,8 @@
 Version=1.0
 Name=Ensemble chorus
 Comment=Digital model of electronic string ensemble chorus
-Comment[fr]=Modèle numérique d'un chorus d'ensemble de cordes électronique
-Icon=ensemble_chorus-logo.xpm
+Comment[fr]=Modélisation numérique d'un chorus d'ensemble à cordes électronique
+Icon=ensemble_chorus
 Exec=ensemble_chorus_fl
 Categories=AudioVideo;Audio
 Type=Application

@@ -1,7 +1,7 @@
 # JPC Ensemble Chorus
 Digital model of electronic string ensemble chorus
 
-![screenshot](https://raw.github.com/trebmuh/ensemble-chorus/patch-1/ressources/ensemble_chorus-prez.png "GUI overview")
+![screenshot](docs/screen.png "GUI overview")
 
 **Experimental!**
 
@@ -21,7 +21,7 @@ Listen to the biniou:
 - `libfltk1.3-dev`
 - `libasound2-dev`
 - `libjack-jackd2-dev` or `libjack-dev` (for Jack 2 or Jack 1 respectively)
-- `libpulse-dev`(optionnal)
+- `libpulse-dev` (optional)
 
 ## Build
 
