@@ -40,38 +40,10 @@ bool ensemble_chorus_init(chorus_t *ec, float samplerate, unsigned bufsize)
     ec->chorus_.reset(chorus);
     chorus->setup(samplerate, bufsize);
 
-    float *parameters = new float[EC_PARAMETER_COUNT]();
+    float *parameters = new float[EC_PARAMETER_COUNT];
     ec->parameter_.reset(parameters);
-
-    parameters[ECP_CHANNEL_LAYOUT] = ECC_STEREO;
-    parameters[ECP_DELAY] = 0.5;
-    parameters[ECP_NSTAGES] = BBD_Line::adjust_nstages(1024);
-    parameters[ECP_MOD_RANGE] = 0.5;
-    parameters[ECP_SLOW_RATE] = 0.5;
-    parameters[ECP_SLOW_WAVE] = (int)LFOs::Shape::Triangle;
-    parameters[ECP_SLOW_RAND] = 0.1;
-    parameters[ECP_FAST_RATE] = 0.5;
-    parameters[ECP_FAST_WAVE] = (int)LFOs::Shape::Triangle;
-    parameters[ECP_FAST_RAND] = 0.1;
-    parameters[ECP_LPF_CUTOFF] = 1.0;
-    parameters[ECP_LPF_Q] = M_SQRT1_2;
-    parameters[ECP_GAIN_IN] = 1.0;
-    parameters[ECP_GAIN_OUT] = 1.0;
-    parameters[ECP_MIX_DRY] = M_SQRT1_2;
-    parameters[ECP_MIX_WET] = M_SQRT1_2;
-
-    for (unsigned i = 0, n = 3; i < 6; ++i) {
-        parameters[ECP_ENABLE1 + i * (ECP_ENABLE2 - ECP_ENABLE1)] = (i < n) ? 1 : 0;
-        parameters[ECP_PHASE1 + i * (ECP_ENABLE2 - ECP_ENABLE1)] = i * (1.0 / n);
-        parameters[ECP_DEPTH1 + i * (ECP_ENABLE2 - ECP_ENABLE1)] = 0.5;
-    }
-
-    parameters[ECP_ROUTE_L1] = 1;
-    parameters[ECP_ROUTE_L2] = 1; parameters[ECP_ROUTE_R2] = 1;
-                                  parameters[ECP_ROUTE_R3] = 1;
-                                  parameters[ECP_ROUTE_R4] = 1;
-    parameters[ECP_ROUTE_L5] = 1; parameters[ECP_ROUTE_R5] = 1;
-    parameters[ECP_ROUTE_L6] = 1;
+    for (unsigned i = 0; i < EC_PARAMETER_COUNT; ++i)
+        parameters[i] = ensemble_chorus_parameter_default((ec_parameter)i);
 
     for (unsigned i = 0; i < EC_PARAMETER_COUNT; ++i)
         ensemble_chorus_set_parameter(ec, (ec_parameter)i, parameters[i]);
@@ -192,7 +164,7 @@ void ensemble_chorus_set_parameter(chorus_t *ec, ec_parameter_t p, float value)
         break;
     }
     case ECP_SLOW_WAVE: {
-        int wave = jsl::clamp((int)value, 0, (int)Chorus::lfo_wave_count - 1);
+        int wave = jsl::clamp((int)value, 0, EC_LFO_WAVE_COUNT - 1);
         value = wave;
         chorus.slow_wave(wave);
         break;
@@ -202,7 +174,7 @@ void ensemble_chorus_set_parameter(chorus_t *ec, ec_parameter_t p, float value)
         chorus.fast_rate(value);
         break;
     case ECP_FAST_WAVE: {
-        int wave = jsl::clamp((int)value, 0, (int)Chorus::lfo_wave_count - 1);
+        int wave = jsl::clamp((int)value, 0, EC_LFO_WAVE_COUNT - 1);
         value = wave;
         chorus.fast_wave(wave);
         break;
@@ -329,7 +301,7 @@ unsigned ensemble_chorus_parameter_count()
 const char *ensemble_chorus_parameter_name(ec_parameter_t p)
 {
     switch (p) {
-    #define EACH(p) case ECP_##p: return #p;
+    #define EACH(p, min, max, def, flags) case ECP_##p: return #p;
     EC_EACH_PARAMETER(EACH)
     #undef EACH
     default:
@@ -343,4 +315,48 @@ ec_parameter_t ensemble_chorus_parameter_by_name(const char *name)
         if (!std::strcmp(name, ensemble_chorus_parameter_name((ec_parameter)i)))
             return (ec_parameter)i;
     return (ec_parameter)-1;
+}
+
+float ensemble_chorus_parameter_min(ec_parameter_t p)
+{
+    switch (p) {
+    #define EACH(p, min, max, def, flags) case ECP_##p: return min;
+    EC_EACH_PARAMETER(EACH)
+    #undef EACH
+    default:
+        return 0;
+    }
+}
+
+float ensemble_chorus_parameter_max(ec_parameter_t p)
+{
+    switch (p) {
+    #define EACH(p, min, max, def, flags) case ECP_##p: return max;
+    EC_EACH_PARAMETER(EACH)
+    #undef EACH
+    default:
+        return 0;
+    }
+}
+
+float ensemble_chorus_parameter_default(ec_parameter_t p)
+{
+    switch (p) {
+    #define EACH(p, min, max, def, flags) case ECP_##p: return def;
+    EC_EACH_PARAMETER(EACH)
+    #undef EACH
+    default:
+        return 0;
+    }
+}
+
+unsigned ensemble_chorus_parameter_flags(ec_parameter_t p)
+{
+    switch (p) {
+    #define EACH(p, min, max, def, flags) case ECP_##p: return flags;
+    EC_EACH_PARAMETER(EACH)
+    #undef EACH
+    default:
+        return 0;
+    }
 }

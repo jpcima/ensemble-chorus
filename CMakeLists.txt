@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(EnsembleChorus LANGUAGES C CXX)
-
+project(EnsembleChorus VERSION "0.0.1" LANGUAGES C CXX)
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
+option(BUILD_PLUGIN "Build plugin" ON)
 option(ENABLE_PROFILING "Enable profiling" OFF)
 
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
@@ -80,4 +80,42 @@ if(FLTK_FOUND)
     DESTINATION "share/pixmaps")
   install(FILES "resources/desktop/ensemble_chorus.desktop"
     DESTINATION "share/applications")
+endif()
+
+if(BUILD_PLUGIN)
+  set(DPF_root_dir "${PROJECT_SOURCE_DIR}/thirdparty/DPF")
+  include(DPF)
+  ###
+  add_library(ensemble_chorus_processor
+    "sources/plugin/processor.cc")
+  target_compile_definitions(ensemble_chorus_processor PRIVATE
+    "PROJECT_VERSION_MAJOR=${PROJECT_VERSION_MAJOR}"
+    "PROJECT_VERSION_MINOR=${PROJECT_VERSION_MINOR}"
+    "PROJECT_VERSION_PATCH=${PROJECT_VERSION_PATCH}")
+  target_include_directories(ensemble_chorus_processor
+    PRIVATE "sources" "thirdparty/DPF"
+    PUBLIC "sources/plugin/meta")
+  target_link_libraries(ensemble_chorus_processor
+    PRIVATE ensemble_chorus)
+  set_target_properties(ensemble_chorus_processor PROPERTIES
+    POSITION_INDEPENDENT_CODE ON
+    CXX_STANDARD 11
+    CXX_STANDARD_REQUIRED ON
+    CXX_VISIBILITY_PRESET "hidden"
+    VISIBILITY_INLINES_HIDDEN ON)
+  ###
+  add_library(ensemble_chorus_editor
+    "sources/plugin/editor/editor.cc")
+  target_include_directories(ensemble_chorus_editor
+    PRIVATE "sources" "thirdparty/DPF"
+    PUBLIC "sources/plugin/meta")
+  set_target_properties(ensemble_chorus_editor PROPERTIES
+    POSITION_INDEPENDENT_CODE ON
+    CXX_STANDARD 11
+    CXX_STANDARD_REQUIRED ON
+    CXX_VISIBILITY_PRESET "hidden"
+    VISIBILITY_INLINES_HIDDEN ON)
+  ###
+  add_dpf_plugin(ensemble_chorus
+    ensemble_chorus_processor ensemble_chorus_editor)
 endif()

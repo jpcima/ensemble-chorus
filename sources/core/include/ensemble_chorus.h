@@ -6,6 +6,7 @@
 // The Ensemble Chorus Library - Chorus effect with modulated BBD delay lines //
 
 #pragma once
+#include <math.h>
 
 #if defined(__cplusplus)
 extern "C" {
@@ -31,63 +32,78 @@ typedef enum ec_channel_layout {
     ECC_MONO
 } ec_channel_layout_t;
 
-#define EC_EACH_PARAMETER(P)                    \
-    P(BYPASS)                                   \
-    P(CHANNEL_LAYOUT)                           \
-    P(DELAY)                                    \
-    P(NSTAGES)                                  \
-    P(MOD_RANGE)                                \
-    P(SLOW_RATE)                                \
-    P(SLOW_WAVE)                                \
-    P(SLOW_RAND)                                \
-    P(FAST_RATE)                                \
-    P(FAST_WAVE)                                \
-    P(FAST_RAND)                                \
-    P(LPF_CUTOFF)                               \
-    P(LPF_Q)                                    \
-    P(GAIN_IN)                                  \
-    P(GAIN_OUT)                                 \
-    P(MIX_DRY)                                  \
-    P(MIX_WET)                                  \
+enum {
+    EC_SUPPORTED_NSTAGES_COUNT = 5,
+    EC_NSTAGES_MIN = 512,
+    EC_NSTAGES_MAX = EC_NSTAGES_MIN << (EC_SUPPORTED_NSTAGES_COUNT - 1),
+    EC_LFO_WAVE_COUNT = 5,
+};
+
+typedef enum ec_parameter_flag {
+    ECP_FLOAT       = 0,
+    ECP_BOOLEAN     = 2,
+    ECP_INTEGER     = 4,
+    ECP_LOGARITHMIC = 8,
+} ec_parameter_flag_t;
+
+#define  EC_EACH_PARAMETER(P)                   \
+    /* Name, Min, Max, Def, Flags */            \
+    P(BYPASS, false, true, false, ECP_BOOLEAN)  \
+    P(CHANNEL_LAYOUT, ECC_STEREO, ECC_MONO, ECC_STEREO, ECP_INTEGER) \
+    P(DELAY, 0, 1, 0.5, ECP_FLOAT)              \
+    P(NSTAGES, EC_NSTAGES_MIN, EC_NSTAGES_MAX, 1024, ECP_INTEGER) \
+    P(MOD_RANGE, 0, 1, 0.5, ECP_FLOAT)          \
+    P(SLOW_RATE, 0, 1, 0.5, ECP_FLOAT)          \
+    P(SLOW_WAVE, 0, EC_LFO_WAVE_COUNT - 1, 4, ECP_INTEGER) \
+    P(SLOW_RAND, 0, 1, 0.1, ECP_FLOAT)          \
+    P(FAST_RATE, 0, 1, 0.5, ECP_FLOAT)          \
+    P(FAST_WAVE, 0, EC_LFO_WAVE_COUNT - 1, 4, ECP_INTEGER) \
+    P(FAST_RAND, 0, 1, 0.1, ECP_FLOAT)          \
+    P(LPF_CUTOFF, 0, 1, 1.0, ECP_FLOAT)         \
+    P(LPF_Q, 0, 1, M_SQRT1_2, ECP_FLOAT)        \
+    P(GAIN_IN, 0, 3, 1, ECP_FLOAT|ECP_LOGARITHMIC) \
+    P(GAIN_OUT, 0, 3, 1, ECP_FLOAT|ECP_LOGARITHMIC) \
+    P(MIX_DRY, 0, 1, M_SQRT1_2, ECP_FLOAT|ECP_LOGARITHMIC) \
+    P(MIX_WET, 0, 1, M_SQRT1_2, ECP_FLOAT|ECP_LOGARITHMIC) \
     /* */                                       \
-    P(ENABLE1)                                  \
-    P(PHASE1)                                   \
-    P(DEPTH1)                                   \
-    P(ROUTE_L1)                                 \
-    P(ROUTE_R1)                                 \
+    P(ENABLE1, false, true, true, ECP_BOOLEAN)  \
+    P(PHASE1, 0, 1, 0, ECP_FLOAT)               \
+    P(DEPTH1, 0, 1, 0.5, ECP_FLOAT)             \
+    P(ROUTE_L1, false, true, true, ECP_BOOLEAN) \
+    P(ROUTE_R1, false, true, false, ECP_BOOLEAN) \
     /* */                                       \
-    P(ENABLE2)                                  \
-    P(PHASE2)                                   \
-    P(DEPTH2)                                   \
-    P(ROUTE_L2)                                 \
-    P(ROUTE_R2)                                 \
+    P(ENABLE2, false, true, true, ECP_BOOLEAN)  \
+    P(PHASE2, 0, 1, 1. / 3., ECP_FLOAT)         \
+    P(DEPTH2, 0, 1, 0.5, ECP_FLOAT)             \
+    P(ROUTE_L2, false, true, true, ECP_BOOLEAN) \
+    P(ROUTE_R2, false, true, true, ECP_BOOLEAN) \
     /* */                                       \
-    P(ENABLE3)                                  \
-    P(PHASE3)                                   \
-    P(DEPTH3)                                   \
-    P(ROUTE_L3)                                 \
-    P(ROUTE_R3)                                 \
+    P(ENABLE3, false, true, true, ECP_BOOLEAN)  \
+    P(PHASE3, 0, 1, 2. / 3., ECP_FLOAT)         \
+    P(DEPTH3, 0, 1, 0.5, ECP_FLOAT)             \
+    P(ROUTE_L3, false, true, false, ECP_BOOLEAN) \
+    P(ROUTE_R3, false, true, true, ECP_BOOLEAN) \
     /* */                                       \
-    P(ENABLE4)                                  \
-    P(PHASE4)                                   \
-    P(DEPTH4)                                   \
-    P(ROUTE_L4)                                 \
-    P(ROUTE_R4)                                 \
+    P(ENABLE4, false, true, false, ECP_BOOLEAN) \
+    P(PHASE4, 0, 1, 0, ECP_FLOAT)               \
+    P(DEPTH4, 0, 1, 0.5, ECP_FLOAT)             \
+    P(ROUTE_L4, false, true, false, ECP_BOOLEAN) \
+    P(ROUTE_R4, false, true, true, ECP_BOOLEAN) \
     /* */                                       \
-    P(ENABLE5)                                  \
-    P(PHASE5)                                   \
-    P(DEPTH5)                                   \
-    P(ROUTE_L5)                                 \
-    P(ROUTE_R5)                                 \
+    P(ENABLE5, false, true, false, ECP_BOOLEAN) \
+    P(PHASE5, 0, 1, 1. / 3., ECP_FLOAT)         \
+    P(DEPTH5, 0, 1, 0.5, ECP_FLOAT)             \
+    P(ROUTE_L5, false, true, true, ECP_BOOLEAN) \
+    P(ROUTE_R5, false, true, true, ECP_BOOLEAN) \
     /* */                                       \
-    P(ENABLE6)                                  \
-    P(PHASE6)                                   \
-    P(DEPTH6)                                   \
-    P(ROUTE_L6)                                 \
-    P(ROUTE_R6)
+    P(ENABLE6, false, true, false, ECP_BOOLEAN) \
+    P(PHASE6, 0, 1, 2. / 3., ECP_FLOAT)         \
+    P(DEPTH6, 0, 1, 0.5, ECP_FLOAT)             \
+    P(ROUTE_L6, false, true, true, ECP_BOOLEAN) \
+    P(ROUTE_R6, false, true, false, ECP_BOOLEAN)
 
 typedef enum ec_parameter {
-    #define EACH(p) ECP_##p,
+    #define EACH(p, min, max, def, flags) ECP_##p,
     EC_EACH_PARAMETER(EACH)
     #undef EACH
     EC_PARAMETER_COUNT
@@ -99,6 +115,10 @@ EC_API float ensemble_chorus_get_parameter(chorus_t *ec, ec_parameter_t p);
 EC_API unsigned ensemble_chorus_parameter_count();
 EC_API const char *ensemble_chorus_parameter_name(ec_parameter_t p);
 EC_API ec_parameter_t ensemble_chorus_parameter_by_name(const char *name);
+EC_API float ensemble_chorus_parameter_min(ec_parameter_t p);
+EC_API float ensemble_chorus_parameter_max(ec_parameter_t p);
+EC_API float ensemble_chorus_parameter_default(ec_parameter_t p);
+EC_API unsigned ensemble_chorus_parameter_flags(ec_parameter_t p);
 
 #if defined(__cplusplus)
 }  // extern "C"
