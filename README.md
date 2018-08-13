@@ -1,6 +1,8 @@
 # JPC Ensemble Chorus
 Digital model of electronic string ensemble chorus
 
+![screenshot](https://raw.github.com/trebmuh/ensemble-chorus/patch-1/ressources/ensemble_chorus-prez.png "GUI overview")
+
 **Experimental!**
 
 ## Sound demo
