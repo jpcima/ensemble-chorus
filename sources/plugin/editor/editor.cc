@@ -10,6 +10,7 @@
 #include "graphics/font.h"
 #include "graphics/text.h"
 #include "ensemble_chorus.h"
+#include <cassert>
 
 struct Chorus_UI::Impl :
     public Knob::Callback,
@@ -45,6 +46,8 @@ struct Chorus_UI::Impl :
     std::unique_ptr<Button> btn_enable6_;
     std::unique_ptr<Button> btn_routeL6_;
     std::unique_ptr<Button> btn_routeR6_;
+    std::unique_ptr<Button> btn_stereo_;
+    std::unique_ptr<Button> btn_mono_;
 
     explicit Impl(Chorus_UI *q)
         : Q(q) {}
@@ -104,11 +107,14 @@ Chorus_UI::Chorus_UI()
     BUTTON(enable6, 20, 205, 25, 25, "6");
     BUTTON(routeL6, 180, 205, 25, 25, "L");
     BUTTON(routeR6, 210, 205, 25, 25, "R");
+    BUTTON(stereo, 500, 150, 55, 25, "Stereo");
+    BUTTON(mono, 555, 150, 55, 25, "Mono");
 
     for (Button *btn :
         {btn_enable1, btn_enable2, btn_enable3, btn_enable4, btn_enable5, btn_enable6,
          btn_routeL1, btn_routeL2, btn_routeL3, btn_routeL4, btn_routeL5, btn_routeL6,
-         btn_routeR1, btn_routeR2, btn_routeR3, btn_routeR4, btn_routeR5, btn_routeR6}) {
+         btn_routeR1, btn_routeR2, btn_routeR3, btn_routeR4, btn_routeR5, btn_routeR6,
+         btn_stereo, btn_mono}) {
         btn->setFont(fonts->getSansRegular());
         btn->setFontSize(16.0f);
         btn->setTextStyle(TS_ENGRAVED);
@@ -125,7 +131,18 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         // TODO
         break;
     case ECP_CHANNEL_LAYOUT:
-        // TODO
+        switch ((int)value) {
+        case ECC_STEREO:
+            P->btn_stereo_->setValue(true);
+            P->btn_mono_->setValue(false);
+            break;
+        case ECC_MONO:
+            P->btn_stereo_->setValue(false);
+            P->btn_mono_->setValue(true);
+            break;
+        default:
+            assert(false);
+        }
         break;
     case ECP_DELAY:
         // TODO
@@ -359,6 +376,22 @@ void Chorus_UI::Impl::buttonValueChanged(Button *btn, bool value)
         Q->setParameterValue(ECP_ROUTE_L6, value);
     else if (btn == btn_routeR6_.get())
         Q->setParameterValue(ECP_ROUTE_R6, value);
+    else if (btn == btn_stereo_.get()) {
+        if (!value)
+            btn->setValue(true);
+        else {
+            Q->setParameterValue(ECP_CHANNEL_LAYOUT, ECC_STEREO);
+            btn_mono_->setValue(false);
+        }
+    }
+    else if (btn == btn_mono_.get()) {
+        if (!value)
+            btn->setValue(true);
+        else {
+            Q->setParameterValue(ECP_CHANNEL_LAYOUT, ECC_MONO);
+            btn_stereo_->setValue(false);
+        }
+    }
 }
 
 UI *DISTRHO::createUI()
