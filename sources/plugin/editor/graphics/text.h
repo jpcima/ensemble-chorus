@@ -5,10 +5,12 @@
 
 #include <dgl/NanoVG.hpp>
 
-void shadow_text(NanoVG &g, float x, float y, float w, const char *text, Color c);
-void engraved_text(NanoVG &g, float x, float y, float w, const char *text, Color c);
-void embossed_text(NanoVG &g, float x, float y, float w, const char *text, Color c);
+enum Text_Style {
+    TS_NORMAL,
+    TS_SHADOW,
+    TS_ENGRAVED,
+    TS_EMBOSSED,
+};
 
-void multilayer_text(
-    NanoVG &g, float x, float y, float w, const char *text,
-    const float offs[][2], const Color cols[], unsigned n);
+void bounded_text(NanoVG &g, Text_Style ts, float x, float y, float w, float h, int align, const char *text, Color c);
+void styled_text(NanoVG &g, Text_Style ts, float x, float y, float w, const char *text, Color c);
