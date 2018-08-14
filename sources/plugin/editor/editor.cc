@@ -48,6 +48,7 @@ struct Chorus_UI::Impl :
     std::unique_ptr<Button> btn_routeR6_;
     std::unique_ptr<Button> btn_stereo_;
     std::unique_ptr<Button> btn_mono_;
+    std::unique_ptr<Button> btn_bypass_;
 
     explicit Impl(Chorus_UI *q)
         : Q(q) {}
@@ -109,12 +110,13 @@ Chorus_UI::Chorus_UI()
     BUTTON(routeR6, 210, 205, 25, 25, "R");
     BUTTON(stereo, 500, 150, 55, 25, "Stereo");
     BUTTON(mono, 555, 150, 55, 25, "Mono");
+    BUTTON(bypass, 245, 10, 60, 25, "Bypass");
 
     for (Button *btn :
         {btn_enable1, btn_enable2, btn_enable3, btn_enable4, btn_enable5, btn_enable6,
          btn_routeL1, btn_routeL2, btn_routeL3, btn_routeL4, btn_routeL5, btn_routeL6,
          btn_routeR1, btn_routeR2, btn_routeR3, btn_routeR4, btn_routeR5, btn_routeR6,
-         btn_stereo, btn_mono}) {
+         btn_stereo, btn_mono, btn_bypass}) {
         btn->setFont(fonts->getSansRegular());
         btn->setFontSize(16.0f);
         btn->setTextStyle(TS_ENGRAVED);
@@ -128,7 +130,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
 {
     switch (index) {
     case ECP_BYPASS:
-        // TODO
+        P->btn_bypass_->setValue(value);
         break;
     case ECP_CHANNEL_LAYOUT:
         switch ((int)value) {
@@ -391,6 +393,9 @@ void Chorus_UI::Impl::buttonValueChanged(Button *btn, bool value)
             Q->setParameterValue(ECP_CHANNEL_LAYOUT, ECC_MONO);
             btn_stereo_->setValue(false);
         }
+    }
+    else if (btn == btn_bypass_.get()) {
+        Q->setParameterValue(ECP_BYPASS, value);
     }
 }
 
