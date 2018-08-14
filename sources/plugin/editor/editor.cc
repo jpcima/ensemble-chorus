@@ -7,6 +7,7 @@
 #include "widgets/knob.h"
 #include "graphics/box.h"
 #include "graphics/font.h"
+#include "graphics/text.h"
 #include "ensemble_chorus.h"
 
 struct Chorus_UI::Impl : public Knob::Callback {
@@ -223,17 +224,14 @@ void Chorus_UI::onNanoDisplay()
     fill();
 
     {
-        int bx = 0;
-        int by = 0;
-        int bw = 230;
-        int bh = 42;
+        int bx = 0, by = 0;
+        int bw = 230, bh = 42;
         shadow_box(*this, bx, by, bw, bh, Color(0xc0, 0xc0, 0xc0));
         fontFaceId(fonts.getSerifBoldItalic());
         fontSize(22);
         beginPath();
-        fillColor(Color(0.0f, 0.0f, 0.0f));
         textAlign(ALIGN_CENTER|ALIGN_MIDDLE);
-        textBox(bx, by + 0.5f * bh, bw, "JPC Ensemble Chorus");
+        engraved_text(*this, bx, by + 0.5f * bh, bw, "JPC Ensemble Chorus", Color(0.0f, 0.0f, 0.0f));
     }
 }
 

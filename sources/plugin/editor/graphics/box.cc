@@ -4,15 +4,13 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include "box.h"
-
-static const Color c_dark3(0x55, 0x55, 0x55);
-static const Color c_gray0(0x00, 0x00, 0x00);
+#include "colors.h"
 
 void shadow_frame(NanoVG &g, float x, float y, float w, float h, Color c)
 {
     const float bw = 3;
 
-    g.fillColor(c_dark3);
+    g.fillColor(Colors::dark3());
     g.beginPath();
     g.rect(x + bw, y + h - bw,  w - bw, bw);
     g.fill();
@@ -35,5 +33,5 @@ void shadow_box(NanoVG &g, float x, float y, float w, float h, Color c)
     g.fillColor(c);
     g.fill();
 
-    shadow_frame(g, x , y, w, h, c_gray0);
+    shadow_frame(g, x , y, w, h, Colors::gray0());
 }

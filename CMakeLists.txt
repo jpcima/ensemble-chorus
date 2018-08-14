@@ -112,7 +112,8 @@ if(BUILD_PLUGIN)
     "sources/plugin/editor/editor.cc"
     "sources/plugin/editor/widgets/knob.cc"
     "sources/plugin/editor/graphics/font.cc"
-    "sources/plugin/editor/graphics/box.cc")
+    "sources/plugin/editor/graphics/box.cc"
+    "sources/plugin/editor/graphics/text.cc")
   target_include_directories(ensemble_chorus_editor
     PRIVATE "sources" "thirdparty/DPF"
     PUBLIC "sources/plugin/meta")
