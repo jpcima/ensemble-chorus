@@ -105,7 +105,8 @@ if(BUILD_PLUGIN)
     VISIBILITY_INLINES_HIDDEN ON)
   ###
   add_library(ensemble_chorus_editor
-    "sources/plugin/editor/editor.cc")
+    "sources/plugin/editor/editor.cc"
+    "sources/plugin/editor/widgets/knob.cc")
   target_include_directories(ensemble_chorus_editor
     PRIVATE "sources" "thirdparty/DPF"
     PUBLIC "sources/plugin/meta")

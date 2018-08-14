@@ -5,6 +5,7 @@
 
 #pragma once
 #include <distrho/DistrhoUI.hpp>
+#include <memory>
 
 class Chorus_UI : public UI {
 public:
@@ -13,5 +14,7 @@ public:
     void onNanoDisplay() override;
 
 private:
+    struct Impl;
+    const std::unique_ptr<Impl> P;
     DISTRHO_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Chorus_UI)
 };
