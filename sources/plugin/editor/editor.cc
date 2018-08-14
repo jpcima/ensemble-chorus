@@ -28,11 +28,23 @@ struct Chorus_UI::Impl :
     std::unique_ptr<Knob> kn_lpf_cutoff_;
     std::unique_ptr<Knob> kn_lpf_q_;
     std::unique_ptr<Button> btn_enable1_;
+    std::unique_ptr<Button> btn_routeL1_;
+    std::unique_ptr<Button> btn_routeR1_;
     std::unique_ptr<Button> btn_enable2_;
+    std::unique_ptr<Button> btn_routeL2_;
+    std::unique_ptr<Button> btn_routeR2_;
     std::unique_ptr<Button> btn_enable3_;
+    std::unique_ptr<Button> btn_routeL3_;
+    std::unique_ptr<Button> btn_routeR3_;
     std::unique_ptr<Button> btn_enable4_;
+    std::unique_ptr<Button> btn_routeL4_;
+    std::unique_ptr<Button> btn_routeR4_;
     std::unique_ptr<Button> btn_enable5_;
+    std::unique_ptr<Button> btn_routeL5_;
+    std::unique_ptr<Button> btn_routeR5_;
     std::unique_ptr<Button> btn_enable6_;
+    std::unique_ptr<Button> btn_routeL6_;
+    std::unique_ptr<Button> btn_routeR6_;
 
     explicit Impl(Chorus_UI *q)
         : Q(q) {}
@@ -75,13 +87,28 @@ Chorus_UI::Chorus_UI()
     btn_##id->setCallback(P.get());
 
     BUTTON(enable1, 20, 80, 25, 25, "1");
+    BUTTON(routeL1, 180, 80, 25, 25, "L");
+    BUTTON(routeR1, 210, 80, 25, 25, "R");
     BUTTON(enable2, 20, 105, 25, 25, "2");
+    BUTTON(routeL2, 180, 105, 25, 25, "L");
+    BUTTON(routeR2, 210, 105, 25, 25, "R");
     BUTTON(enable3, 20, 130, 25, 25, "3");
+    BUTTON(routeL3, 180, 130, 25, 25, "L");
+    BUTTON(routeR3, 210, 130, 25, 25, "R");
     BUTTON(enable4, 20, 155, 25, 25, "4");
+    BUTTON(routeL4, 180, 155, 25, 25, "L");
+    BUTTON(routeR4, 210, 155, 25, 25, "R");
     BUTTON(enable5, 20, 180, 25, 25, "5");
+    BUTTON(routeL5, 180, 180, 25, 25, "L");
+    BUTTON(routeR5, 210, 180, 25, 25, "R");
     BUTTON(enable6, 20, 205, 25, 25, "6");
+    BUTTON(routeL6, 180, 205, 25, 25, "L");
+    BUTTON(routeR6, 210, 205, 25, 25, "R");
 
-    for (Button *btn : {btn_enable1, btn_enable2, btn_enable3, btn_enable4, btn_enable5, btn_enable6}) {
+    for (Button *btn :
+        {btn_enable1, btn_enable2, btn_enable3, btn_enable4, btn_enable5, btn_enable6,
+         btn_routeL1, btn_routeL2, btn_routeL3, btn_routeL4, btn_routeL5, btn_routeL6,
+         btn_routeR1, btn_routeR2, btn_routeR3, btn_routeR4, btn_routeR5, btn_routeR6}) {
         btn->setFont(fonts->getSansRegular());
         btn->setFontSize(16.0f);
         btn->setTextStyle(TS_ENGRAVED);
@@ -156,10 +183,10 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         // TODO
         break;
     case ECP_ROUTE_L1:
-        // TODO
+        P->btn_routeL1_->setValue(value);
         break;
     case ECP_ROUTE_R1:
-        // TODO
+        P->btn_routeR1_->setValue(value);
         break;
 
     case ECP_ENABLE2:
@@ -172,10 +199,10 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         // TODO
         break;
     case ECP_ROUTE_L2:
-        // TODO
+        P->btn_routeL2_->setValue(value);
         break;
     case ECP_ROUTE_R2:
-        // TODO
+        P->btn_routeR2_->setValue(value);
         break;
 
     case ECP_ENABLE3:
@@ -188,10 +215,10 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         // TODO
         break;
     case ECP_ROUTE_L3:
-        // TODO
+        P->btn_routeL3_->setValue(value);
         break;
     case ECP_ROUTE_R3:
-        // TODO
+        P->btn_routeR3_->setValue(value);
         break;
 
     case ECP_ENABLE4:
@@ -204,10 +231,10 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         // TODO
         break;
     case ECP_ROUTE_L4:
-        // TODO
+        P->btn_routeL4_->setValue(value);
         break;
     case ECP_ROUTE_R4:
-        // TODO
+        P->btn_routeR4_->setValue(value);
         break;
 
     case ECP_ENABLE5:
@@ -220,10 +247,10 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         // TODO
         break;
     case ECP_ROUTE_L5:
-        // TODO
+        P->btn_routeL5_->setValue(value);
         break;
     case ECP_ROUTE_R5:
-        // TODO
+        P->btn_routeR5_->setValue(value);
         break;
 
     case ECP_ENABLE6:
@@ -236,10 +263,10 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         // TODO
         break;
     case ECP_ROUTE_L6:
-        // TODO
+        P->btn_routeL6_->setValue(value);
         break;
     case ECP_ROUTE_R6:
-        // TODO
+        P->btn_routeR6_->setValue(value);
         break;
     }
 }
@@ -278,49 +305,60 @@ void Chorus_UI::onNanoDisplay()
 
 void Chorus_UI::Impl::knobValueChanged(Knob *knob, float value)
 {
-    if (knob == kn_mod_range_.get()) {
+    if (knob == kn_mod_range_.get())
         Q->setParameterValue(ECP_MOD_RANGE, value);
-    }
-    else if (knob == kn_slow_rate_.get()) {
+    else if (knob == kn_slow_rate_.get())
         Q->setParameterValue(ECP_SLOW_RATE, value);
-    }
-    else if (knob == kn_fast_rate_.get()) {
+    else if (knob == kn_fast_rate_.get())
         Q->setParameterValue(ECP_FAST_RATE, value);
-    }
-    else if (knob == kn_slow_rand_.get()) {
+    else if (knob == kn_slow_rand_.get())
         Q->setParameterValue(ECP_SLOW_RAND, value);
-    }
-    else if (knob == kn_fast_rand_.get()) {
+    else if (knob == kn_fast_rand_.get())
         Q->setParameterValue(ECP_FAST_RAND, value);
-    }
-    else if (knob == kn_lpf_cutoff_.get()) {
+    else if (knob == kn_lpf_cutoff_.get())
         Q->setParameterValue(ECP_LPF_CUTOFF, value);
-    }
-    else if (knob == kn_lpf_q_.get()) {
+    else if (knob == kn_lpf_q_.get())
         Q->setParameterValue(ECP_LPF_Q, value);
-    }
 }
 
 void Chorus_UI::Impl::buttonValueChanged(Button *btn, bool value)
 {
-    if (btn == btn_enable1_.get()) {
+    if (btn == btn_enable1_.get())
         Q->setParameterValue(ECP_ENABLE1, value);
-    }
-    else if (btn == btn_enable2_.get()) {
+    else if (btn == btn_routeL1_.get())
+        Q->setParameterValue(ECP_ROUTE_L1, value);
+    else if (btn == btn_routeR1_.get())
+        Q->setParameterValue(ECP_ROUTE_R1, value);
+    else if (btn == btn_enable2_.get())
         Q->setParameterValue(ECP_ENABLE2, value);
-    }
-    else if (btn == btn_enable3_.get()) {
+    else if (btn == btn_routeL2_.get())
+        Q->setParameterValue(ECP_ROUTE_L2, value);
+    else if (btn == btn_routeR2_.get())
+        Q->setParameterValue(ECP_ROUTE_R2, value);
+    else if (btn == btn_enable3_.get())
         Q->setParameterValue(ECP_ENABLE3, value);
-    }
-    else if (btn == btn_enable4_.get()) {
+    else if (btn == btn_routeL3_.get())
+        Q->setParameterValue(ECP_ROUTE_L3, value);
+    else if (btn == btn_routeR3_.get())
+        Q->setParameterValue(ECP_ROUTE_R3, value);
+    else if (btn == btn_enable4_.get())
         Q->setParameterValue(ECP_ENABLE4, value);
-    }
-    else if (btn == btn_enable5_.get()) {
+    else if (btn == btn_routeL4_.get())
+        Q->setParameterValue(ECP_ROUTE_L4, value);
+    else if (btn == btn_routeR4_.get())
+        Q->setParameterValue(ECP_ROUTE_R4, value);
+    else if (btn == btn_enable5_.get())
         Q->setParameterValue(ECP_ENABLE5, value);
-    }
-    else if (btn == btn_enable6_.get()) {
+    else if (btn == btn_routeL5_.get())
+        Q->setParameterValue(ECP_ROUTE_L5, value);
+    else if (btn == btn_routeR5_.get())
+        Q->setParameterValue(ECP_ROUTE_R5, value);
+    else if (btn == btn_enable6_.get())
         Q->setParameterValue(ECP_ENABLE6, value);
-    }
+    else if (btn == btn_routeL6_.get())
+        Q->setParameterValue(ECP_ROUTE_L6, value);
+    else if (btn == btn_routeR6_.get())
+        Q->setParameterValue(ECP_ROUTE_R6, value);
 }
 
 UI *DISTRHO::createUI()
