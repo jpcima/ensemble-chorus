@@ -26,7 +26,7 @@ decl {\#include <FL/Fl_Value_Slider.H>} {private global
 decl {\#include <FL/Fl_Toggle_Button.H>} {private global
 }
 
-decl {\#include <FL/fl_ask.H>} {selected private global
+decl {\#include <FL/fl_ask.H>} {private global
 }
 
 decl {\#include <cmath>} {private local
@@ -54,7 +54,7 @@ decl {class Fl_Toggle_Button;} {public global
 }
 
 widget_class Main_View {open
-  xywh {469 434 625 280} type Double labelfont 13 visible
+  xywh {426 643 625 280} type Double labelfont 13 visible
 } {
   decl {static constexpr int W = 625;} {public local
   }
@@ -180,7 +180,7 @@ x->set_modulation_callback(&modulation, this);} {}
   }
   Fl_Box {} {
     label Delay
-    xywh {450 5 25 25} labeltype EMBOSSED_LABEL labelfont 11
+    xywh {435 5 55 25} labeltype EMBOSSED_LABEL labelfont 11
   }
   Fl_Choice cb_nstages_ {open
     xywh {365 30 65 20} down_box BORDER_BOX
@@ -255,11 +255,11 @@ x->set_modulation_callback(&modulation, this);} {}
   }
   Fl_Box {} {
     label Chorus
-    xywh {380 185 45 25} labeltype EMBOSSED_LABEL labelfont 11
+    xywh {370 185 65 25} labeltype EMBOSSED_LABEL labelfont 11
   }
   Fl_Box {} {
-    label Vibrato
-    xywh {500 185 45 25} labeltype EMBOSSED_LABEL labelfont 11
+    label Vibrato selected
+    xywh {490 185 65 25} labeltype EMBOSSED_LABEL labelfont 11
   }
   Fl_Slider sl_depth1_ {
     callback {controller()->send_parameter(ECP_DEPTH1, o->value())}

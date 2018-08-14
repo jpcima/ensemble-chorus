@@ -233,6 +233,29 @@ void Chorus_UI::onNanoDisplay()
         textAlign(ALIGN_CENTER|ALIGN_MIDDLE);
         engraved_text(*this, bx, by + 0.5f * bh, bw, "JPC Ensemble Chorus", Color(0.0f, 0.0f, 0.0f));
     }
+
+#define ENGRAVE(x, y, w, h, a, text)                                    \
+    beginPath();                                                        \
+    textAlign((a));                                                     \
+    engraved_text(                                                      \
+        *this, (x), (y) +                                               \
+        (((a) & ALIGN_MIDDLE) ? 0.5f : ((a) & ALIGN_BOTTOM) ? 1.0f : 0.0f) * (h), \
+        (w), (text), Color(0.0f, 0.0f, 0.0f))
+
+    fontFaceId(fonts.getSerifBoldItalic());
+    fontSize(20);
+    ENGRAVE(365, 5, 65, 25, ALIGN_CENTER|ALIGN_MIDDLE, "Stages");
+    ENGRAVE(435, 5, 55, 25, ALIGN_CENTER|ALIGN_MIDDLE, "Delay");
+    ENGRAVE(500, 5, 50, 25, ALIGN_CENTER|ALIGN_MIDDLE, "Mix");
+    ENGRAVE(560, 5, 50, 25, ALIGN_CENTER|ALIGN_MIDDLE, "Gain");
+    ENGRAVE(65, 55, 105, 25, ALIGN_LEFT|ALIGN_MIDDLE, "Phase");
+    ENGRAVE(170, 55, 75, 25, ALIGN_LEFT|ALIGN_MIDDLE, "Routing");
+    ENGRAVE(245, 55, 95, 25, ALIGN_LEFT|ALIGN_MIDDLE, "Modulator");
+    ENGRAVE(370, 185, 65, 25, ALIGN_CENTER|ALIGN_MIDDLE, "Chorus");
+    ENGRAVE(490, 185, 65, 25, ALIGN_CENTER|ALIGN_MIDDLE, "Vibrato");
+    ENGRAVE(30, 245, 125, 25, ALIGN_LEFT|ALIGN_MIDDLE, "Low-pass filter");
+
+#undef ENGRAVE
 }
 
 void Chorus_UI::Impl::knobValueChanged(Knob *knob, float value)

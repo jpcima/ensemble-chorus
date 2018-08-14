@@ -1079,7 +1079,7 @@ this->labelfont(13);
   sl_delay_->align(Fl_Align(FL_ALIGN_BOTTOM));
   sl_delay_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Slider>* sl_delay_
-{ Fl_Box* o = new Fl_Box(450, 5, 25, 25, "Delay");
+{ Fl_Box* o = new Fl_Box(435, 5, 55, 25, "Delay");
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
 } // Fl_Box* o
@@ -1186,11 +1186,11 @@ this->labelfont(13);
   dl_fast_rate_->align(Fl_Align(FL_ALIGN_BOTTOM));
   dl_fast_rate_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Knob>* dl_fast_rate_
-{ Fl_Box* o = new Fl_Box(380, 185, 45, 25, "Chorus");
+{ Fl_Box* o = new Fl_Box(370, 185, 65, 25, "Chorus");
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
 } // Fl_Box* o
-{ Fl_Box* o = new Fl_Box(500, 185, 45, 25, "Vibrato");
+{ Fl_Box* o = new Fl_Box(490, 185, 65, 25, "Vibrato");
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
 } // Fl_Box* o
