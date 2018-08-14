@@ -6,6 +6,9 @@ list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 option(BUILD_PLUGIN "Build plugin" ON)
 option(ENABLE_PROFILING "Enable profiling" OFF)
 
+include(GNUWarnings)
+enable_gnu_warning(all)
+
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
 
 add_library(ensemble_chorus STATIC
@@ -26,8 +29,9 @@ set_target_properties(ensemble_chorus PROPERTIES
   CXX_VISIBILITY_PRESET "hidden"
   VISIBILITY_INLINES_HIDDEN ON)
 
-include(GNUWarnings)
-enable_gnu_warning(all)
+add_library(ensemble_chorus_headers INTERFACE)
+target_include_directories(ensemble_chorus_headers INTERFACE
+  "sources/core/include")
 
 add_subdirectory("thirdparty/DSPFilters/shared/DSPFilters" EXCLUDE_FROM_ALL)
 add_subdirectory("thirdparty/gsl-lite" EXCLUDE_FROM_ALL)
@@ -110,6 +114,8 @@ if(BUILD_PLUGIN)
   target_include_directories(ensemble_chorus_editor
     PRIVATE "sources" "thirdparty/DPF"
     PUBLIC "sources/plugin/meta")
+  target_link_libraries(ensemble_chorus_editor
+    PRIVATE ensemble_chorus_headers)
   set_target_properties(ensemble_chorus_editor PROPERTIES
     POSITION_INDEPENDENT_CODE ON
     CXX_STANDARD 11
