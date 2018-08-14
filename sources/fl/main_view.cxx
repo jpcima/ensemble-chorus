@@ -888,7 +888,7 @@ this->labelfont(13);
   o->labelfont(11);
   o->labelsize(16);
 } // Fl_Box* o
-{ tick_bypass_ = new Fl_Check_Button(235, 10, 80, 25, "Bypass");
+{ tick_bypass_ = new Fl_Check_Button(235, 10, 75, 25, "Bypass");
   tick_bypass_->down_box(FL_DOWN_BOX);
   tick_bypass_->labeltype(FL_EMBOSSED_LABEL);
   tick_bypass_->callback((Fl_Callback*)cb_tick_bypass_);
@@ -1083,11 +1083,11 @@ this->labelfont(13);
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
 } // Fl_Box* o
-{ cb_nstages_ = new Fl_Choice(365, 30, 65, 20);
+{ cb_nstages_ = new Fl_Choice(370, 30, 65, 20);
   cb_nstages_->down_box(FL_BORDER_BOX);
   cb_nstages_->menu(menu_cb_nstages_);
 } // Fl_Choice* cb_nstages_
-{ Fl_Box* o = new Fl_Box(365, 5, 65, 25, "Stages");
+{ Fl_Box* o = new Fl_Box(370, 5, 65, 25, "Stages");
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
 } // Fl_Box* o
@@ -1370,7 +1370,7 @@ this->labelfont(13);
   dl_fast_rand_->align(Fl_Align(FL_ALIGN_RIGHT));
   dl_fast_rand_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Knob>* dl_fast_rand_
-{ dl_mod_range_ = new Fl_Valuator_Ex<Fl_Knob>(370, 80, 45, 45, "Range");
+{ dl_mod_range_ = new Fl_Valuator_Ex<Fl_Knob>(375, 80, 45, 45, "Range");
   dl_mod_range_->box(FL_OVAL_BOX);
   dl_mod_range_->color(FL_BACKGROUND_COLOR);
   dl_mod_range_->selection_color(FL_INACTIVE_COLOR);
@@ -1584,11 +1584,11 @@ this->labelfont(13);
   btn_routeR6_->align(Fl_Align(FL_ALIGN_CENTER));
   btn_routeR6_->when(FL_WHEN_RELEASE);
 } // Fl_Toggle_Button* btn_routeR6_
-{ Fl_Button* o = new Fl_Button(310, 5, 45, 25, "Load");
+{ Fl_Button* o = new Fl_Button(315, 5, 45, 25, "Load");
   o->labeltype(FL_ENGRAVED_LABEL);
   o->callback((Fl_Callback*)cb_Load);
 } // Fl_Button* o
-{ Fl_Button* o = new Fl_Button(310, 30, 45, 25, "Save");
+{ Fl_Button* o = new Fl_Button(315, 30, 45, 25, "Save");
   o->labeltype(FL_ENGRAVED_LABEL);
   o->callback((Fl_Callback*)cb_Save);
 } // Fl_Button* o

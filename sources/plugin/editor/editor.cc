@@ -310,7 +310,7 @@ void Chorus_UI::onNanoDisplay()
 
     fontFaceId(fonts.getSerifBoldItalic());
     fontSize(20);
-    bounded_text(*this, TS_ENGRAVED, 365, 5, 65, 25, ALIGN_CENTER|ALIGN_MIDDLE, "Stages", textcolor);
+    bounded_text(*this, TS_ENGRAVED, 370, 5, 65, 25, ALIGN_CENTER|ALIGN_MIDDLE, "Stages", textcolor);
     bounded_text(*this, TS_ENGRAVED, 435, 5, 55, 25, ALIGN_CENTER|ALIGN_MIDDLE, "Delay", textcolor);
     bounded_text(*this, TS_ENGRAVED, 500, 5, 50, 25, ALIGN_CENTER|ALIGN_MIDDLE, "Mix", textcolor);
     bounded_text(*this, TS_ENGRAVED, 560, 5, 50, 25, ALIGN_CENTER|ALIGN_MIDDLE, "Gain", textcolor);
