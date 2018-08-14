@@ -110,7 +110,8 @@ if(BUILD_PLUGIN)
   ###
   add_library(ensemble_chorus_editor
     "sources/plugin/editor/editor.cc"
-    "sources/plugin/editor/widgets/knob.cc")
+    "sources/plugin/editor/widgets/knob.cc"
+    "sources/plugin/editor/graphics/box.cc")
   target_include_directories(ensemble_chorus_editor
     PRIVATE "sources" "thirdparty/DPF"
     PUBLIC "sources/plugin/meta")

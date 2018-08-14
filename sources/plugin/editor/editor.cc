@@ -5,6 +5,7 @@
 
 #include "plugin/editor/editor.h"
 #include "plugin/editor/widgets/knob.h"
+#include "plugin/editor/graphics/box.h"
 #include "ensemble_chorus.h"
 
 struct Chorus_UI::Impl : public Knob::Callback {
@@ -210,9 +211,12 @@ void Chorus_UI::onNanoDisplay()
     int h = getHeight();
     Color bg = P->bg_;
 
+    beginPath();
     rect(0, 0, w, h);
     fillColor(bg);
     fill();
+
+    shadow_box(*this, 0, 0, 230, 42, Color(0xc0, 0xc0, 0xc0));
 }
 
 void Chorus_UI::Impl::knobValueChanged(Knob *knob, float value)
