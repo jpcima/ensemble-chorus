@@ -16,3 +16,9 @@
 [submodule "thirdparty/DPF"]
 	path = thirdparty/DPF
 	url = https://github.com/DISTRHO/DPF
+[submodule "thirdparty/gzip-hpp"]
+	path = thirdparty/gzip-hpp
+	url = https://github.com/mapbox/gzip-hpp.git
+[submodule "thirdparty/zlib"]
+	path = thirdparty/zlib
+	url = https://github.com/madler/zlib.git

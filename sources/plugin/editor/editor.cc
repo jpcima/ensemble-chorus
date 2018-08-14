@@ -3,15 +3,18 @@
 //    (See accompanying file LICENSE or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include "plugin/editor/editor.h"
-#include "plugin/editor/widgets/knob.h"
-#include "plugin/editor/graphics/box.h"
+#include "editor.h"
+#include "widgets/knob.h"
+#include "graphics/box.h"
+#include "graphics/font.h"
 #include "ensemble_chorus.h"
 
 struct Chorus_UI::Impl : public Knob::Callback {
     Chorus_UI *const Q = nullptr;
 
     Color bg_{0xc0, 0xc0, 0xc0};
+    std::unique_ptr<FontCollection> fonts_;
+
     std::unique_ptr<Knob> kn_mod_range_;
     std::unique_ptr<Knob> kn_slow_rate_;
     std::unique_ptr<Knob> kn_fast_rate_;
@@ -33,6 +36,8 @@ Chorus_UI::Chorus_UI()
       P(new Impl(this))
 {
     Window &win = getParentWindow();
+
+    P->fonts_.reset(new FontCollection(*this));
 
 #define KNOB(id, x, y, w, h)                    \
     Knob *kn_##id = new Knob(win);              \
@@ -209,6 +214,7 @@ void Chorus_UI::onNanoDisplay()
 {
     int w = getWidth();
     int h = getHeight();
+    FontCollection &fonts = *P->fonts_;
     Color bg = P->bg_;
 
     beginPath();
@@ -216,7 +222,19 @@ void Chorus_UI::onNanoDisplay()
     fillColor(bg);
     fill();
 
-    shadow_box(*this, 0, 0, 230, 42, Color(0xc0, 0xc0, 0xc0));
+    {
+        int bx = 0;
+        int by = 0;
+        int bw = 230;
+        int bh = 42;
+        shadow_box(*this, bx, by, bw, bh, Color(0xc0, 0xc0, 0xc0));
+        fontFaceId(fonts.getSerifBoldItalic());
+        fontSize(22);
+        beginPath();
+        fillColor(Color(0.0f, 0.0f, 0.0f));
+        textAlign(ALIGN_CENTER|ALIGN_MIDDLE);
+        textBox(bx, by + 0.5f * bh, bw, "JPC Ensemble Chorus");
+    }
 }
 
 void Chorus_UI::Impl::knobValueChanged(Knob *knob, float value)

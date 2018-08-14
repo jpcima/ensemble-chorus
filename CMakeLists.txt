@@ -111,6 +111,7 @@ if(BUILD_PLUGIN)
   add_library(ensemble_chorus_editor
     "sources/plugin/editor/editor.cc"
     "sources/plugin/editor/widgets/knob.cc"
+    "sources/plugin/editor/graphics/font.cc"
     "sources/plugin/editor/graphics/box.cc")
   target_include_directories(ensemble_chorus_editor
     PRIVATE "sources" "thirdparty/DPF"
@@ -123,6 +124,21 @@ if(BUILD_PLUGIN)
     CXX_STANDARD_REQUIRED ON
     CXX_VISIBILITY_PRESET "hidden"
     VISIBILITY_INLINES_HIDDEN ON)
+
+  add_subdirectory("thirdparty/zlib" EXCLUDE_FROM_ALL)
+  target_include_directories(zlibstatic
+    PUBLIC "thirdparty/zlib"
+    PUBLIC "${PROJECT_BINARY_DIR}/thirdparty/zlib")
+  target_link_libraries(ensemble_chorus_editor
+    PRIVATE zlibstatic)
+  set_target_properties(zlibstatic PROPERTIES
+    POSITION_INDEPENDENT_CODE ON
+    C_VISIBILITY_PRESET "hidden"
+    VISIBILITY_INLINES_HIDDEN ON)
+
+  target_include_directories(ensemble_chorus_editor
+    PRIVATE "thirdparty/gzip-hpp/include")
+
   ###
   add_dpf_plugin(ensemble_chorus
     ensemble_chorus_processor ensemble_chorus_editor)
