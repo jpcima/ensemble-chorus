@@ -8,15 +8,10 @@
 #include <cmath>
 #include <cassert>
 
-Knob::Knob(Window &parent)
-    : NanoWidget(parent)
-{
-    setSize(50, 50);
-}
-
-Knob::Knob(Widget *groupWidget)
+Knob::Knob(NanoWidget *groupWidget)
     : NanoWidget(groupWidget)
 {
+    setSize(50, 50);
 }
 
 void Knob::setRange(float min, float max)
@@ -58,8 +53,8 @@ void Knob::setValue(float value, bool sendCallback)
 
 void Knob::onNanoDisplay()
 {
-    float ox = 0;
-    float oy = 0;
+    float ox = getAbsoluteX();
+    float oy = getAbsoluteY();
     float w = getWidth();
     float h = getHeight();
 
@@ -79,7 +74,7 @@ void Knob::onNanoDisplay()
     Color sh;
 
     sh = shadow(-60, bg);
-    drawPie(ox + 9, oy + 9, r - 6, 0, 360, sh);
+    drawCircle(ox + 9, oy + 9, r - 6, sh);
     drawScale(ox, oy, side);
 
     sh = shadow(7, col);
@@ -107,8 +102,8 @@ void Knob::onNanoDisplay()
     drawPie(ox + 6, oy + 6, r - 6, 290, 390, sh);
 
     sh = Color(0, 0, 0);
-    drawArc(ox + 6, oy + 6, r - 5.5f, 0, 360, sh);
-    drawPie(ox + 10, oy + 10, r - 10, 0, 360, col);
+    drawCircleOutline(ox + 6, oy + 6, r - 5.5f, sh);
+    drawCircle(ox + 10, oy + 10, r - 10, col);
 
     ///
     sh = shadow(10, col);
@@ -209,7 +204,9 @@ void Knob::drawArc(float x, float y, float r, float a1, float a2, Color c)
     float cx = x + r;
     float cy = y + r;
     beginPath();
-    arc(cx, cy, r, degToRad(360 - a1), degToRad(360 - a2), CCW);
+    a1 = degToRad(360 - a1);
+    a2 = degToRad(360 - a2);
+    arc(cx, cy, r, a1, a2, CCW);
     strokeColor(c);
     stroke();
 }
@@ -220,9 +217,31 @@ void Knob::drawPie(float x, float y, float r, float a1, float a2, Color c)
     float cy = y + r;
     beginPath();
     moveTo(cx, cy);
-    arc(cx, cy, r, degToRad(360 - a1), degToRad(360 - a2), CCW);
+    a1 = degToRad(360 - a1);
+    a2 = degToRad(360 - a2);
+    arc(cx, cy, r, a1, a2, CCW);
     fillColor(c);
     fill();
+}
+
+void Knob::drawCircle(float x, float y, float r, Color c)
+{
+    float cx = x + r;
+    float cy = y + r;
+    beginPath();
+    circle(cx, cy, r);
+    fillColor(c);
+    fill();
+}
+
+void Knob::drawCircleOutline(float x, float y, float r, Color c)
+{
+    float cx = x + r;
+    float cy = y + r;
+    beginPath();
+    circle(cx, cy, r);
+    strokeColor(c);
+    stroke();
 }
 
 void Knob::drawScale(float ox, float oy, float side)

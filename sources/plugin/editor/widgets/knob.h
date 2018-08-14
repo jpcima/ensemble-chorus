@@ -3,6 +3,7 @@
 //    (See accompanying file LICENSE or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#pragma once
 #include <dgl/NanoVG.hpp>
 
 class Knob : public NanoWidget {
@@ -14,8 +15,7 @@ public:
         virtual void knobValueChanged(Knob *knob, float value) = 0;
     };
 
-    explicit Knob(Window &parent);
-    explicit Knob(Widget *groupWidget);
+    explicit Knob(NanoWidget *groupWidget);
 
     float getValue() const
         { return value_; }
@@ -43,6 +43,8 @@ private:
     static Color shadow(int offs, Color c);
     void drawArc(float x, float y, float r, float a1, float a2, Color c);
     void drawPie(float x, float y, float r, float a1, float a2, Color c);
+    void drawCircle(float x, float y, float r, Color c);
+    void drawCircleOutline(float x, float y, float r, Color c);
     void drawScale(float x, float y, float side);
     void drawCursor(float x, float y, float side);
     float value_ = 0;

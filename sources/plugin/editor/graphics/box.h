@@ -3,7 +3,13 @@
 //    (See accompanying file LICENSE or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#pragma once
 #include <dgl/NanoVG.hpp>
 
 void shadow_frame(NanoVG &g, float x, float y, float w, float h, Color c);
 void shadow_box(NanoVG &g, float x, float y, float w, float h, Color c);
+
+void down_frame(NanoVG &g, float x, float y, float w, float h, Color c);
+void down_box(NanoVG &g, float x, float y, float w, float h, Color c);
+void up_frame(NanoVG &g, float x, float y, float w, float h, Color c);
+void up_box(NanoVG &g, float x, float y, float w, float h, Color c);

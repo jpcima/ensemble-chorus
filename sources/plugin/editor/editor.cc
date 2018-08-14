@@ -5,12 +5,16 @@
 
 #include "editor.h"
 #include "widgets/knob.h"
+#include "widgets/button.h"
 #include "graphics/box.h"
 #include "graphics/font.h"
 #include "graphics/text.h"
 #include "ensemble_chorus.h"
 
-struct Chorus_UI::Impl : public Knob::Callback {
+struct Chorus_UI::Impl :
+    public Knob::Callback,
+    public Button::Callback
+{
     Chorus_UI *const Q = nullptr;
 
     Color bg_{0xc0, 0xc0, 0xc0};
@@ -23,6 +27,12 @@ struct Chorus_UI::Impl : public Knob::Callback {
     std::unique_ptr<Knob> kn_fast_rand_;
     std::unique_ptr<Knob> kn_lpf_cutoff_;
     std::unique_ptr<Knob> kn_lpf_q_;
+    std::unique_ptr<Button> btn_enable1_;
+    std::unique_ptr<Button> btn_enable2_;
+    std::unique_ptr<Button> btn_enable3_;
+    std::unique_ptr<Button> btn_enable4_;
+    std::unique_ptr<Button> btn_enable5_;
+    std::unique_ptr<Button> btn_enable6_;
 
     explicit Impl(Chorus_UI *q)
         : Q(q) {}
@@ -30,18 +40,19 @@ struct Chorus_UI::Impl : public Knob::Callback {
     void knobDragStarted(Knob *knob) override {}
     void knobDragFinished(Knob *knob) override {}
     void knobValueChanged(Knob *knob, float value) override;
+
+    void buttonValueChanged(Button *btn, bool value) override;
 };
 
 Chorus_UI::Chorus_UI()
     : UI(625, 280),
       P(new Impl(this))
 {
-    Window &win = getParentWindow();
-
-    P->fonts_.reset(new FontCollection(*this));
+    FontCollection *fonts = new FontCollection(*this);
+    P->fonts_.reset(fonts);
 
 #define KNOB(id, x, y, w, h)                    \
-    Knob *kn_##id = new Knob(win);              \
+    Knob *kn_##id = new Knob(this);             \
     P->kn_##id##_.reset(kn_##id);               \
     kn_##id->setAbsolutePos(x, y);              \
     kn_##id->setSize(w, h);                     \
@@ -55,7 +66,29 @@ Chorus_UI::Chorus_UI()
     KNOB(lpf_cutoff, 160, 235, 40, 40);
     KNOB(lpf_q, 255, 235, 40, 40);
 
+#define BUTTON(id, x, y, w, h, text)            \
+    Button *btn_##id = new Button(this);        \
+    P->btn_##id##_.reset(btn_##id);             \
+    btn_##id->setAbsolutePos(x, y);             \
+    btn_##id->setSize(w, h);                    \
+    btn_##id->setLabel(text);                   \
+    btn_##id->setCallback(P.get());
+
+    BUTTON(enable1, 20, 80, 25, 25, "1");
+    BUTTON(enable2, 20, 105, 25, 25, "2");
+    BUTTON(enable3, 20, 130, 25, 25, "3");
+    BUTTON(enable4, 20, 155, 25, 25, "4");
+    BUTTON(enable5, 20, 180, 25, 25, "5");
+    BUTTON(enable6, 20, 205, 25, 25, "6");
+
+    for (Button *btn : {btn_enable1, btn_enable2, btn_enable3, btn_enable4, btn_enable5, btn_enable6}) {
+        btn->setFont(fonts->getSansRegular());
+        btn->setFontSize(16.0f);
+        btn->setTextStyle(TS_ENGRAVED);
+    }
+
 #undef KNOB
+#undef BUTTON
 }
 
 void Chorus_UI::parameterChanged(uint32_t index, float value)
@@ -114,7 +147,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         break;
 
     case ECP_ENABLE1:
-        // TODO
+        P->btn_enable1_->setValue(value);
         break;
     case ECP_PHASE1:
         // TODO
@@ -130,7 +163,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         break;
 
     case ECP_ENABLE2:
-        // TODO
+        P->btn_enable2_->setValue(value);
         break;
     case ECP_PHASE2:
         // TODO
@@ -146,7 +179,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         break;
 
     case ECP_ENABLE3:
-        // TODO
+        P->btn_enable3_->setValue(value);
         break;
     case ECP_PHASE3:
         // TODO
@@ -162,7 +195,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         break;
 
     case ECP_ENABLE4:
-        // TODO
+        P->btn_enable4_->setValue(value);
         break;
     case ECP_PHASE4:
         // TODO
@@ -178,7 +211,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         break;
 
     case ECP_ENABLE5:
-        // TODO
+        P->btn_enable5_->setValue(value);
         break;
     case ECP_PHASE5:
         // TODO
@@ -194,7 +227,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         break;
 
     case ECP_ENABLE6:
-        // TODO
+        P->btn_enable6_->setValue(value);
         break;
     case ECP_PHASE6:
         // TODO
@@ -265,6 +298,28 @@ void Chorus_UI::Impl::knobValueChanged(Knob *knob, float value)
     }
     else if (knob == kn_lpf_q_.get()) {
         Q->setParameterValue(ECP_LPF_Q, value);
+    }
+}
+
+void Chorus_UI::Impl::buttonValueChanged(Button *btn, bool value)
+{
+    if (btn == btn_enable1_.get()) {
+        Q->setParameterValue(ECP_ENABLE1, value);
+    }
+    else if (btn == btn_enable2_.get()) {
+        Q->setParameterValue(ECP_ENABLE2, value);
+    }
+    else if (btn == btn_enable3_.get()) {
+        Q->setParameterValue(ECP_ENABLE3, value);
+    }
+    else if (btn == btn_enable4_.get()) {
+        Q->setParameterValue(ECP_ENABLE4, value);
+    }
+    else if (btn == btn_enable5_.get()) {
+        Q->setParameterValue(ECP_ENABLE5, value);
+    }
+    else if (btn == btn_enable6_.get()) {
+        Q->setParameterValue(ECP_ENABLE6, value);
     }
 }
 

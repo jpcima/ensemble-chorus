@@ -3,6 +3,7 @@
 //    (See accompanying file LICENSE or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#pragma once
 #include <dgl/NanoVG.hpp>
 
 enum Text_Style {
