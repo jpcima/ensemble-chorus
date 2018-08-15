@@ -111,6 +111,7 @@ typedef enum ec_parameter {
 
 EC_API void ensemble_chorus_set_parameter(chorus_t *ec, ec_parameter_t p, float value);
 EC_API float ensemble_chorus_get_parameter(chorus_t *ec, ec_parameter_t p);
+EC_API float ensemble_chorus_adjust_parameter(ec_parameter_t p, float value);
 
 EC_API unsigned ensemble_chorus_parameter_count();
 EC_API const char *ensemble_chorus_parameter_name(ec_parameter_t p);
@@ -119,6 +120,9 @@ EC_API float ensemble_chorus_parameter_min(ec_parameter_t p);
 EC_API float ensemble_chorus_parameter_max(ec_parameter_t p);
 EC_API float ensemble_chorus_parameter_default(ec_parameter_t p);
 EC_API unsigned ensemble_chorus_parameter_flags(ec_parameter_t p);
+
+EC_API bool ensemble_chorus_load_parameters(const char *data, size_t length, float *parameters);
+EC_API char *ensemble_chorus_save_parameters(size_t *length, const float *parameters);
 
 #if defined(__cplusplus)
 }  // extern "C"

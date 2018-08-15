@@ -7,9 +7,9 @@
 #include "message_queue.h"
 #include "messages.h"
 #include "common.h"
+#include "utility/stdc_memory.h"
 #include <ensemble_chorus.h>
 #include <FL/Fl_Native_File_Chooser.H>
-#include <pugixml.hpp>
 #include <cstdio>
 #include <cstring>
 #include <cassert>
@@ -86,34 +86,13 @@ bool Main_Controller::load_parameters()
     if (fread(filedata.get(), 1, filesize, stream.get()) != filesize)
         return false;
 
-    pugi::xml_document doc;
-    if (!doc.load_buffer_inplace(filedata.get(), filesize))
+    unsigned parameter_count = ensemble_chorus_parameter_count();
+    std::unique_ptr<float[]> parameter(new float[parameter_count]);
+    if (!ensemble_chorus_load_parameters(filedata.get(), filesize, parameter.get()))
         return false;
 
-    pugi::xml_node root = doc.document_element();
-    for (pugi::xml_node p_node : root.children("parameter")) {
-        const char *name = p_node.attribute("name").value();
-        ec_parameter id = ensemble_chorus_parameter_by_name(name);
-        if (id == (ec_parameter)-1)
-            continue;
-        const char *text = p_node.text().as_string();
-        size_t textlen = std::strlen(text);
-        //
-        auto is_whitespace = [](char c) -> bool
-            { return c == ' ' || c == '\t' || c == '\r' || c == '\n'; };
-        while (is_whitespace(text[0]))
-            { ++text; --textlen; }
-        while (textlen > 0 && is_whitespace(text[textlen - 1]))
-            --textlen;
-        std::string textbuf(text, text + textlen);
-        text = textbuf.c_str();
-        //
-        float value;
-        unsigned size;
-        if (std::sscanf(text, "%f%n", &value, &size) != 1 || textlen != size)
-            continue;
-        send_parameter(id, value);
-    }
+    for (unsigned i = 0; i < parameter_count; ++i)
+        send_parameter(i, parameter[i]);
 
     request_parameters();
     return true;
@@ -130,27 +109,17 @@ bool Main_Controller::save_parameters()
     if (ret != 0)
         return ret == 1;
 
-    pugi::xml_document doc;
-    pugi::xml_node root = doc.append_child("preset");
-    const float *parameter = parameter_value_.get();
-    for (unsigned i = 0, n = ensemble_chorus_parameter_count(); i < n; ++i) {
-        pugi::xml_node p_node = root.append_child("parameter");
-        p_node.append_attribute("name")
-            .set_value(ensemble_chorus_parameter_name((ec_parameter)i));
-        char text[64];
-        sprintf(text, "%g", parameter[i]);
-        p_node.append_child(pugi::node_pcdata).set_value(text);
-    }
+    size_t length;
+    stdc_unique_ptr<char[]> text(ensemble_chorus_save_parameters(&length, parameter_value_.get()));
+    if (!text)
+        return false;
 
     const char *filename = chooser.filename();
     FILE_u stream(fl_fopen(filename, "wb"));
     if (!stream)
         return false;
 
-    pugi::xml_writer_file writer(stream.get());
-    doc.save(writer);
-
-    if (fflush(stream.get()) != 0) {
+    if (fwrite(text.get(), length, 1, stream.get()) != 1 || fflush(stream.get()) != 0) {
         fl_unlink(filename);
         return false;
     }

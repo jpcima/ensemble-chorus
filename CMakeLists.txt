@@ -15,7 +15,8 @@ add_library(ensemble_chorus STATIC
   "sources/core/bbd.cc"
   "sources/core/chorus.cc"
   "sources/core/lfos.cc"
-  "sources/core/core.cc")
+  "sources/core/core.cc"
+  "sources/core/core_preset.cc")
 target_include_directories(ensemble_chorus PUBLIC
   "sources/core/include")
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
@@ -38,7 +39,10 @@ add_subdirectory("thirdparty/gsl-lite" EXCLUDE_FROM_ALL)
 add_subdirectory("thirdparty/jsl" EXCLUDE_FROM_ALL)
 
 include_directories("thirdparty/boost/predef/include")
-target_link_libraries(ensemble_chorus DSPFilters jsl gsl-lite)
+target_link_libraries(ensemble_chorus PRIVATE DSPFilters jsl gsl-lite)
+
+add_subdirectory("thirdparty/pugixml" EXCLUDE_FROM_ALL)
+target_link_libraries(ensemble_chorus PRIVATE pugixml)
 
 ###
 set(FLTK_SKIP_OPENGL ON)
@@ -62,6 +66,7 @@ if(FLTK_FOUND)
     "sources/fl/main_controller.cc"
     "sources/fl/main.cc")
   target_include_directories(ensemble_chorus_fl
+    PRIVATE "sources"
     PRIVATE "${FLTK_INCLUDE_DIR}"
     PRIVATE "${PROJECT_SOURCE_DIR}/sources/fl/widgets/Fl_Knob")
   target_link_libraries(ensemble_chorus_fl PRIVATE "${FLTK_LIBRARIES}")
@@ -69,9 +74,7 @@ if(FLTK_FOUND)
   set(RtAudio_SOURCE_DIR "${PROJECT_SOURCE_DIR}/thirdparty/rtaudio")
   include(RtAudio)
 
-  add_subdirectory("thirdparty/pugixml" EXCLUDE_FROM_ALL)
-
-  target_link_libraries(ensemble_chorus_fl PRIVATE ensemble_chorus RtAudio pugixml ring_buffer)
+  target_link_libraries(ensemble_chorus_fl PRIVATE ensemble_chorus RtAudio ring_buffer jsl gsl-lite)
 
   if(ENABLE_PROFILING)
     find_library(PROFILER_LIBRARY "profiler" REQUIRED)
