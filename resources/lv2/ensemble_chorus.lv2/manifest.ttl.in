@@ -1,0 +1,26 @@
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ui:   <http://lv2plug.in/ns/extensions/ui#> .
+
+<urn:jpcima:ensemble-chorus>
+    a lv2:Plugin ;
+    lv2:binary <ensemble_chorus@LV2_BINARY_SUFFIX@> ;
+    rdfs:seeAlso <ensemble_chorus.ttl> .
+
+<urn:jpcima:ensemble-chorus#UI>
+    a @LV2_UI_CLASS@ ;
+    ui:binary <ensemble_chorus_ui@LV2_BINARY_SUFFIX@> ;
+
+    lv2:extensionData ui:idleInterface ,
+                      ui:showInterface ;
+
+    lv2:optionalFeature ui:noUserResize ,
+                        ui:resize ,
+                        ui:touch ;
+
+    lv2:requiredFeature <http://lv2plug.in/ns/ext/data-access> ,
+                        <http://lv2plug.in/ns/ext/instance-access> ,
+                        <http://lv2plug.in/ns/ext/options#options> ,
+                        <http://lv2plug.in/ns/ext/urid#map> .
+
+
