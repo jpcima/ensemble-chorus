@@ -40,11 +40,12 @@ void Knob::setRange(float min, float max)
 
 void Knob::setValue(float value, bool sendCallback)
 {
+    value = std::max(value, min_);
+    value = std::min(value, max_);
     if (value == value_)
         return;
 
     value_ = value;
-
     repaint();
 
     if (sendCallback && callback_)

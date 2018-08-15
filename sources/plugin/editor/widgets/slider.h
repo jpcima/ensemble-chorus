@@ -54,6 +54,7 @@ private:
     void drawInBounds(float x, float y, float w, float h);
     void drawBg();
     void drawBox();
+    bool pushOrDrag(float evx, float evy, bool isPush);
     float value_ = 0;
     float min_ = 0;
     float max_ = 1;
@@ -63,5 +64,7 @@ private:
     Box_Style box_ = BS_DOWN_BOX;
     Box_Style slider_box_ = BS_UP_BOX;
     Type type_ = Horizontal;
-    double slider_size_ = 0;
+    float slider_size_ = 0;
+    bool dragging_ = false;
+    float offcenter_ = 0;
 };
