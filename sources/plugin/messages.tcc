@@ -7,7 +7,7 @@
 
 namespace Messages {
 
-size_t size_of(Message_Tag tag)
+inline size_t size_of(Message_Tag tag)
 {
     size_t size = 0;
     switch (tag) {
@@ -20,7 +20,7 @@ size_t size_of(Message_Tag tag)
     return size;
 }
 
-uint8_t *allocate_buffer()
+inline uint8_t *allocate_buffer()
 {
     size_t size = 0;
     #define COMPUTE_MAX(x) size = (size < sizeof(Messages::x)) ? sizeof(Messages::x) : size;

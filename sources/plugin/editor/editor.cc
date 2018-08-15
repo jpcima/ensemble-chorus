@@ -4,6 +4,9 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include "editor.h"
+#include "modulation_view.h"
+#include "../processor.h"
+#include "../message_queue.h"
 #include "widgets/knob.h"
 #include "widgets/slider.h"
 #include "widgets/button.h"
@@ -11,6 +14,8 @@
 #include "graphics/font.h"
 #include "graphics/text.h"
 #include "ensemble_chorus.h"
+#include <chrono>
+#include <cstring>
 #include <cmath>
 #include <cassert>
 
@@ -20,6 +25,13 @@ struct Chorus_UI::Impl :
     public Button::Callback
 {
     Chorus_UI *const Q = nullptr;
+    std::unique_ptr<uint8_t[]> msg_buffer_;
+
+    float slow_modulation_[6] = {};
+    float fast_modulation_[6] = {};
+
+    bool modulation_displayed_ = false;
+    std::chrono::steady_clock::time_point modulation_time_;
 
     Color bg_{0xc0, 0xc0, 0xc0};
     std::unique_ptr<FontCollection> fonts_;
@@ -69,9 +81,17 @@ struct Chorus_UI::Impl :
     std::unique_ptr<Button> btn_stereo_;
     std::unique_ptr<Button> btn_mono_;
     std::unique_ptr<Button> btn_bypass_;
+    std::unique_ptr<Modulation_View> visu_mod1_;
+    std::unique_ptr<Modulation_View> visu_mod2_;
+    std::unique_ptr<Modulation_View> visu_mod3_;
+    std::unique_ptr<Modulation_View> visu_mod4_;
+    std::unique_ptr<Modulation_View> visu_mod5_;
+    std::unique_ptr<Modulation_View> visu_mod6_;
 
     explicit Impl(Chorus_UI *q)
         : Q(q) {}
+
+    void processMessage(const Basic_Message &msg);
 
     void knobDragStarted(Knob *knob) override {}
     void knobDragFinished(Knob *knob) override {}
@@ -91,6 +111,8 @@ Chorus_UI::Chorus_UI()
     : UI(625, 280),
       P(new Impl(this))
 {
+    P->msg_buffer_.reset(Messages::allocate_buffer());
+
     FontCollection *fonts = new FontCollection(*this);
     P->fonts_.reset(fonts);
 
@@ -180,9 +202,23 @@ Chorus_UI::Chorus_UI()
         btn->setTextStyle(TS_ENGRAVED);
     }
 
+#define MODV(id, x, y, w, h)                                    \
+    Modulation_View *visu_##id = new Modulation_View(this);     \
+    P->visu_##id##_.reset(visu_##id);                           \
+    visu_##id->setAbsolutePos(x, y);                            \
+    visu_##id->setSize(w, h);
+
+    MODV(mod1, 245, 80, 55, 25);
+    MODV(mod2, 245, 105, 55, 25);
+    MODV(mod3, 245, 130, 55, 25);
+    MODV(mod4, 245, 155, 55, 25);
+    MODV(mod5, 245, 180, 55, 25);
+    MODV(mod6, 245, 205, 55, 25);
+
 #undef KNOB
 #undef SLIDER
 #undef BUTTON
+#undef MODV
 }
 
 void Chorus_UI::parameterChanged(uint32_t index, float value)
@@ -379,6 +415,46 @@ void Chorus_UI::onNanoDisplay()
     bounded_text(*this, TS_ENGRAVED, 370, 185, 65, 25, ALIGN_CENTER|ALIGN_MIDDLE, "Chorus", textcolor);
     bounded_text(*this, TS_ENGRAVED, 490, 185, 65, 25, ALIGN_CENTER|ALIGN_MIDDLE, "Vibrato", textcolor);
     bounded_text(*this, TS_ENGRAVED, 30, 245, 125, 25, ALIGN_LEFT|ALIGN_MIDDLE, "Low-pass filter", textcolor);
+}
+
+void Chorus_UI::uiIdle()
+{
+    Chorus_Plugin *plugin = static_cast<Chorus_Plugin *>(
+        getPluginInstancePointer());
+
+    Message_Queue &mq_in = plugin->messageQueueToUI();
+    auto &msg = *reinterpret_cast<Basic_Message *>(P->msg_buffer_.get());
+    while (mq_in.read_message(msg))
+        P->processMessage(msg);
+}
+
+void Chorus_UI::Impl::processMessage(const Basic_Message &msg)
+{
+    switch (msg.tag) {
+    case Message_Tag::NotifyModulation: {
+        const auto &body = static_cast<const Messages::NotifyModulation &>(msg);
+        std::memcpy(slow_modulation_, body.slow, 6 * sizeof(float));
+        std::memcpy(fast_modulation_, body.fast, 6 * sizeof(float));
+        break;
+    }
+    default:
+        assert(false);
+    }
+
+    std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+    bool update_modulation = !modulation_displayed_ || (now - modulation_time_ > std::chrono::milliseconds(50));
+#pragma message("TODO optimize the periodic redrawing")
+
+    if (update_modulation) {
+        visu_mod1_->setValues(slow_modulation_[0], fast_modulation_[0]);
+        visu_mod2_->setValues(slow_modulation_[1], fast_modulation_[1]);
+        visu_mod3_->setValues(slow_modulation_[2], fast_modulation_[2]);
+        visu_mod4_->setValues(slow_modulation_[3], fast_modulation_[3]);
+        visu_mod5_->setValues(slow_modulation_[4], fast_modulation_[4]);
+        visu_mod6_->setValues(slow_modulation_[5], fast_modulation_[5]);
+        modulation_displayed_ = true;
+        modulation_time_ = now;
+    }
 }
 
 void Chorus_UI::Impl::knobValueChanged(Knob *knob, float value)

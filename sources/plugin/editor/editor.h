@@ -10,8 +10,11 @@
 class Chorus_UI : public UI {
 public:
     Chorus_UI();
+
+protected:
     void parameterChanged(uint32_t index, float value) override;
     void onNanoDisplay() override;
+    void uiIdle() override;
 
 private:
     struct Impl;

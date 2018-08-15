@@ -3,7 +3,8 @@
 //    (See accompanying file LICENSE or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include "plugin/processor.h"
+#include "processor.h"
+#include "message_queue.h"
 
 Chorus_Plugin::Chorus_Plugin()
     : Plugin(ensemble_chorus_parameter_count(), 0, 0)
@@ -11,6 +12,11 @@ Chorus_Plugin::Chorus_Plugin()
     chorus *ec = ensemble_chorus_alloc();
     ec_.reset(ec);
     ensemble_chorus_init(ec, 44100, 1024);
+    mq_to_ui_.reset(new Message_Queue(1024));
+}
+
+Chorus_Plugin::~Chorus_Plugin()
+{
 }
 
 const char *Chorus_Plugin::getLabel() const
@@ -81,6 +87,10 @@ void Chorus_Plugin::run(const float **inputs, float **outputs, uint32_t frames)
     for (unsigned c = 0; c < 2; ++c)
         memcpy(outputs[c], inputs[c], frames * sizeof(float));
     ensemble_chorus_process(ec, outputs, frames);
+
+    Messages::NotifyModulation msg_mod;
+    ensemble_chorus_get_current_modulation(ec, msg_mod.slow, msg_mod.fast);
+    mq_to_ui_->write_message(msg_mod);
 }
 
 Plugin *DISTRHO::createPlugin()

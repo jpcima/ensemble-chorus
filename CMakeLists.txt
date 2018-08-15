@@ -100,7 +100,7 @@ if(BUILD_PLUGIN)
     PRIVATE "sources" "thirdparty/DPF"
     PUBLIC "sources/plugin/meta")
   target_link_libraries(ensemble_chorus_processor
-    PRIVATE ensemble_chorus)
+    PRIVATE ensemble_chorus ring_buffer)
   set_target_properties(ensemble_chorus_processor PROPERTIES
     POSITION_INDEPENDENT_CODE ON
     CXX_STANDARD 11
@@ -110,6 +110,7 @@ if(BUILD_PLUGIN)
   ###
   add_library(ensemble_chorus_editor
     "sources/plugin/editor/editor.cc"
+    "sources/plugin/editor/modulation_view.cc"
     "sources/plugin/editor/widgets/knob.cc"
     "sources/plugin/editor/widgets/slider.cc"
     "sources/plugin/editor/widgets/button.cc"
@@ -120,7 +121,7 @@ if(BUILD_PLUGIN)
     PRIVATE "sources" "thirdparty/DPF"
     PUBLIC "sources/plugin/meta")
   target_link_libraries(ensemble_chorus_editor
-    PRIVATE ensemble_chorus_headers)
+    PRIVATE ensemble_chorus_headers ring_buffer)
   set_target_properties(ensemble_chorus_editor PROPERTIES
     POSITION_INDEPENDENT_CODE ON
     CXX_STANDARD 11
