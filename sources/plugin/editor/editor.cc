@@ -36,6 +36,12 @@ struct Chorus_UI::Impl :
     std::unique_ptr<Slider> sl_dry_;
     std::unique_ptr<Slider> sl_gain_in_;
     std::unique_ptr<Slider> sl_gain_out_;
+    std::unique_ptr<Slider> sl_phase1_;
+    std::unique_ptr<Slider> sl_phase2_;
+    std::unique_ptr<Slider> sl_phase3_;
+    std::unique_ptr<Slider> sl_phase4_;
+    std::unique_ptr<Slider> sl_phase5_;
+    std::unique_ptr<Slider> sl_phase6_;
     std::unique_ptr<Slider> sl_depth1_;
     std::unique_ptr<Slider> sl_depth2_;
     std::unique_ptr<Slider> sl_depth3_;
@@ -115,12 +121,21 @@ Chorus_UI::Chorus_UI()
     SLIDER(dry, 525, 30, 25, 95);
     SLIDER(gain_in, 560, 30, 25, 95);
     SLIDER(gain_out, 585, 30, 25, 95);
+    SLIDER(phase1, 100, 80, 70, 25);
+    SLIDER(phase2, 100, 105, 70, 25);
+    SLIDER(phase3, 100, 130, 70, 25);
+    SLIDER(phase4, 100, 155, 70, 25);
+    SLIDER(phase5, 100, 180, 70, 25);
+    SLIDER(phase6, 100, 205, 70, 25);
     SLIDER(depth1, 300, 80, 60, 25);
     SLIDER(depth2, 300, 105, 60, 25);
     SLIDER(depth3, 300, 130, 60, 25);
     SLIDER(depth4, 300, 155, 60, 25);
     SLIDER(depth5, 300, 180, 60, 25);
     SLIDER(depth6, 300, 205, 60, 25);
+
+    for (Slider *sl : {sl_phase1, sl_phase2, sl_phase3, sl_phase4, sl_phase5, sl_phase6})
+        sl->setRange(0, 359);
 
     for (Slider *sl : {sl_delay, sl_wet, sl_dry, sl_gain_in, sl_gain_out})
         sl->setType(Slider::Vertical_Knob);
@@ -240,7 +255,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         P->btn_enable1_->setValue(value);
         break;
     case ECP_PHASE1:
-        // TODO
+        P->sl_phase1_->setValue(value * 360.0f);
         break;
     case ECP_DEPTH1:
         P->sl_depth1_->setValue(value);
@@ -256,7 +271,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         P->btn_enable2_->setValue(value);
         break;
     case ECP_PHASE2:
-        // TODO
+        P->sl_phase2_->setValue(value * 360.0f);
         break;
     case ECP_DEPTH2:
         P->sl_depth2_->setValue(value);
@@ -272,7 +287,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         P->btn_enable3_->setValue(value);
         break;
     case ECP_PHASE3:
-        // TODO
+        P->sl_phase3_->setValue(value * 360.0f);
         break;
     case ECP_DEPTH3:
         P->sl_depth3_->setValue(value);
@@ -288,7 +303,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         P->btn_enable4_->setValue(value);
         break;
     case ECP_PHASE4:
-        // TODO
+        P->sl_phase4_->setValue(value * 360.0f);
         break;
     case ECP_DEPTH4:
         P->sl_depth4_->setValue(value);
@@ -304,7 +319,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         P->btn_enable5_->setValue(value);
         break;
     case ECP_PHASE5:
-        // TODO
+        P->sl_phase5_->setValue(value * 360.0f);
         break;
     case ECP_DEPTH5:
         P->sl_depth5_->setValue(value);
@@ -320,7 +335,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         P->btn_enable6_->setValue(value);
         break;
     case ECP_PHASE6:
-        // TODO
+        P->sl_phase6_->setValue(value * 360.0f);
         break;
     case ECP_DEPTH6:
         P->sl_depth6_->setValue(value);
@@ -396,6 +411,18 @@ void Chorus_UI::Impl::sliderValueChanged(Slider *sl, float value)
         Q->setParameterValue(ECP_GAIN_IN, 3 * fromLogarithmic(value));
     else if (sl == sl_gain_out_.get())
         Q->setParameterValue(ECP_GAIN_OUT, 3 * fromLogarithmic(value));
+    else if (sl == sl_phase1_.get())
+        Q->setParameterValue(ECP_PHASE1, value * (1.0f / 360.0f));
+    else if (sl == sl_phase2_.get())
+        Q->setParameterValue(ECP_PHASE2, value * (1.0f / 360.0f));
+    else if (sl == sl_phase3_.get())
+        Q->setParameterValue(ECP_PHASE3, value * (1.0f / 360.0f));
+    else if (sl == sl_phase4_.get())
+        Q->setParameterValue(ECP_PHASE4, value * (1.0f / 360.0f));
+    else if (sl == sl_phase5_.get())
+        Q->setParameterValue(ECP_PHASE5, value * (1.0f / 360.0f));
+    else if (sl == sl_phase6_.get())
+        Q->setParameterValue(ECP_PHASE6, value * (1.0f / 360.0f));
     else if (sl == sl_depth1_.get())
         Q->setParameterValue(ECP_DEPTH1, value);
     else if (sl == sl_depth2_.get())
