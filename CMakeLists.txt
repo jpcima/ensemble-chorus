@@ -111,6 +111,7 @@ if(BUILD_PLUGIN)
   add_library(ensemble_chorus_editor
     "sources/plugin/editor/editor.cc"
     "sources/plugin/editor/widgets/knob.cc"
+    "sources/plugin/editor/widgets/slider.cc"
     "sources/plugin/editor/widgets/button.cc"
     "sources/plugin/editor/graphics/font.cc"
     "sources/plugin/editor/graphics/box.cc"

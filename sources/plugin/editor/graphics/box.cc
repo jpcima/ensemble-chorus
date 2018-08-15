@@ -7,9 +7,9 @@
 #include "colors.h"
 #include <cassert>
 
-static constexpr unsigned border_width = 2;
+static constexpr float border_width = 2;
 
-void shadow_frame(NanoVG &g, float x, float y, float w, float h, Color c)
+static void shadow_frame(NanoVG &g, float x, float y, float w, float h, Color c)
 {
     const float bw = 3;
 
@@ -27,7 +27,7 @@ void shadow_frame(NanoVG &g, float x, float y, float w, float h, Color c)
     g.stroke();
 }
 
-void shadow_box(NanoVG &g, float x, float y, float w, float h, Color c)
+static void shadow_box(NanoVG &g, float x, float y, float w, float h, Color c)
 {
     const float bw = 3;
 
@@ -70,40 +70,73 @@ static void frame2(NanoVG &g, const char *s, int x, int y, int w, int h)
 {
     if (!(h > 0 && w > 0))
         return;
+
     const Color *gr = gray_ramp - 'A';
+    constexpr bool fill = true;
+    constexpr float vlinewidth = 2;
+    constexpr float hlinewidth = 1;
+
     while (*s) {
         // draw bottom line:
         g.beginPath();
-        g.moveTo(x, y + h - 1);
-        g.lineTo(x + w - 1, y + h - 1);
-        g.strokeColor(gr[(unsigned char)*s++]);
-        g.stroke();
+        if (fill) {
+            g.rect(x, y + h - 1, w, vlinewidth);
+            g.fillColor(gr[(unsigned char)*s++]);
+            g.fill();
+        }
+        else {
+            g.moveTo(x, y + h - 1);
+            g.lineTo(x + w - 1, y + h - 1);
+            g.strokeColor(gr[(unsigned char)*s++]);
+            g.stroke();
+        }
         if (--h <= 0) break;
         // draw right line:
         g.beginPath();
-        g.moveTo(x + w - 1, y + h - 1);
-        g.lineTo(x + w - 1, y);
-        g.strokeColor(gr[(unsigned char)*s++]);
-        g.stroke();
+        if (fill) {
+            g.rect(x + w - 1, y, hlinewidth, h);
+            g.fillColor(gr[(unsigned char)*s++]);
+            g.fill();
+        }
+        else {
+            g.moveTo(x + w - 1, y + h - 1);
+            g.lineTo(x + w - 1, y);
+            g.strokeColor(gr[(unsigned char)*s++]);
+            g.stroke();
+        }
         if (--w <= 0) break;
         // draw top line:
         g.beginPath();
-        g.moveTo(x, y);
-        g.lineTo(x + w - 1, y);
-        g.strokeColor(gr[(unsigned char)*s++]);
-        g.stroke();
+        if (fill) {
+            g.rect(x, y, w, vlinewidth);
+            g.fillColor(gr[(unsigned char)*s++]);
+            g.fill();
+        }
+        else {
+            g.moveTo(x, y);
+            g.lineTo(x + w - 1, y);
+            g.strokeColor(gr[(unsigned char)*s++]);
+            g.stroke();
+        }
         y++; if (--h <= 0) break;
         // draw left line:
         g.beginPath();
-        g.moveTo(x, y + h - 1);
-        g.lineTo(x, y);
-        g.strokeColor(gr[(unsigned char)*s++]);
-        g.stroke();
+        if (fill) {
+            g.rect(x, y, hlinewidth, h);
+            g.fillColor(gr[(unsigned char)*s++]);
+            g.fill();
+        }
+        else {
+            g.moveTo(x, y + h - 1);
+            g.lineTo(x, y);
+            g.strokeColor(gr[(unsigned char)*s++]);
+            g.stroke();
+        }
         x++; if (--w <= 0) break;
     }
 }
 
-void down_frame(NanoVG &g, float x, float y, float w, float h, Color c)
+static void down_frame(NanoVG &g, float x, float y, float w, float h, Color c)
 {
     if (border_width == 1)
         frame2(g, "WWHH", x, y, w, h);
@@ -113,7 +146,7 @@ void down_frame(NanoVG &g, float x, float y, float w, float h, Color c)
         assert(false);  // frame(g, "NNTUJJWWAAAA", x, y, w, h);
 }
 
-void down_box(NanoVG &g, float x, float y, float w, float h, Color c)
+static void down_box(NanoVG &g, float x, float y, float w, float h, Color c)
 {
     down_frame(g, x, y, w, h, c);
     g.beginPath();
@@ -122,7 +155,7 @@ void down_box(NanoVG &g, float x, float y, float w, float h, Color c)
     g.fill();
 }
 
-void up_frame(NanoVG &g, float x, float y, float w, float h, Color c)
+static void up_frame(NanoVG &g, float x, float y, float w, float h, Color c)
 {
     if (border_width == 1)
         frame2(g, "HHWW", x, y, w, h);
@@ -132,11 +165,86 @@ void up_frame(NanoVG &g, float x, float y, float w, float h, Color c)
         assert(false);  // frame(g, "AAAAWWJJUTNN", x, y, w, h);
 }
 
-void up_box(NanoVG &g, float x, float y, float w, float h, Color c)
+static void up_box(NanoVG &g, float x, float y, float w, float h, Color c)
 {
     up_frame(g, x, y, w, h, c);
     g.beginPath();
     g.rect(x + border_width, y + border_width, w - 2 * border_width, h - 2 * border_width);
     g.fillColor(c);
     g.fill();
+}
+
+static void thin_down_frame(NanoVG &g, float x, float y, float w, float h, Color)
+{
+    frame2(g, "WWHH", x, y, w, h);
+}
+
+static void thin_down_box(NanoVG &g, float x, float y, float w, float h, Color c)
+{
+    thin_down_frame(g, x, y, w, h, c);
+    g.beginPath();
+    g.rect(x + 1, y + 1, w - 2, h - 2);
+    g.fillColor(c);
+    g.fill();
+}
+
+static void thin_up_frame(NanoVG &g, float x, float y, float w, float h, Color)
+{
+    frame2(g, "HHWW", x, y, w, h);
+}
+
+static void thin_up_box(NanoVG &g, float x, float y, float w, float h, Color c)
+{
+    thin_up_frame(g, x, y, w, h, c);
+    g.beginPath();
+    g.rect(x + 1, y + 1, w - 2, h - 2);
+    g.fillColor(c);
+    g.fill();
+}
+
+void styled_box(NanoVG &g, Box_Style bs, float x, float y, float w, float h, Color c)
+{
+    if (bs == BS_NO_BOX)
+        return;
+    void (*boxfns[])(NanoVG &, float, float, float, float, Color) = {
+        &shadow_box,
+        &down_box,
+        &up_box,
+        &thin_down_box,
+        &thin_up_box,
+        &shadow_frame,
+        &down_frame,
+        &up_frame,
+        &thin_down_frame,
+        &thin_up_frame,
+    };
+    return boxfns[bs](g, x, y, w, h, c);
+}
+
+void styled_box_deltas(Box_Style bs, float *dx, float *dy, float *dw, float *dh)
+{
+    if (bs == BS_NO_BOX) {
+        if (dx) *dx = 0;
+        if (dy) *dy = 0;
+        if (dw) *dw = 0;
+        if (dh) *dh = 0;
+    }
+    constexpr float d1 = border_width;
+    constexpr float d2 = 2 * d1;
+    float deltas[][4] = {
+        {1, 1, 5, 5},
+        {d1, d1, d2, d2},
+        {d1, d1, d2, d2},
+        {1, 1, 2, 2},
+        {1, 1, 2, 2},
+        {1, 1, 5, 5},
+        {d1, d1, d2, d2},
+        {d1, d1, d2, d2},
+        {1, 1, 2, 2},
+        {1, 1, 2, 2},
+    };
+    if (dx) *dx = deltas[bs][0];
+    if (dy) *dy = deltas[bs][1];
+    if (dw) *dw = deltas[bs][2];
+    if (dh) *dh = deltas[bs][3];
 }

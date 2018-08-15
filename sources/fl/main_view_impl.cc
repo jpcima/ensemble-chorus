@@ -17,12 +17,12 @@
 
 double Main_View::from_logarithmic(double value)
 {
-    return std::asin(value) * (2 / M_PI);
+    return std::asin(value) * M_2_PI;
 }
 
 double Main_View::to_logarithmic(double value)
 {
-    return std::sin(value * (M_PI / 2));
+    return std::sin(value * M_PI_2);
 }
 
 void Main_View::parameter(unsigned id, float value, void *userdata)

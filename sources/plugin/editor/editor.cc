@@ -5,15 +5,18 @@
 
 #include "editor.h"
 #include "widgets/knob.h"
+#include "widgets/slider.h"
 #include "widgets/button.h"
 #include "graphics/box.h"
 #include "graphics/font.h"
 #include "graphics/text.h"
 #include "ensemble_chorus.h"
+#include <cmath>
 #include <cassert>
 
 struct Chorus_UI::Impl :
     public Knob::Callback,
+    public Slider::Callback,
     public Button::Callback
 {
     Chorus_UI *const Q = nullptr;
@@ -28,6 +31,17 @@ struct Chorus_UI::Impl :
     std::unique_ptr<Knob> kn_fast_rand_;
     std::unique_ptr<Knob> kn_lpf_cutoff_;
     std::unique_ptr<Knob> kn_lpf_q_;
+    std::unique_ptr<Slider> sl_delay_;
+    std::unique_ptr<Slider> sl_wet_;
+    std::unique_ptr<Slider> sl_dry_;
+    std::unique_ptr<Slider> sl_gain_in_;
+    std::unique_ptr<Slider> sl_gain_out_;
+    std::unique_ptr<Slider> sl_depth1_;
+    std::unique_ptr<Slider> sl_depth2_;
+    std::unique_ptr<Slider> sl_depth3_;
+    std::unique_ptr<Slider> sl_depth4_;
+    std::unique_ptr<Slider> sl_depth5_;
+    std::unique_ptr<Slider> sl_depth6_;
     std::unique_ptr<Button> btn_enable1_;
     std::unique_ptr<Button> btn_routeL1_;
     std::unique_ptr<Button> btn_routeR1_;
@@ -57,7 +71,14 @@ struct Chorus_UI::Impl :
     void knobDragFinished(Knob *knob) override {}
     void knobValueChanged(Knob *knob, float value) override;
 
+    void sliderDragStarted(Slider *sl) override {}
+    void sliderDragFinished(Slider *sl) override {}
+    void sliderValueChanged(Slider *sl, float value) override;
+
     void buttonValueChanged(Button *btn, bool value) override;
+
+    static float fromLogarithmic(float x);
+    static float toLogarithmic(float x);
 };
 
 Chorus_UI::Chorus_UI()
@@ -81,6 +102,28 @@ Chorus_UI::Chorus_UI()
     KNOB(fast_rand, 545, 240, 35, 35);
     KNOB(lpf_cutoff, 160, 235, 40, 40);
     KNOB(lpf_q, 255, 235, 40, 40);
+
+#define SLIDER(id, x, y, w, h)                  \
+    Slider *sl_##id = new Slider(this);         \
+    P->sl_##id##_.reset(sl_##id);               \
+    sl_##id->setAbsolutePos(x, y);              \
+    sl_##id->setSize(w, h);                     \
+    sl_##id->setCallback(P.get());
+
+    SLIDER(delay, 450, 30, 25, 95);
+    SLIDER(wet, 500, 30, 25, 95);
+    SLIDER(dry, 525, 30, 25, 95);
+    SLIDER(gain_in, 560, 30, 25, 95);
+    SLIDER(gain_out, 585, 30, 25, 95);
+    SLIDER(depth1, 300, 80, 60, 25);
+    SLIDER(depth2, 300, 105, 60, 25);
+    SLIDER(depth3, 300, 130, 60, 25);
+    SLIDER(depth4, 300, 155, 60, 25);
+    SLIDER(depth5, 300, 180, 60, 25);
+    SLIDER(depth6, 300, 205, 60, 25);
+
+    for (Slider *sl : {sl_delay, sl_wet, sl_dry, sl_gain_in, sl_gain_out})
+        sl->setType(Slider::Vertical_Knob);
 
 #define BUTTON(id, x, y, w, h, text)            \
     Button *btn_##id = new Button(this);        \
@@ -123,6 +166,7 @@ Chorus_UI::Chorus_UI()
     }
 
 #undef KNOB
+#undef SLIDER
 #undef BUTTON
 }
 
@@ -147,7 +191,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         }
         break;
     case ECP_DELAY:
-        // TODO
+        P->sl_delay_->setValue(value);
         break;
     case ECP_NSTAGES:
         // TODO
@@ -180,16 +224,16 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         P->kn_lpf_q_->setValue(value);
         break;
     case ECP_GAIN_IN:
-        // TODO
+        P->sl_gain_in_->setValue(Impl::toLogarithmic(value * (1.0f / 3.0f)));
         break;
     case ECP_GAIN_OUT:
-        // TODO
+        P->sl_gain_out_->setValue(Impl::toLogarithmic(value * (1.0f / 3.0f)));
         break;
     case ECP_MIX_DRY:
-        // TODO
+        P->sl_dry_->setValue(Impl::toLogarithmic(value));
         break;
     case ECP_MIX_WET:
-        // TODO
+        P->sl_wet_->setValue(Impl::toLogarithmic(value));
         break;
 
     case ECP_ENABLE1:
@@ -199,7 +243,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         // TODO
         break;
     case ECP_DEPTH1:
-        // TODO
+        P->sl_depth1_->setValue(value);
         break;
     case ECP_ROUTE_L1:
         P->btn_routeL1_->setValue(value);
@@ -215,7 +259,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         // TODO
         break;
     case ECP_DEPTH2:
-        // TODO
+        P->sl_depth2_->setValue(value);
         break;
     case ECP_ROUTE_L2:
         P->btn_routeL2_->setValue(value);
@@ -231,7 +275,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         // TODO
         break;
     case ECP_DEPTH3:
-        // TODO
+        P->sl_depth3_->setValue(value);
         break;
     case ECP_ROUTE_L3:
         P->btn_routeL3_->setValue(value);
@@ -247,7 +291,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         // TODO
         break;
     case ECP_DEPTH4:
-        // TODO
+        P->sl_depth4_->setValue(value);
         break;
     case ECP_ROUTE_L4:
         P->btn_routeL4_->setValue(value);
@@ -263,7 +307,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         // TODO
         break;
     case ECP_DEPTH5:
-        // TODO
+        P->sl_depth5_->setValue(value);
         break;
     case ECP_ROUTE_L5:
         P->btn_routeL5_->setValue(value);
@@ -279,7 +323,7 @@ void Chorus_UI::parameterChanged(uint32_t index, float value)
         // TODO
         break;
     case ECP_DEPTH6:
-        // TODO
+        P->sl_depth6_->setValue(value);
         break;
     case ECP_ROUTE_L6:
         P->btn_routeL6_->setValue(value);
@@ -305,7 +349,7 @@ void Chorus_UI::onNanoDisplay()
 
     fontFaceId(fonts.getSerifBoldItalic());
     fontSize(22);
-    shadow_box(*this, 0, 0, 230, 42, Color(0xc0, 0xc0, 0xc0));
+    styled_box(*this, BS_SHADOW_BOX, 0, 0, 230, 42, Color(0xc0, 0xc0, 0xc0));
     bounded_text(*this, TS_ENGRAVED, 0, 0, 230, 42, ALIGN_CENTER|ALIGN_MIDDLE, "JPC Ensemble Chorus", textcolor);
 
     fontFaceId(fonts.getSerifBoldItalic());
@@ -338,6 +382,32 @@ void Chorus_UI::Impl::knobValueChanged(Knob *knob, float value)
         Q->setParameterValue(ECP_LPF_CUTOFF, value);
     else if (knob == kn_lpf_q_.get())
         Q->setParameterValue(ECP_LPF_Q, value);
+}
+
+void Chorus_UI::Impl::sliderValueChanged(Slider *sl, float value)
+{
+    if (sl == sl_delay_.get())
+        Q->setParameterValue(ECP_DELAY, value);
+    else if (sl == sl_wet_.get())
+        Q->setParameterValue(ECP_MIX_WET, fromLogarithmic(value));
+    else if (sl == sl_dry_.get())
+        Q->setParameterValue(ECP_MIX_DRY, fromLogarithmic(value));
+    else if (sl == sl_gain_in_.get())
+        Q->setParameterValue(ECP_GAIN_IN, 3 * fromLogarithmic(value));
+    else if (sl == sl_gain_out_.get())
+        Q->setParameterValue(ECP_GAIN_OUT, 3 * fromLogarithmic(value));
+    else if (sl == sl_depth1_.get())
+        Q->setParameterValue(ECP_DEPTH1, value);
+    else if (sl == sl_depth2_.get())
+        Q->setParameterValue(ECP_DEPTH2, value);
+    else if (sl == sl_depth3_.get())
+        Q->setParameterValue(ECP_DEPTH3, value);
+    else if (sl == sl_depth4_.get())
+        Q->setParameterValue(ECP_DEPTH4, value);
+    else if (sl == sl_depth5_.get())
+        Q->setParameterValue(ECP_DEPTH5, value);
+    else if (sl == sl_depth6_.get())
+        Q->setParameterValue(ECP_DEPTH6, value);
 }
 
 void Chorus_UI::Impl::buttonValueChanged(Button *btn, bool value)
@@ -397,6 +467,16 @@ void Chorus_UI::Impl::buttonValueChanged(Button *btn, bool value)
     else if (btn == btn_bypass_.get()) {
         Q->setParameterValue(ECP_BYPASS, value);
     }
+}
+
+float Chorus_UI::Impl::fromLogarithmic(float x)
+{
+    return std::asin(x) * (float)M_2_PI;
+}
+
+float Chorus_UI::Impl::toLogarithmic(float x)
+{
+    return std::sin(x * (float)M_PI_2);
 }
 
 UI *DISTRHO::createUI()

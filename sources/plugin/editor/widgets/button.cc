@@ -71,10 +71,8 @@ void Button::onNanoDisplay()
     if (pressed_ != -1 && hovered_)
         value = !value;
 
-    if (value)
-        down_box(*this, x, y, w, h, col);
-    else
-        up_box(*this, x, y, w, h, col);
+    Box_Style bs = value ? BS_DOWN_BOX : BS_UP_BOX;
+    styled_box(*this, bs, x, y, w, h, col);
 
     const std::string &label = label_;
     if (!label.empty()) {

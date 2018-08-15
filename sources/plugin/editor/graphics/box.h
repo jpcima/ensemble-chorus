@@ -6,10 +6,21 @@
 #pragma once
 #include <dgl/NanoVG.hpp>
 
-void shadow_frame(NanoVG &g, float x, float y, float w, float h, Color c);
-void shadow_box(NanoVG &g, float x, float y, float w, float h, Color c);
+enum Box_Style {
+    BS_SHADOW_BOX,
+    BS_DOWN_BOX,
+    BS_UP_BOX,
+    BS_THIN_DOWN_BOX,
+    BS_THIN_UP_BOX,
+    //
+    BS_SHADOW_FRAME,
+    BS_DOWN_FRAME,
+    BS_UP_FRAME,
+    BS_THIN_DOWN_FRAME,
+    BS_THIN_UP_FRAME,
+    //
+    BS_NO_BOX = -1,
+};
 
-void down_frame(NanoVG &g, float x, float y, float w, float h, Color c);
-void down_box(NanoVG &g, float x, float y, float w, float h, Color c);
-void up_frame(NanoVG &g, float x, float y, float w, float h, Color c);
-void up_box(NanoVG &g, float x, float y, float w, float h, Color c);
+void styled_box(NanoVG &g, Box_Style bs, float x, float y, float w, float h, Color c);
+void styled_box_deltas(Box_Style bs, float *dx, float *dy, float *dw, float *dh);

@@ -7,7 +7,14 @@
 #include <dgl/NanoVG.hpp>
 
 namespace Colors {
+    inline Color foreground() { return Color(0x00, 0x00, 0x00); }
+    inline Color background() { return Color(0xc0, 0xc0, 0xc0); }
+    inline Color background2() { return Color(0xff, 0xff, 0xff); }
+    inline Color inactive() { return Color(0x55, 0x55, 0x55); }
+    inline Color selection() { return Color(0x00, 0x00, 0x80); }
+
     inline Color gray0() { return Color(0x00, 0x00, 0x00); }
+    inline Color gray() { return Color(0xc0, 0xc0, 0xc0); }
 
     inline Color dark1() { return Color(0xaa, 0xaa, 0xaa); }
     inline Color dark2() { return Color(0x95, 0x95, 0x95); }
