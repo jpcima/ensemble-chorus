@@ -24,11 +24,6 @@ set(OpenGL_GL_PREFERENCE "GLVND")
 find_package(OpenGL REQUIRED)
 target_link_libraries(dgl PUBLIC ${OPENGL_LIBRARIES})
 
-set_target_properties(dgl PROPERTIES
-  POSITION_INDEPENDENT_CODE ON
-  CXX_VISIBILITY_PRESET "hidden"
-  VISIBILITY_INLINES_HIDDEN ON)
-
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
 else()

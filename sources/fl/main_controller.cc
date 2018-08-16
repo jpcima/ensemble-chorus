@@ -10,6 +10,7 @@
 #include "utility/stdc_memory.h"
 #include <ensemble_chorus.h>
 #include <FL/Fl_Native_File_Chooser.H>
+#include <FL/fl_utf8.h>
 #include <cstdio>
 #include <cstring>
 #include <cassert>

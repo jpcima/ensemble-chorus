@@ -23,7 +23,9 @@
 #include <signal.h>
 #include <unistd.h>
 #include <fcntl.h>
+#if !defined(_WIN32)
 #include <sys/mman.h>
+#endif
 
 struct Audio_Context {
     chorus_u effect;
@@ -44,8 +46,10 @@ static void process_message(const Basic_Message &msg, Audio_Context &ctx);
 static void update_callback(void *userdata);
 static constexpr float update_interval = 10e-3;
 
+#if !defined(_WIN32)
 static void handle_signals();
 static int signals_fds[2];
+#endif
 
 int main(int argc, char *argv[])
 {
@@ -67,7 +71,9 @@ int main(int argc, char *argv[])
     if (argc - optind != 0)
         return 1;
 
+#if !defined(_WIN32)
     handle_signals();
+#endif
 
     if (!setup_audio(ctx))
         return 1;
@@ -86,6 +92,8 @@ int main(int argc, char *argv[])
     win->show();
 
     bool run = true;
+
+#if !defined(_WIN32)
     Fl::add_fd(
         ::signals_fds[0], FL_READ,
         +[](int, void *userdata)
@@ -94,6 +102,7 @@ int main(int argc, char *argv[])
             fprintf(stderr, "Interrupt\n");
         },
         &run);
+#endif
 
     Fl::add_timeout(update_interval, &update_callback, &ctrl);
 
@@ -103,8 +112,10 @@ int main(int argc, char *argv[])
 
 static bool setup_audio(Audio_Context &ctx)
 {
+#if !defined(_WIN32)
     if (mlockall(MCL_CURRENT|MCL_FUTURE) != 0)
         fprintf(stderr, "Could not lock memory\n");
+#endif
 
     RtAudio *audiosys = new RtAudio(RtAudio::Api::UNSPECIFIED);
     ctx.audiosys.reset(audiosys);
@@ -207,6 +218,14 @@ static void process_message(const Basic_Message &msg, Audio_Context &ctx)
     }
 }
 
+static void update_callback(void *userdata)
+{
+    auto &ctrl = *reinterpret_cast<Main_Controller *>(userdata);
+    ctrl.handle_messages();
+    Fl::repeat_timeout(update_interval, &update_callback, userdata);
+}
+
+#if !defined(_WIN32)
 static void set_cloexec(int fd)
 {
     int flags = fcntl(fd, F_GETFD);
@@ -214,13 +233,6 @@ static void set_cloexec(int fd)
         throw std::system_error(errno, std::generic_category(), "fcntl");
     if (fcntl(fd, F_SETFD, flags|FD_CLOEXEC) == -1)
         throw std::system_error(errno, std::generic_category(), "fcntl");
-}
-
-static void update_callback(void *userdata)
-{
-    auto &ctrl = *reinterpret_cast<Main_Controller *>(userdata);
-    ctrl.handle_messages();
-    Fl::repeat_timeout(update_interval, &update_callback, userdata);
 }
 
 static void handle_signals()
@@ -260,3 +272,4 @@ static void handle_signals()
 
     success = true;
 }
+#endif

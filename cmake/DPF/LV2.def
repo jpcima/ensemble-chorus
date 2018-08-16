@@ -1,0 +1,3 @@
+EXPORTS
+        lv2_generate_ttl
+        lv2_descriptor
