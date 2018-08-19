@@ -30,6 +30,7 @@
  */
 
 #pragma once
+#include "ensemble_chorus.h"
 #include <memory>
 
 class BBD_Line {
@@ -43,9 +44,9 @@ public:
 
     static constexpr float min_delay = 1e-5f;
 
-    static constexpr unsigned supported_nstages_count = 5;
-    static constexpr unsigned nstages_min = 512;
-    static constexpr unsigned nstages_max = nstages_min << (supported_nstages_count - 1);
+    static constexpr unsigned supported_nstages_count = EC_SUPPORTED_NSTAGES_COUNT;
+    static constexpr unsigned nstages_min = EC_NSTAGES_MIN;
+    static constexpr unsigned nstages_max = EC_NSTAGES_MAX;
 
     static unsigned adjust_nstages(unsigned n);
 

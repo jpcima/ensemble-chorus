@@ -11,11 +11,11 @@ size_t size_of(Message_Tag tag)
 {
     size_t size = 0;
     switch (tag) {
-        #define HANDLE_CASE(x) case Message_Tag::x: size = sizeof(x); break;
-        EACH_MESSAGE_TYPE(HANDLE_CASE)
-        #undef HANDLE_CASE
+    #define HANDLE_CASE(x) case Message_Tag::x: size = sizeof(x); break;
+    EACH_MESSAGE_TYPE(HANDLE_CASE)
+    #undef HANDLE_CASE
     default:
-            assert(false);
+        assert(false);
     }
     return size;
 }

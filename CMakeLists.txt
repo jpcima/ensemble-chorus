@@ -1,10 +1,20 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(EnsembleChorus LANGUAGES C CXX)
+project(EnsembleChorus VERSION "0.0.1" LANGUAGES C CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_C_VISIBILITY_PRESET "hidden")
+set(CMAKE_CXX_VISIBILITY_PRESET "hidden")
+set(CMAKE_VISIBILITY_INLINES_HIDDEN ON)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 option(ENABLE_PROFILING "Enable profiling" OFF)
+
+include(GNUWarnings)
+enable_gnu_warning(all)
 
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
 
@@ -12,29 +22,40 @@ add_library(ensemble_chorus STATIC
   "sources/core/bbd.cc"
   "sources/core/chorus.cc"
   "sources/core/lfos.cc"
-  "sources/core/core.cc")
-target_include_directories(ensemble_chorus PUBLIC
+  "sources/core/core.cc"
+  "sources/core/core_preset.cc")
+target_include_directories(ensemble_chorus PUBLIC "sources/core/include")
+target_compile_definitions(ensemble_chorus PUBLIC "EC_API=")
+
+add_library(ensemble_chorus_headers INTERFACE)
+target_include_directories(ensemble_chorus_headers INTERFACE
   "sources/core/include")
-if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-  target_compile_definitions(ensemble_chorus PRIVATE "EC_API=__declspec(dllexport)")
-elseif(CMAKE_CXX_COMPILER_ID MATCHES "^(GNU|Clang)$")
-  target_compile_definitions(ensemble_chorus PRIVATE "EC_API=__attribute__((visibility(\"default\")))")
-endif()
-set_target_properties(ensemble_chorus PROPERTIES
-  CXX_STANDARD 11
-  CXX_STANDARD_REQUIRED ON
-  CXX_VISIBILITY_PRESET "hidden"
-  VISIBILITY_INLINES_HIDDEN ON)
 
-include(GNUWarnings)
-enable_gnu_warning(all)
-
-add_subdirectory("thirdparty/DSPFilters/shared/DSPFilters" EXCLUDE_FROM_ALL)
 add_subdirectory("thirdparty/gsl-lite" EXCLUDE_FROM_ALL)
 add_subdirectory("thirdparty/jsl" EXCLUDE_FROM_ALL)
 
 include_directories("thirdparty/boost/predef/include")
-target_link_libraries(ensemble_chorus DSPFilters jsl gsl-lite)
+target_link_libraries(ensemble_chorus PRIVATE jsl gsl-lite)
+
+set(DSPFilters_SOURCE_DIR
+  "${PROJECT_SOURCE_DIR}/thirdparty/DSPFilters/shared/DSPFilters")
+add_library(DSPFilters STATIC
+  "${DSPFilters_SOURCE_DIR}/source/Biquad.cpp"
+  "${DSPFilters_SOURCE_DIR}/source/Cascade.cpp"
+  "${DSPFilters_SOURCE_DIR}/source/Legendre.cpp"
+  "${DSPFilters_SOURCE_DIR}/source/PoleFilter.cpp"
+  "${DSPFilters_SOURCE_DIR}/source/RBJ.cpp"
+  "${DSPFilters_SOURCE_DIR}/source/RootFinder.cpp")
+target_include_directories(DSPFilters
+  PUBLIC "${DSPFilters_SOURCE_DIR}/include")
+
+target_link_libraries(ensemble_chorus PRIVATE DSPFilters)
+
+set(pugixml_SOURCE_DIR "${PROJECT_SOURCE_DIR}/thirdparty/pugixml/src")
+add_library(pugixml STATIC "${pugixml_SOURCE_DIR}/pugixml.cpp")
+target_include_directories(pugixml PUBLIC "${pugixml_SOURCE_DIR}")
+
+target_link_libraries(ensemble_chorus PRIVATE pugixml)
 
 ###
 set(FLTK_SKIP_OPENGL ON)
@@ -58,6 +79,7 @@ if(FLTK_FOUND)
     "sources/fl/main_controller.cc"
     "sources/fl/main.cc")
   target_include_directories(ensemble_chorus_fl
+    PRIVATE "sources"
     PRIVATE "${FLTK_INCLUDE_DIR}"
     PRIVATE "${PROJECT_SOURCE_DIR}/sources/fl/widgets/Fl_Knob")
   target_link_libraries(ensemble_chorus_fl PRIVATE "${FLTK_LIBRARIES}")
@@ -65,9 +87,7 @@ if(FLTK_FOUND)
   set(RtAudio_SOURCE_DIR "${PROJECT_SOURCE_DIR}/thirdparty/rtaudio")
   include(RtAudio)
 
-  add_subdirectory("thirdparty/pugixml" EXCLUDE_FROM_ALL)
-
-  target_link_libraries(ensemble_chorus_fl PRIVATE ensemble_chorus RtAudio pugixml ring_buffer)
+  target_link_libraries(ensemble_chorus_fl PRIVATE ensemble_chorus RtAudio ring_buffer jsl gsl-lite)
 
   if(ENABLE_PROFILING)
     find_library(PROFILER_LIBRARY "profiler" REQUIRED)

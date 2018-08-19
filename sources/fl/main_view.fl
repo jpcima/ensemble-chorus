@@ -26,7 +26,7 @@ decl {\#include <FL/Fl_Value_Slider.H>} {private global
 decl {\#include <FL/Fl_Toggle_Button.H>} {private global
 }
 
-decl {\#include <FL/fl_ask.H>} {selected private global
+decl {\#include <FL/fl_ask.H>} {private global
 }
 
 decl {\#include <cmath>} {private local
@@ -53,8 +53,8 @@ decl {class Fl_Value_Slider;} {public global
 decl {class Fl_Toggle_Button;} {public global
 }
 
-widget_class Main_View {open
-  xywh {469 434 625 280} type Double labelfont 13 visible
+widget_class Main_View {open selected
+  xywh {426 643 625 280} type Double labelfont 13 visible
 } {
   decl {static constexpr int W = 625;} {public local
   }
@@ -97,7 +97,7 @@ x->set_modulation_callback(&modulation, this);} {}
   Fl_Check_Button tick_bypass_ {
     label Bypass
     callback {controller()->send_parameter(ECP_BYPASS, o->value())}
-    xywh {235 10 80 25} down_box DOWN_BOX labeltype EMBOSSED_LABEL
+    xywh {235 10 75 25} down_box DOWN_BOX labeltype EMBOSSED_LABEL
   }
   Fl_Box {} {
     label Mix
@@ -180,10 +180,10 @@ x->set_modulation_callback(&modulation, this);} {}
   }
   Fl_Box {} {
     label Delay
-    xywh {450 5 25 25} labeltype EMBOSSED_LABEL labelfont 11
+    xywh {435 5 55 25} labeltype EMBOSSED_LABEL labelfont 11
   }
   Fl_Choice cb_nstages_ {open
-    xywh {365 30 65 20} down_box BORDER_BOX
+    xywh {370 30 65 20} down_box BORDER_BOX
   } {
     MenuItem {} {
       label 512
@@ -213,7 +213,7 @@ x->set_modulation_callback(&modulation, this);} {}
   }
   Fl_Box {} {
     label Stages
-    xywh {365 5 65 25} labeltype EMBOSSED_LABEL labelfont 11
+    xywh {370 5 65 25} labeltype EMBOSSED_LABEL labelfont 11
   }
   Fl_Box visu_mod1_ {
     xywh {245 80 55 25} box DOWN_BOX
@@ -255,11 +255,11 @@ x->set_modulation_callback(&modulation, this);} {}
   }
   Fl_Box {} {
     label Chorus
-    xywh {380 185 45 25} labeltype EMBOSSED_LABEL labelfont 11
+    xywh {370 185 65 25} labeltype EMBOSSED_LABEL labelfont 11
   }
   Fl_Box {} {
     label Vibrato
-    xywh {500 185 45 25} labeltype EMBOSSED_LABEL labelfont 11
+    xywh {490 185 65 25} labeltype EMBOSSED_LABEL labelfont 11
   }
   Fl_Slider sl_depth1_ {
     callback {controller()->send_parameter(ECP_DEPTH1, o->value())}
@@ -485,7 +485,7 @@ else {
     fl_message_title("Error");
     fl_alert("Could not load the preset file.");
 }}
-    xywh {310 5 45 25} labeltype ENGRAVED_LABEL
+    xywh {315 5 45 25} labeltype ENGRAVED_LABEL
   }
   Fl_Button {} {
     label Save
@@ -493,6 +493,6 @@ else {
     fl_message_title("Error");
     fl_alert("Could not save the preset file.");
 }}
-    xywh {310 30 45 25} labeltype ENGRAVED_LABEL
+    xywh {315 30 45 25} labeltype ENGRAVED_LABEL
   }
 }

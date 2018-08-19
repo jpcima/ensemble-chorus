@@ -26,7 +26,7 @@ public:
     void slow_rate(float r);
     void fast_rate(float r);
 
-    static constexpr unsigned lfo_wave_count = 5;
+    static constexpr unsigned lfo_wave_count = EC_LFO_WAVE_COUNT;
     void slow_wave(unsigned w);
     void fast_wave(unsigned w);
 
