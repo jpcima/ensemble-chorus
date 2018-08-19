@@ -111,6 +111,8 @@ Chorus_UI::Chorus_UI()
     : UI(625, 280),
       P(new Impl(this))
 {
+    setDrawingBuffered(true);
+
     P->msg_buffer_.reset(Messages::allocate_buffer());
 
     FontCollection *fonts = new FontCollection(*this);

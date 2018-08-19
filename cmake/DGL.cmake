@@ -16,9 +16,15 @@ else()
 endif()
 
 add_library(dgl STATIC EXCLUDE_FROM_ALL ${DGL_sources})
+target_compile_definitions(dgl
+  PUBLIC "HAVE_DGL_BUFFERING")
 target_include_directories(dgl
   PUBLIC thirdparty/DPF
   PRIVATE thirdparty/DPF/dgl/src)
+
+### XXX test only
+target_link_libraries(dgl
+  PUBLIC GLEW)
 
 set(OpenGL_GL_PREFERENCE "GLVND")
 find_package(OpenGL REQUIRED)

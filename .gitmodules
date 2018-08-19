@@ -13,9 +13,9 @@
 [submodule "thirdparty/pugixml"]
 	path = thirdparty/pugixml
 	url = https://github.com/zeux/pugixml.git
-[submodule "thirdparty/DPF"]
-	path = thirdparty/DPF
-	url = https://github.com/DISTRHO/DPF
 [submodule "thirdparty/gzip-hpp"]
 	path = thirdparty/gzip-hpp
 	url = https://github.com/mapbox/gzip-hpp.git
+[submodule "thirdparty/DPF"]
+	path = thirdparty/DPF
+	url = https://github.com/jpcima/DPF.git

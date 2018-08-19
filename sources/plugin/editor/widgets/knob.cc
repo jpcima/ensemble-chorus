@@ -11,6 +11,7 @@
 Knob::Knob(NanoWidget *groupWidget)
     : NanoWidget(groupWidget)
 {
+    setDrawingBuffered(true);
     setSize(50, 50);
 }
 

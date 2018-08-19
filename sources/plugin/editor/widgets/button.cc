@@ -10,6 +10,7 @@
 Button::Button(NanoWidget *groupWidget)
     : NanoWidget(groupWidget)
 {
+    setDrawingBuffered(true);
     setSize(50, 50);
 }
 
