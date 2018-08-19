@@ -442,7 +442,7 @@ void Chorus_UI::Impl::processMessage(const Basic_Message &msg)
     }
 
     std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
-    bool update_modulation = !modulation_displayed_ || (now - modulation_time_ > std::chrono::milliseconds(50));
+    bool update_modulation = !modulation_displayed_ || (now - modulation_time_ > std::chrono::milliseconds(1000 / 30));
 #pragma message("TODO optimize the periodic redrawing")
 
     if (update_modulation) {
