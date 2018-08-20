@@ -1312,9 +1312,15 @@ void MainComponent::updateDisplayWithEcp(ec_parameter p, float value)
         sl = sl_delay.get();
         sl->setValue(value, dontSendNotification);
         break;
-    case ECP_NSTAGES:
-        cb_nstages->setSelectedId(value, dontSendNotification);
+    case ECP_NSTAGES: {
+        int index = 0;
+        int count = cb_nstages->getNumItems();
+        int nstages = (int)value;
+        while (index < count && cb_nstages->getItemId(index) < nstages)
+            ++index;
+        cb_nstages->setSelectedItemIndex(index, dontSendNotification);
         break;
+    }
     case ECP_MOD_RANGE:
         sl = dl_mod_range.get();
         sl->setValue(value, dontSendNotification);
