@@ -47,64 +47,42 @@ typedef enum ec_parameter_flag {
     ECP_LOGARITHMIC = 4,
 } ec_parameter_flag_t;
 
-#define  EC_EACH_PARAMETER(P)                   \
-    /* Name, Min, Max, Def, Flags */            \
-    P(BYPASS, false, true, false, ECP_BOOLEAN)  \
-    P(CHANNEL_LAYOUT, ECC_STEREO, ECC_MONO, ECC_STEREO, ECP_INTEGER) \
-    P(DELAY, 0, 1, 0.5, ECP_FLOAT)              \
-    P(NSTAGES, EC_NSTAGES_MIN, EC_NSTAGES_MAX, 1024, ECP_INTEGER) \
-    P(MOD_RANGE, 0, 1, 0.5, ECP_FLOAT)          \
-    P(SLOW_RATE, 0, 1, 0.5, ECP_FLOAT)          \
-    P(SLOW_WAVE, 0, EC_LFO_WAVE_COUNT - 1, 4, ECP_INTEGER) \
-    P(SLOW_RAND, 0, 1, 0.1, ECP_FLOAT)          \
-    P(FAST_RATE, 0, 1, 0.5, ECP_FLOAT)          \
-    P(FAST_WAVE, 0, EC_LFO_WAVE_COUNT - 1, 4, ECP_INTEGER) \
-    P(FAST_RAND, 0, 1, 0.1, ECP_FLOAT)          \
-    P(LPF_CUTOFF, 0, 1, 1.0, ECP_FLOAT)         \
-    P(LPF_Q, 0, 1, M_SQRT1_2, ECP_FLOAT)        \
-    P(GAIN_IN, 0, 3, 1, ECP_FLOAT|ECP_LOGARITHMIC) \
-    P(GAIN_OUT, 0, 3, 1, ECP_FLOAT|ECP_LOGARITHMIC) \
-    P(MIX_DRY, 0, 1, M_SQRT1_2, ECP_FLOAT|ECP_LOGARITHMIC) \
-    P(MIX_WET, 0, 1, M_SQRT1_2, ECP_FLOAT|ECP_LOGARITHMIC) \
-    /* */                                       \
-    P(ENABLE1, false, true, true, ECP_BOOLEAN)  \
-    P(PHASE1, 0, 1, 0, ECP_FLOAT)               \
-    P(DEPTH1, 0, 1, 0.5, ECP_FLOAT)             \
-    P(ROUTE_L1, false, true, true, ECP_BOOLEAN) \
-    P(ROUTE_R1, false, true, false, ECP_BOOLEAN) \
-    /* */                                       \
-    P(ENABLE2, false, true, true, ECP_BOOLEAN)  \
-    P(PHASE2, 0, 1, 1. / 3., ECP_FLOAT)         \
-    P(DEPTH2, 0, 1, 0.5, ECP_FLOAT)             \
-    P(ROUTE_L2, false, true, true, ECP_BOOLEAN) \
-    P(ROUTE_R2, false, true, true, ECP_BOOLEAN) \
-    /* */                                       \
-    P(ENABLE3, false, true, true, ECP_BOOLEAN)  \
-    P(PHASE3, 0, 1, 2. / 3., ECP_FLOAT)         \
-    P(DEPTH3, 0, 1, 0.5, ECP_FLOAT)             \
-    P(ROUTE_L3, false, true, false, ECP_BOOLEAN) \
-    P(ROUTE_R3, false, true, true, ECP_BOOLEAN) \
-    /* */                                       \
-    P(ENABLE4, false, true, false, ECP_BOOLEAN) \
-    P(PHASE4, 0, 1, 0, ECP_FLOAT)               \
-    P(DEPTH4, 0, 1, 0.5, ECP_FLOAT)             \
-    P(ROUTE_L4, false, true, false, ECP_BOOLEAN) \
-    P(ROUTE_R4, false, true, true, ECP_BOOLEAN) \
-    /* */                                       \
-    P(ENABLE5, false, true, false, ECP_BOOLEAN) \
-    P(PHASE5, 0, 1, 1. / 3., ECP_FLOAT)         \
-    P(DEPTH5, 0, 1, 0.5, ECP_FLOAT)             \
-    P(ROUTE_L5, false, true, true, ECP_BOOLEAN) \
-    P(ROUTE_R5, false, true, true, ECP_BOOLEAN) \
-    /* */                                       \
-    P(ENABLE6, false, true, false, ECP_BOOLEAN) \
-    P(PHASE6, 0, 1, 2. / 3., ECP_FLOAT)         \
-    P(DEPTH6, 0, 1, 0.5, ECP_FLOAT)             \
-    P(ROUTE_L6, false, true, true, ECP_BOOLEAN) \
-    P(ROUTE_R6, false, true, false, ECP_BOOLEAN)
+#define EC_EACH_PARAMETER(P)                                            \
+    /* Name, Min, Max, Def, Flags, Label */                             \
+    P(BYPASS, false, true, false, ECP_BOOLEAN, "Bypass")                \
+    P(CHANNEL_LAYOUT, ECC_STEREO, ECC_MONO, ECC_STEREO, ECP_INTEGER, "Channel layout") \
+    P(DELAY, 0, 1, 0.5, ECP_FLOAT, "Delay")                             \
+    P(NSTAGES, EC_NSTAGES_MIN, EC_NSTAGES_MAX, 1024, ECP_INTEGER, "Stages") \
+    P(MOD_RANGE, 0, 1, 0.5, ECP_FLOAT, "Modulation range")              \
+    P(SLOW_RATE, 0, 1, 0.5, ECP_FLOAT, "Chorus rate")                   \
+    P(SLOW_WAVE, 0, EC_LFO_WAVE_COUNT - 1, 4, ECP_INTEGER, "Chorus wave") \
+    P(SLOW_RAND, 0, 1, 0.1, ECP_FLOAT, "Chorus random")                 \
+    P(FAST_RATE, 0, 1, 0.5, ECP_FLOAT, "Vibrato rate")                  \
+    P(FAST_WAVE, 0, EC_LFO_WAVE_COUNT - 1, 4, ECP_INTEGER, "Vibrato wave") \
+    P(FAST_RAND, 0, 1, 0.1, ECP_FLOAT, "Vibrato random")                \
+    P(LPF_CUTOFF, 0, 1, 1.0, ECP_FLOAT, "Lowpass cutoff")               \
+    P(LPF_Q, 0, 1, M_SQRT1_2, ECP_FLOAT, "Lowpass Q")                   \
+    P(GAIN_IN, 0, 3, 1, ECP_FLOAT|ECP_LOGARITHMIC, "Input gain")        \
+    P(GAIN_OUT, 0, 3, 1, ECP_FLOAT|ECP_LOGARITHMIC, "Output gain")      \
+    P(MIX_DRY, 0, 1, M_SQRT1_2, ECP_FLOAT|ECP_LOGARITHMIC, "Dry mix")   \
+    P(MIX_WET, 0, 1, M_SQRT1_2, ECP_FLOAT|ECP_LOGARITHMIC, "Wet mix")   \
+    EC_EACH_LINE_PARAMETER(P, 1)                                        \
+    EC_EACH_LINE_PARAMETER(P, 2)                                        \
+    EC_EACH_LINE_PARAMETER(P, 3)                                        \
+    EC_EACH_LINE_PARAMETER(P, 4)                                        \
+    EC_EACH_LINE_PARAMETER(P, 5)                                        \
+    EC_EACH_LINE_PARAMETER(P, 6)
+
+#define EC_EACH_LINE_PARAMETER(P, I)                                    \
+    /* Name, Min, Max, Def, Flags, Label */                             \
+    P(ENABLE##I, false, true, (I <= 3), ECP_BOOLEAN, "Enable " #I)      \
+    P(PHASE##I, 0, 1, ((I - 1) % 3) / 3., ECP_FLOAT, "Phase " #I)       \
+    P(DEPTH##I, 0, 1, 0.5, ECP_FLOAT, "Depth " #I)                      \
+    P(ROUTE_L##I, false, true, (I != 3 && I != 4), ECP_BOOLEAN, "Left " #I) \
+    P(ROUTE_R##I, false, true, (I != 1 && I != 6), ECP_BOOLEAN, "Right " #I)
 
 typedef enum ec_parameter {
-    #define EACH(p, min, max, def, flags) ECP_##p,
+    #define EACH(p, min, max, def, flags, label) ECP_##p,
     EC_EACH_PARAMETER(EACH)
     #undef EACH
     EC_PARAMETER_COUNT
@@ -121,6 +99,7 @@ EC_API float ensemble_chorus_parameter_min(ec_parameter_t p);
 EC_API float ensemble_chorus_parameter_max(ec_parameter_t p);
 EC_API float ensemble_chorus_parameter_default(ec_parameter_t p);
 EC_API unsigned ensemble_chorus_parameter_flags(ec_parameter_t p);
+EC_API const char *ensemble_chorus_parameter_label(ec_parameter_t p);
 
 EC_API bool ensemble_chorus_load_parameters(const char *data, size_t length, float *parameters);
 EC_API char *ensemble_chorus_save_parameters(size_t *length, const float *parameters);

@@ -180,6 +180,7 @@ void EnsembleChorusAudioProcessor::setupParameters()
     for (unsigned i = 0; i < count; ++i) {
         ec_parameter p = (ec_parameter)i;
         const char *name = ensemble_chorus_parameter_name(p);
+        const char *label = ensemble_chorus_parameter_label(p);
         unsigned flags = ensemble_chorus_parameter_flags(p);
         float min = ensemble_chorus_parameter_min(p);
         float max = ensemble_chorus_parameter_max(p);
@@ -188,11 +189,11 @@ void EnsembleChorusAudioProcessor::setupParameters()
         AudioProcessorParameter *ap = nullptr;
         switch (flags & (ECP_FLOAT|ECP_BOOLEAN|ECP_INTEGER)) {
         case ECP_BOOLEAN:
-            ap = new AudioParameterBool(name, name, def); break;
+            ap = new AudioParameterBool(name, label, def); break;
         case ECP_INTEGER:
-            ap = new AudioParameterInt(name, name, min, max, def); break;
+            ap = new AudioParameterInt(name, label, min, max, def); break;
         case ECP_FLOAT:
-            ap = new AudioParameterFloat(name, name, min, max, def); break;
+            ap = new AudioParameterFloat(name, label, min, max, def); break;
         }
         addParameter(ap);
     }

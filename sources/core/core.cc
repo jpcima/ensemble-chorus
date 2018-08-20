@@ -269,7 +269,7 @@ unsigned ensemble_chorus_parameter_count()
 const char *ensemble_chorus_parameter_name(ec_parameter_t p)
 {
     switch (p) {
-    #define EACH(p, min, max, def, flags) case ECP_##p: return #p;
+    #define EACH(p, min, max, def, flags, label) case ECP_##p: return #p;
     EC_EACH_PARAMETER(EACH)
     #undef EACH
     default:
@@ -288,7 +288,7 @@ ec_parameter_t ensemble_chorus_parameter_by_name(const char *name)
 float ensemble_chorus_parameter_min(ec_parameter_t p)
 {
     switch (p) {
-    #define EACH(p, min, max, def, flags) case ECP_##p: return min;
+    #define EACH(p, min, max, def, flags, label) case ECP_##p: return min;
     EC_EACH_PARAMETER(EACH)
     #undef EACH
     default:
@@ -299,7 +299,7 @@ float ensemble_chorus_parameter_min(ec_parameter_t p)
 float ensemble_chorus_parameter_max(ec_parameter_t p)
 {
     switch (p) {
-    #define EACH(p, min, max, def, flags) case ECP_##p: return max;
+    #define EACH(p, min, max, def, flags, label) case ECP_##p: return max;
     EC_EACH_PARAMETER(EACH)
     #undef EACH
     default:
@@ -310,7 +310,7 @@ float ensemble_chorus_parameter_max(ec_parameter_t p)
 float ensemble_chorus_parameter_default(ec_parameter_t p)
 {
     switch (p) {
-    #define EACH(p, min, max, def, flags) case ECP_##p: return def;
+    #define EACH(p, min, max, def, flags, label) case ECP_##p: return def;
     EC_EACH_PARAMETER(EACH)
     #undef EACH
     default:
@@ -321,10 +321,21 @@ float ensemble_chorus_parameter_default(ec_parameter_t p)
 unsigned ensemble_chorus_parameter_flags(ec_parameter_t p)
 {
     switch (p) {
-    #define EACH(p, min, max, def, flags) case ECP_##p: return flags;
+    #define EACH(p, min, max, def, flags, label) case ECP_##p: return flags;
     EC_EACH_PARAMETER(EACH)
     #undef EACH
     default:
         return 0;
+    }
+}
+
+const char *ensemble_chorus_parameter_label(ec_parameter_t p)
+{
+    switch (p) {
+    #define EACH(p, min, max, def, flags, label) case ECP_##p: return label;
+    EC_EACH_PARAMETER(EACH)
+    #undef EACH
+    default:
+        return nullptr;
     }
 }

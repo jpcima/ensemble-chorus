@@ -78,7 +78,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 7 ;
         lv2:symbol "bypass" ;
-        lv2:name "BYPASS" ;
+        lv2:name "Bypass" ;
         lv2:default 0.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -87,7 +87,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 8 ;
         lv2:symbol "channel_layout" ;
-        lv2:name "CHANNEL_LAYOUT" ;
+        lv2:name "Channel layout" ;
         lv2:default 0.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -96,7 +96,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 9 ;
         lv2:symbol "delay" ;
-        lv2:name "DELAY" ;
+        lv2:name "Delay" ;
         lv2:default 0.500000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -105,7 +105,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 10 ;
         lv2:symbol "nstages" ;
-        lv2:name "NSTAGES" ;
+        lv2:name "Stages" ;
         lv2:default 0.066667 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -114,7 +114,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 11 ;
         lv2:symbol "mod_range" ;
-        lv2:name "MOD_RANGE" ;
+        lv2:name "Modulation range" ;
         lv2:default 0.500000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -123,7 +123,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 12 ;
         lv2:symbol "slow_rate" ;
-        lv2:name "SLOW_RATE" ;
+        lv2:name "Chorus rate" ;
         lv2:default 0.500000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -132,7 +132,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 13 ;
         lv2:symbol "slow_wave" ;
-        lv2:name "SLOW_WAVE" ;
+        lv2:name "Chorus wave" ;
         lv2:default 1.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -141,7 +141,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 14 ;
         lv2:symbol "slow_rand" ;
-        lv2:name "SLOW_RAND" ;
+        lv2:name "Chorus random" ;
         lv2:default 0.100000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -150,7 +150,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 15 ;
         lv2:symbol "fast_rate" ;
-        lv2:name "FAST_RATE" ;
+        lv2:name "Vibrato rate" ;
         lv2:default 0.500000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -159,7 +159,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 16 ;
         lv2:symbol "fast_wave" ;
-        lv2:name "FAST_WAVE" ;
+        lv2:name "Vibrato wave" ;
         lv2:default 1.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -168,7 +168,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 17 ;
         lv2:symbol "fast_rand" ;
-        lv2:name "FAST_RAND" ;
+        lv2:name "Vibrato random" ;
         lv2:default 0.100000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -177,7 +177,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 18 ;
         lv2:symbol "lpf_cutoff" ;
-        lv2:name "LPF_CUTOFF" ;
+        lv2:name "Lowpass cutoff" ;
         lv2:default 1.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -186,7 +186,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 19 ;
         lv2:symbol "lpf_q" ;
-        lv2:name "LPF_Q" ;
+        lv2:name "Lowpass Q" ;
         lv2:default 0.707107 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -195,7 +195,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 20 ;
         lv2:symbol "gain_in" ;
-        lv2:name "GAIN_IN" ;
+        lv2:name "Input gain" ;
         lv2:default 0.333333 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -204,7 +204,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 21 ;
         lv2:symbol "gain_out" ;
-        lv2:name "GAIN_OUT" ;
+        lv2:name "Output gain" ;
         lv2:default 0.333333 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -213,7 +213,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 22 ;
         lv2:symbol "mix_dry" ;
-        lv2:name "MIX_DRY" ;
+        lv2:name "Dry mix" ;
         lv2:default 0.707107 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -222,7 +222,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 23 ;
         lv2:symbol "mix_wet" ;
-        lv2:name "MIX_WET" ;
+        lv2:name "Wet mix" ;
         lv2:default 0.707107 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -231,7 +231,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 24 ;
         lv2:symbol "enable1" ;
-        lv2:name "ENABLE1" ;
+        lv2:name "Enable 1" ;
         lv2:default 1.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -240,7 +240,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 25 ;
         lv2:symbol "phase1" ;
-        lv2:name "PHASE1" ;
+        lv2:name "Phase 1" ;
         lv2:default 0.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -249,7 +249,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 26 ;
         lv2:symbol "depth1" ;
-        lv2:name "DEPTH1" ;
+        lv2:name "Depth 1" ;
         lv2:default 0.500000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -258,7 +258,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 27 ;
         lv2:symbol "route_l1" ;
-        lv2:name "ROUTE_L1" ;
+        lv2:name "Left 1" ;
         lv2:default 1.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -267,7 +267,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 28 ;
         lv2:symbol "route_r1" ;
-        lv2:name "ROUTE_R1" ;
+        lv2:name "Right 1" ;
         lv2:default 0.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -276,7 +276,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 29 ;
         lv2:symbol "enable2" ;
-        lv2:name "ENABLE2" ;
+        lv2:name "Enable 2" ;
         lv2:default 1.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -285,7 +285,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 30 ;
         lv2:symbol "phase2" ;
-        lv2:name "PHASE2" ;
+        lv2:name "Phase 2" ;
         lv2:default 0.333333 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -294,7 +294,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 31 ;
         lv2:symbol "depth2" ;
-        lv2:name "DEPTH2" ;
+        lv2:name "Depth 2" ;
         lv2:default 0.500000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -303,7 +303,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 32 ;
         lv2:symbol "route_l2" ;
-        lv2:name "ROUTE_L2" ;
+        lv2:name "Left 2" ;
         lv2:default 1.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -312,7 +312,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 33 ;
         lv2:symbol "route_r2" ;
-        lv2:name "ROUTE_R2" ;
+        lv2:name "Right 2" ;
         lv2:default 1.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -321,7 +321,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 34 ;
         lv2:symbol "enable3" ;
-        lv2:name "ENABLE3" ;
+        lv2:name "Enable 3" ;
         lv2:default 1.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -330,7 +330,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 35 ;
         lv2:symbol "phase3" ;
-        lv2:name "PHASE3" ;
+        lv2:name "Phase 3" ;
         lv2:default 0.666667 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -339,7 +339,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 36 ;
         lv2:symbol "depth3" ;
-        lv2:name "DEPTH3" ;
+        lv2:name "Depth 3" ;
         lv2:default 0.500000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -348,7 +348,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 37 ;
         lv2:symbol "route_l3" ;
-        lv2:name "ROUTE_L3" ;
+        lv2:name "Left 3" ;
         lv2:default 0.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -357,7 +357,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 38 ;
         lv2:symbol "route_r3" ;
-        lv2:name "ROUTE_R3" ;
+        lv2:name "Right 3" ;
         lv2:default 1.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -366,7 +366,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 39 ;
         lv2:symbol "enable4" ;
-        lv2:name "ENABLE4" ;
+        lv2:name "Enable 4" ;
         lv2:default 0.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -375,7 +375,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 40 ;
         lv2:symbol "phase4" ;
-        lv2:name "PHASE4" ;
+        lv2:name "Phase 4" ;
         lv2:default 0.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -384,7 +384,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 41 ;
         lv2:symbol "depth4" ;
-        lv2:name "DEPTH4" ;
+        lv2:name "Depth 4" ;
         lv2:default 0.500000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -393,7 +393,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 42 ;
         lv2:symbol "route_l4" ;
-        lv2:name "ROUTE_L4" ;
+        lv2:name "Left 4" ;
         lv2:default 0.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -402,7 +402,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 43 ;
         lv2:symbol "route_r4" ;
-        lv2:name "ROUTE_R4" ;
+        lv2:name "Right 4" ;
         lv2:default 1.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -411,7 +411,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 44 ;
         lv2:symbol "enable5" ;
-        lv2:name "ENABLE5" ;
+        lv2:name "Enable 5" ;
         lv2:default 0.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -420,7 +420,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 45 ;
         lv2:symbol "phase5" ;
-        lv2:name "PHASE5" ;
+        lv2:name "Phase 5" ;
         lv2:default 0.333333 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -429,7 +429,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 46 ;
         lv2:symbol "depth5" ;
-        lv2:name "DEPTH5" ;
+        lv2:name "Depth 5" ;
         lv2:default 0.500000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -438,7 +438,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 47 ;
         lv2:symbol "route_l5" ;
-        lv2:name "ROUTE_L5" ;
+        lv2:name "Left 5" ;
         lv2:default 1.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -447,7 +447,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 48 ;
         lv2:symbol "route_r5" ;
-        lv2:name "ROUTE_R5" ;
+        lv2:name "Right 5" ;
         lv2:default 1.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -456,7 +456,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 49 ;
         lv2:symbol "enable6" ;
-        lv2:name "ENABLE6" ;
+        lv2:name "Enable 6" ;
         lv2:default 0.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -465,7 +465,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 50 ;
         lv2:symbol "phase6" ;
-        lv2:name "PHASE6" ;
+        lv2:name "Phase 6" ;
         lv2:default 0.666667 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -474,7 +474,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 51 ;
         lv2:symbol "depth6" ;
-        lv2:name "DEPTH6" ;
+        lv2:name "Depth 6" ;
         lv2:default 0.500000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -483,7 +483,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 52 ;
         lv2:symbol "route_l6" ;
-        lv2:name "ROUTE_L6" ;
+        lv2:name "Left 6" ;
         lv2:default 1.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -492,7 +492,7 @@
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 53 ;
         lv2:symbol "route_r6" ;
-        lv2:name "ROUTE_R6" ;
+        lv2:name "Right 6" ;
         lv2:default 0.000000 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
