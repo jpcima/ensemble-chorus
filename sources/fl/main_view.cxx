@@ -1370,7 +1370,7 @@ this->labelfont(13);
   dl_fast_rand_->align(Fl_Align(FL_ALIGN_RIGHT));
   dl_fast_rand_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Knob>* dl_fast_rand_
-{ dl_mod_range_ = new Fl_Valuator_Ex<Fl_Knob>(375, 80, 45, 45, "Range");
+{ dl_mod_range_ = new Fl_Valuator_Ex<Fl_Knob>(370, 80, 45, 45, "Range");
   dl_mod_range_->box(FL_OVAL_BOX);
   dl_mod_range_->color(FL_BACKGROUND_COLOR);
   dl_mod_range_->selection_color(FL_INACTIVE_COLOR);

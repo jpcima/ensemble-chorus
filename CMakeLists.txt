@@ -1,8 +1,14 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(EnsembleChorus VERSION "0.0.1" LANGUAGES C CXX)
+set(PROJECT_LV2_URI "urn:jpcima:ensemble-chorus")
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
+
+include(SystemOption)
+system_option(EnsembleChorus_VST2 "Build VST2" ON)
+system_option(EnsembleChorus_LV2 "Build LV2" ON "Windows" OFF "Darwin" OFF)
+system_option(EnsembleChorus_Standalone "Build Standalone" OFF)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -15,6 +21,10 @@ option(ENABLE_PROFILING "Enable profiling" OFF)
 
 include(GNUWarnings)
 enable_gnu_warning(all)
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+endif()
 
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
 
@@ -100,4 +110,92 @@ if(FLTK_FOUND)
     DESTINATION "share/pixmaps")
   install(FILES "resources/desktop/ensemble_chorus.desktop"
     DESTINATION "share/applications")
+endif()
+
+###
+set(JUCE_ROOT_DIR "${PROJECT_SOURCE_DIR}/thirdparty/JUCE")
+set(JUCE_PROJECT_DIR "${PROJECT_SOURCE_DIR}/sources/plugin")
+set(JUCE_LV2_URI "${PROJECT_LV2_URI}")
+include(JUCE)
+
+set(ensemble_chorus_JUCE_MODULES
+  juce_core juce_events juce_data_structures
+  juce_audio_basics juce_audio_devices juce_audio_formats juce_audio_processors juce_audio_utils
+  juce_graphics juce_gui_basics juce_gui_extra)
+
+add_library(ensemble_chorus_plugin_core STATIC EXCLUDE_FROM_ALL
+  sources/plugin/Source/PluginEditor.cpp
+  sources/plugin/Source/PluginProcessor.cpp
+  sources/plugin/Source/LookAndFeel.cpp
+  sources/plugin/Source/MainComponent.cpp
+  sources/plugin/Source/ModulatorVisu.cpp
+  sources/plugin/JuceLibraryCode/BinaryData.cpp)
+target_include_directories(ensemble_chorus_plugin_core
+  PRIVATE "sources"
+  PRIVATE "sources/plugin/JuceLibraryCode")
+target_link_libraries(ensemble_chorus_plugin_core
+  PUBLIC ensemble_chorus ring_buffer ${ensemble_chorus_JUCE_MODULES})
+
+if(EnsembleChorus_Standalone)
+  add_juce_standalone(ensemble_chorus_standalone)
+  target_link_libraries(ensemble_chorus_standalone PRIVATE ensemble_chorus_plugin_core)
+  set_target_properties(ensemble_chorus_standalone PROPERTIES
+    OUTPUT_NAME "EnsembleChorus" RUNTIME_OUTPUT_DIRECTORY "standalone")
+endif()
+
+if(EnsembleChorus_VST2)
+  add_juce_vst(ensemble_chorus_vst)
+  target_link_libraries(ensemble_chorus_vst PRIVATE ensemble_chorus_plugin_core)
+  set_target_properties(ensemble_chorus_vst PROPERTIES
+    OUTPUT_NAME "EnsembleChorus" LIBRARY_OUTPUT_DIRECTORY "vst2")
+
+  if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    set_target_properties(ensemble_chorus_vst PROPERTIES
+      PREFIX "" SUFFIX "" LIBRARY_OUTPUT_DIRECTORY "vst2/EnsembleChorus.vst/Contents/MacOS")
+    file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/vst2/EnsembleChorus.vst/Contents/")
+    file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/vst2/EnsembleChorus.vst/Contents/PkgInfo" "BNDL????")
+    add_custom_target(ensemble_chorus_vst_InfoPlist ALL
+      "${CMAKE_COMMAND}"
+      "-DCONFIGURE_FILE_INPUT=${PROJECT_SOURCE_DIR}/sources/plugin/Builds/MacOSX/Info-VST.plist"
+      "-DCONFIGURE_FILE_OUTPUT=${CMAKE_CURRENT_BINARY_DIR}/vst2/EnsembleChorus.vst/Contents/Info.plist"
+      "-DEXECUTABLE_NAME=EnsembleChorus"
+      "-P" "${PROJECT_SOURCE_DIR}/cmake/ConfigureFile.cmake"
+      DEPENDS "${PROJECT_SOURCE_DIR}/sources/plugin/Builds/MacOSX/Info-VST.plist")
+  else()
+    install(TARGETS ensemble_chorus_vst DESTINATION "lib/vst")
+  endif()
+endif()
+
+if(EnsembleChorus_LV2)
+  add_juce_lv2(ensemble_chorus_lv2)
+  target_link_libraries(ensemble_chorus_lv2 PRIVATE ensemble_chorus_plugin_core)
+  set_target_properties(ensemble_chorus_lv2 PROPERTIES
+    OUTPUT_NAME "EnsembleChorus" LIBRARY_OUTPUT_DIRECTORY "lv2/EnsembleChorus.lv2")
+
+  if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    set(LV2_UI_CLASS "ui:WindowsUI")
+  elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    set(LV2_UI_CLASS "ui:CocoaUI")
+  else()
+    set(LV2_UI_CLASS "ui:X11UI")
+  endif()
+  set(LV2_BINARY_SUFFIX "${CMAKE_SHARED_MODULE_SUFFIX}")
+
+  configure_file(
+    "${PROJECT_SOURCE_DIR}/resources/lv2/EnsembleChorus.lv2/manifest.ttl.in"
+    "${PROJECT_BINARY_DIR}/lv2-build/EnsembleChorus.lv2/manifest.ttl"
+    @ONLY)
+
+  set(ensemble_chorus_lv2_MANIFESTS
+    "resources/lv2/EnsembleChorus.lv2/EnsembleChorus.ttl"
+    "${PROJECT_BINARY_DIR}/lv2-build/EnsembleChorus.lv2/manifest.ttl"
+    "resources/lv2/EnsembleChorus.lv2/presets.ttl")
+  add_custom_target(ensemble_chorus_lv2_manifests_copy ALL
+    COMMAND "${CMAKE_COMMAND}" "-E" "make_directory" "${CMAKE_CURRENT_BINARY_DIR}/lv2/EnsembleChorus.lv2/"
+    COMMAND "${CMAKE_COMMAND}" "-E" "copy" ${ensemble_chorus_lv2_MANIFESTS} "${CMAKE_CURRENT_BINARY_DIR}/lv2/EnsembleChorus.lv2/"
+    DEPENDS ${ensemble_chorus_lv2_MANIFESTS}
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+
+  install(TARGETS ensemble_chorus_lv2 DESTINATION "lib/lv2/EnsembleChorus.lv2")
+  install(FILES ${ensemble_chorus_lv2_MANIFESTS} DESTINATION "lib/lv2/EnsembleChorus.lv2")
 endif()

@@ -6,6 +6,7 @@
 #include "../dynarray"
 #include <algorithm>
 #include <iterator>
+#include <stdexcept>
 
 namespace jsl {
 

@@ -1,0 +1,65 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2017
+
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ensemble-chorus - Standalone Plugin", "ensemble-chorus_StandalonePlugin.vcxproj", "{11450932-D1B4-FF2F-E312-3B1C9725D261}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D0190D90-2B7D-F325-25A6-0759715C35CA} = {D0190D90-2B7D-F325-25A6-0759715C35CA}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ensemble-chorus - VST", "ensemble-chorus_VST.vcxproj", "{B4B0D0B3-9E94-36D0-EC07-256F9B27B41F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D0190D90-2B7D-F325-25A6-0759715C35CA} = {D0190D90-2B7D-F325-25A6-0759715C35CA}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ensemble-chorus - VST3", "ensemble-chorus_VST3.vcxproj", "{D873A128-AB87-A15B-F6B0-6481A15A53A8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D0190D90-2B7D-F325-25A6-0759715C35CA} = {D0190D90-2B7D-F325-25A6-0759715C35CA}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ensemble-chorus - AAX", "ensemble-chorus_AAX.vcxproj", "{CD533C39-A17B-B28E-8C0B-4DEA45C1FE1E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D0190D90-2B7D-F325-25A6-0759715C35CA} = {D0190D90-2B7D-F325-25A6-0759715C35CA}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ensemble-chorus - RTAS", "ensemble-chorus_RTAS.vcxproj", "{556D1316-01AE-C9BB-43B2-5577DDE5EEB5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D0190D90-2B7D-F325-25A6-0759715C35CA} = {D0190D90-2B7D-F325-25A6-0759715C35CA}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ensemble-chorus - Shared Code", "ensemble-chorus_SharedCode.vcxproj", "{D0190D90-2B7D-F325-25A6-0759715C35CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B4B0D0B3-9E94-36D0-EC07-256F9B27B41F}.Debug|x64.ActiveCfg = Debug|x64
+		{B4B0D0B3-9E94-36D0-EC07-256F9B27B41F}.Debug|x64.Build.0 = Debug|x64
+		{B4B0D0B3-9E94-36D0-EC07-256F9B27B41F}.Release|x64.ActiveCfg = Release|x64
+		{B4B0D0B3-9E94-36D0-EC07-256F9B27B41F}.Release|x64.Build.0 = Release|x64
+		{D873A128-AB87-A15B-F6B0-6481A15A53A8}.Debug|x64.ActiveCfg = Debug|x64
+		{D873A128-AB87-A15B-F6B0-6481A15A53A8}.Debug|x64.Build.0 = Debug|x64
+		{D873A128-AB87-A15B-F6B0-6481A15A53A8}.Release|x64.ActiveCfg = Release|x64
+		{D873A128-AB87-A15B-F6B0-6481A15A53A8}.Release|x64.Build.0 = Release|x64
+		{CD533C39-A17B-B28E-8C0B-4DEA45C1FE1E}.Debug|x64.ActiveCfg = Debug|x64
+		{CD533C39-A17B-B28E-8C0B-4DEA45C1FE1E}.Debug|x64.Build.0 = Debug|x64
+		{CD533C39-A17B-B28E-8C0B-4DEA45C1FE1E}.Release|x64.ActiveCfg = Release|x64
+		{CD533C39-A17B-B28E-8C0B-4DEA45C1FE1E}.Release|x64.Build.0 = Release|x64
+		{556D1316-01AE-C9BB-43B2-5577DDE5EEB5}.Debug|x64.ActiveCfg = Debug|x64
+		{556D1316-01AE-C9BB-43B2-5577DDE5EEB5}.Debug|x64.Build.0 = Debug|x64
+		{556D1316-01AE-C9BB-43B2-5577DDE5EEB5}.Release|x64.ActiveCfg = Release|x64
+		{556D1316-01AE-C9BB-43B2-5577DDE5EEB5}.Release|x64.Build.0 = Release|x64
+		{11450932-D1B4-FF2F-E312-3B1C9725D261}.Debug|x64.ActiveCfg = Debug|x64
+		{11450932-D1B4-FF2F-E312-3B1C9725D261}.Debug|x64.Build.0 = Debug|x64
+		{11450932-D1B4-FF2F-E312-3B1C9725D261}.Release|x64.ActiveCfg = Release|x64
+		{11450932-D1B4-FF2F-E312-3B1C9725D261}.Release|x64.Build.0 = Release|x64
+		{D0190D90-2B7D-F325-25A6-0759715C35CA}.Debug|x64.ActiveCfg = Debug|x64
+		{D0190D90-2B7D-F325-25A6-0759715C35CA}.Debug|x64.Build.0 = Debug|x64
+		{D0190D90-2B7D-F325-25A6-0759715C35CA}.Release|x64.ActiveCfg = Release|x64
+		{D0190D90-2B7D-F325-25A6-0759715C35CA}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

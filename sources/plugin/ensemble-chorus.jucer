@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="DPIdTs" name="ensemble-chorus" projectType="audioplug" jucerVersion="5.3.2"
+              pluginFormats="buildAAX,buildAU,buildAUv3,buildRTAS,buildStandalone,buildVST,buildVST3"
+              pluginAUMainType="'aufx'" pluginRTASCategory="8192" pluginAAXCategory="8192"
+              pluginVSTCategory="kPlugCategEffect" pluginVST3Category="Fx"
+              version="0.0.1" pluginName="JPC Ensemble Chorus" pluginManufacturer="Jean Pierre Cimalando"
+              pluginManufacturerCode="JPCi" pluginCode="EnsC" pluginChannelConfigs="{2, 2}"
+              aaxIdentifier="jpcima.ensemble-chorus" cppLanguageStandard="11"
+              includeBinaryInJuceHeader="0" pluginDesc="Digital model of electronic string ensemble chorus"
+              headerPath="../../..&#10;../../../core/include&#10;../../../../thirdparty/ring-buffer/include&#10;../../../../thirdparty/jsl/include&#10;../../../../thirdparty/gsl-lite/include&#10;../../../../thirdparty/DSPFilters/shared/DSPFilters/include&#10;../../../../thirdparty/pugixml/src"
+              defines="EC_API=&quot;&quot;">
+  <MAINGROUP id="QIez1Z" name="ensemble-chorus">
+    <GROUP id="{032C2112-6F63-B837-B3E8-F15EF7D20982}" name="Source">
+      <GROUP id="{133AECF8-FE85-CCC5-DEA8-CCC1ED92AE08}" name="utility">
+        <FILE id="Jq1oaA" name="FunctionalTimer.h" compile="0" resource="0"
+              file="Source/utility/FunctionalTimer.h"/>
+      </GROUP>
+      <FILE id="kO7Zr2" name="LookAndFeel.cpp" compile="1" resource="0" file="Source/LookAndFeel.cpp"/>
+      <FILE id="WNZSyI" name="LookAndFeel.h" compile="0" resource="0" file="Source/LookAndFeel.h"/>
+      <FILE id="o2Vn9F" name="MessageQueue.h" compile="0" resource="0" file="Source/MessageQueue.h"/>
+      <FILE id="UHzjFs" name="MessageQueue.tcc" compile="0" resource="0"
+            file="Source/MessageQueue.tcc"/>
+      <FILE id="tTwiXm" name="Messages.h" compile="0" resource="0" file="Source/Messages.h"/>
+      <FILE id="A0pqpY" name="Messages.tcc" compile="0" resource="0" file="Source/Messages.tcc"/>
+      <FILE id="Q3R6GY" name="ModulatorVisu.cpp" compile="1" resource="0"
+            file="Source/ModulatorVisu.cpp"/>
+      <FILE id="gsOi3o" name="ModulatorVisu.h" compile="0" resource="0" file="Source/ModulatorVisu.h"/>
+      <FILE id="B155c1" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="p7i2ra" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="Z84Pvt" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="z3hhzG" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h" xcodeResource="0"/>
+      <FILE id="s8LTnt" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+      <FILE id="SMmXDf" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+    </GROUP>
+    <GROUP id="{BF9DAB9F-0527-900C-34C6-A3FDFF3506CD}" name="core">
+      <GROUP id="{28BA867E-EC1D-1A19-F3B4-33102F7A9712}" name="include">
+        <FILE id="FLHydh" name="ensemble_chorus.h" compile="0" resource="0"
+              file="../core/include/ensemble_chorus.h"/>
+      </GROUP>
+      <FILE id="TdHYpG" name="bbd.cc" compile="1" resource="0" file="../core/bbd.cc"/>
+      <FILE id="HPsXKH" name="bbd.h" compile="0" resource="0" file="../core/bbd.h"/>
+      <FILE id="JMX0aj" name="bbd.tcc" compile="0" resource="0" file="../core/bbd.tcc"/>
+      <FILE id="WdUvYG" name="chorus.cc" compile="1" resource="0" file="../core/chorus.cc"/>
+      <FILE id="KHpzUL" name="chorus.h" compile="0" resource="0" file="../core/chorus.h"/>
+      <FILE id="wzfRnz" name="core.cc" compile="1" resource="0" file="../core/core.cc"/>
+      <FILE id="ZLdh4w" name="core_preset.cc" compile="1" resource="0" file="../core/core_preset.cc"/>
+      <FILE id="rluOU9" name="dsp.h" compile="0" resource="0" file="../core/dsp.h"/>
+      <FILE id="V1VK1h" name="dsp.tcc" compile="0" resource="0" file="../core/dsp.tcc"/>
+      <FILE id="rJ5cc7" name="lfos.cc" compile="1" resource="0" file="../core/lfos.cc"/>
+      <FILE id="RCQPFa" name="lfos.h" compile="0" resource="0" file="../core/lfos.h"/>
+    </GROUP>
+    <GROUP id="{2795062C-5C4F-7602-AA05-BD3B0DCD0F3E}" name="utility">
+      <FILE id="tRu6aJ" name="stdc_memory.h" compile="0" resource="0" file="../utility/stdc_memory.h"/>
+    </GROUP>
+    <GROUP id="{7F71D257-44F0-82C5-3CCA-D67F517A7469}" name="thirdparty">
+      <GROUP id="{0CAD9F8E-CEC3-C57C-6F35-FF38F85CDD62}" name="DSPFilters">
+        <GROUP id="{D900981C-F384-8A9C-E5A7-37AB3CF3C5D0}" name="shared">
+          <GROUP id="{D32DD7B1-55B9-B26D-7258-D835DB84FB04}" name="DSPFilters">
+            <GROUP id="{5524F942-F8D7-5F69-20E0-488C34049CF1}" name="include">
+              <GROUP id="{CD21F5AC-78A7-882A-04CB-FAFF9D1C6689}" name="DspFilters">
+                <FILE id="sn72cc" name="Biquad.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/Biquad.h"/>
+                <FILE id="GQgnDq" name="Cascade.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/Cascade.h"/>
+                <FILE id="cgBSFO" name="Common.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/Common.h"/>
+                <FILE id="tgsUhI" name="Design.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/Design.h"/>
+                <FILE id="fJDxGw" name="Filter.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/Filter.h"/>
+                <FILE id="eC7SaO" name="Layout.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/Layout.h"/>
+                <FILE id="A3GBIW" name="Legendre.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/Legendre.h"/>
+                <FILE id="xnWuch" name="MathSupplement.h" compile="0" resource="0"
+                      file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/MathSupplement.h"/>
+                <FILE id="f0xCjb" name="Params.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/Params.h"/>
+                <FILE id="ORxSmt" name="PoleFilter.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/PoleFilter.h"/>
+                <FILE id="uwZdJj" name="RBJ.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/RBJ.h"/>
+                <FILE id="Gjmc5g" name="RootFinder.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/RootFinder.h"/>
+                <FILE id="hhck2J" name="State.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/State.h"/>
+                <FILE id="xg5wlo" name="Types.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/Types.h"/>
+              </GROUP>
+            </GROUP>
+            <GROUP id="{8A33B38C-7E7A-84B5-E88E-7A03E45B5C72}" name="source">
+              <FILE id="JqsVbW" name="Biquad.cpp" compile="1" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/source/Biquad.cpp"/>
+              <FILE id="erZyql" name="Cascade.cpp" compile="1" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/source/Cascade.cpp"/>
+              <FILE id="dFZetz" name="Legendre.cpp" compile="1" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/source/Legendre.cpp"/>
+              <FILE id="rZge9m" name="PoleFilter.cpp" compile="1" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/source/PoleFilter.cpp"/>
+              <FILE id="rfOkAa" name="RBJ.cpp" compile="1" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/source/RBJ.cpp"/>
+              <FILE id="jOpVey" name="RootFinder.cpp" compile="1" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/source/RootFinder.cpp"/>
+            </GROUP>
+          </GROUP>
+        </GROUP>
+      </GROUP>
+      <GROUP id="{DA5C2E11-11F3-3E97-D42E-55A06EDD5468}" name="pugixml">
+        <GROUP id="{F6AC4E5A-827B-F046-0F3C-18C075E99416}" name="src">
+          <FILE id="G9Oexn" name="pugiconfig.hpp" compile="0" resource="0" file="../../thirdparty/pugixml/src/pugiconfig.hpp"/>
+          <FILE id="CWXQQr" name="pugixml.cpp" compile="1" resource="0" file="../../thirdparty/pugixml/src/pugixml.cpp"/>
+          <FILE id="UiaRlb" name="pugixml.hpp" compile="0" resource="0" file="../../thirdparty/pugixml/src/pugixml.hpp"/>
+        </GROUP>
+      </GROUP>
+      <GROUP id="{FC35C128-5524-F017-D0DF-085E3CA88341}" name="ring-buffer">
+        <GROUP id="{374F8649-332A-4E3C-B9F6-CF750399D3FD}" name="include">
+          <GROUP id="{93F6FE19-52A5-6C9A-93A7-43FB6DCF8842}" name="ring_buffer">
+            <FILE id="W3WOpH" name="ring_buffer.h" compile="0" resource="0" file="../../thirdparty/ring-buffer/include/ring_buffer/ring_buffer.h"/>
+            <FILE id="FqCPbw" name="ring_buffer.tcc" compile="0" resource="0" file="../../thirdparty/ring-buffer/include/ring_buffer/ring_buffer.tcc"/>
+          </GROUP>
+        </GROUP>
+        <GROUP id="{2FF7C9D0-547B-9EC5-1FAC-4C294FF22419}" name="sources">
+          <FILE id="uh3gkk" name="ring_buffer.cc" compile="1" resource="0" file="../../thirdparty/ring-buffer/sources/ring_buffer.cc"/>
+        </GROUP>
+      </GROUP>
+    </GROUP>
+    <GROUP id="{1F3758E1-8609-3AFF-B7EB-AF29FB6F7C82}" name="resources">
+      <GROUP id="{4FF20535-C4EE-8243-743E-C41CB032B912}" name="ui">
+        <GROUP id="{58F283C0-A0C6-9406-69F2-6B339705523B}" name="images">
+          <GROUP id="{5911FF34-B77C-BAA3-4104-CDA8E8C64E61}" name="wave">
+            <FILE id="A6izbe" name="ramp.png" compile="0" resource="1" file="../../resources/ui/images/wave/ramp.png"/>
+            <FILE id="mGNjkv" name="saw.png" compile="0" resource="1" file="../../resources/ui/images/wave/saw.png"/>
+            <FILE id="RUJB1g" name="sine.png" compile="0" resource="1" file="../../resources/ui/images/wave/sine.png"/>
+            <FILE id="dP83yp" name="square.png" compile="0" resource="1" file="../../resources/ui/images/wave/square.png"/>
+            <FILE id="sP7muj" name="triangle.png" compile="0" resource="1" file="../../resources/ui/images/wave/triangle.png"/>
+          </GROUP>
+        </GROUP>
+        <GROUP id="{D533A537-65DE-02A1-5391-00527FB95861}" name="fonts">
+          <FILE id="JC5Z1w" name="Mono-Bold.ttf.gz" compile="0" resource="1"
+                file="../../resources/ui/fonts/Mono-Bold.ttf.gz"/>
+          <FILE id="ej01Uy" name="Mono-BoldItalic.ttf.gz" compile="0" resource="1"
+                file="../../resources/ui/fonts/Mono-BoldItalic.ttf.gz"/>
+          <FILE id="YiXztP" name="Mono-Italic.ttf.gz" compile="0" resource="1"
+                file="../../resources/ui/fonts/Mono-Italic.ttf.gz"/>
+          <FILE id="IXMDNt" name="Mono-Regular.ttf.gz" compile="0" resource="1"
+                file="../../resources/ui/fonts/Mono-Regular.ttf.gz"/>
+          <FILE id="FH0ceW" name="Sans-Bold.ttf.gz" compile="0" resource="1"
+                file="../../resources/ui/fonts/Sans-Bold.ttf.gz"/>
+          <FILE id="D39R2M" name="Sans-BoldItalic.ttf.gz" compile="0" resource="1"
+                file="../../resources/ui/fonts/Sans-BoldItalic.ttf.gz"/>
+          <FILE id="WORywE" name="Sans-Italic.ttf.gz" compile="0" resource="1"
+                file="../../resources/ui/fonts/Sans-Italic.ttf.gz"/>
+          <FILE id="HEPPxT" name="Sans-Regular.ttf.gz" compile="0" resource="1"
+                file="../../resources/ui/fonts/Sans-Regular.ttf.gz"/>
+          <FILE id="hsDtj1" name="Serif-Bold.ttf.gz" compile="0" resource="1"
+                file="../../resources/ui/fonts/Serif-Bold.ttf.gz"/>
+          <FILE id="hASQcc" name="Serif-BoldItalic.ttf.gz" compile="0" resource="1"
+                file="../../resources/ui/fonts/Serif-BoldItalic.ttf.gz"/>
+          <FILE id="lNMLqX" name="Serif-Italic.ttf.gz" compile="0" resource="1"
+                file="../../resources/ui/fonts/Serif-Italic.ttf.gz"/>
+          <FILE id="vEkNpN" name="Serif-Regular.ttf.gz" compile="0" resource="1"
+                file="../../resources/ui/fonts/Serif-Regular.ttf.gz"/>
+        </GROUP>
+      </GROUP>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_gui_extra" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../thirdparty/JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+    <VS2017 targetFolder="Builds/VisualStudio2017">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_gui_extra" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../thirdparty/JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2017>
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_gui_extra" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../thirdparty/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../thirdparty/JUCE/modules"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+  </MODULES>
+  <LIVE_SETTINGS>
+    <LINUX/>
+  </LIVE_SETTINGS>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_ASIO="1" JUCE_USE_FLAC="0"
+               JUCE_USE_OGGVORBIS="0" JUCE_USE_WINDOWS_MEDIA_FORMAT="0" JUCE_LOAD_CURL_SYMBOLS_LAZILY="1"
+               JUCE_WEB_BROWSER="0"/>
+</JUCERPROJECT>

@@ -7,6 +7,7 @@
 
 #pragma once
 #include <math.h>
+#include <stddef.h>
 
 #if defined(__cplusplus)
 extern "C" {
@@ -41,9 +42,9 @@ enum {
 
 typedef enum ec_parameter_flag {
     ECP_FLOAT       = 0,
-    ECP_BOOLEAN     = 2,
-    ECP_INTEGER     = 4,
-    ECP_LOGARITHMIC = 8,
+    ECP_BOOLEAN     = 1,
+    ECP_INTEGER     = 2,
+    ECP_LOGARITHMIC = 4,
 } ec_parameter_flag_t;
 
 #define  EC_EACH_PARAMETER(P)                   \

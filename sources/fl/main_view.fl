@@ -53,7 +53,7 @@ decl {class Fl_Value_Slider;} {public global
 decl {class Fl_Toggle_Button;} {public global
 }
 
-widget_class Main_View {open selected
+widget_class Main_View {open
   xywh {426 643 625 280} type Double labelfont 13 visible
 } {
   decl {static constexpr int W = 625;} {public local
@@ -296,19 +296,19 @@ x->set_modulation_callback(&modulation, this);} {}
     xywh {435 210 55 25} down_box BORDER_BOX
   } {
     MenuItem {} {
-      image {images/wave/sine.png} xywh {0 0 100 20}
+      image {../../resources/ui/images/wave/sine.png} xywh {0 0 100 20}
     }
     MenuItem {} {
-      image {images/wave/square.png} xywh {10 10 100 20}
+      image {../../resources/ui/images/wave/square.png} xywh {10 10 100 20}
     }
     MenuItem {} {
-      image {images/wave/saw.png} xywh {20 20 100 20}
+      image {../../resources/ui/images/wave/saw.png} xywh {20 20 100 20}
     }
     MenuItem {} {
-      image {images/wave/ramp.png} xywh {30 30 100 20}
+      image {../../resources/ui/images/wave/ramp.png} xywh {30 30 100 20}
     }
-    MenuItem {} {
-      image {images/wave/triangle.png} xywh {40 40 100 20}
+    MenuItem {} {selected
+      image {../../resources/ui/images/wave/triangle.png} xywh {40 40 100 20}
     }
   }
   Fl_Choice cb_fast_wave_ {
@@ -316,19 +316,19 @@ x->set_modulation_callback(&modulation, this);} {}
     xywh {555 210 55 25} down_box BORDER_BOX
   } {
     MenuItem {} {
-      image {images/wave/sine.png} xywh {10 10 100 20}
+      image {../../resources/ui/images/wave/sine.png} xywh {10 10 100 20}
     }
     MenuItem {} {
-      image {images/wave/square.png} xywh {20 20 100 20}
+      image {../../resources/ui/images/wave/square.png} xywh {20 20 100 20}
     }
     MenuItem {} {
-      image {images/wave/saw.png} xywh {30 30 100 20}
+      image {../../resources/ui/images/wave/saw.png} xywh {30 30 100 20}
     }
     MenuItem {} {
-      image {images/wave/ramp.png} xywh {40 40 100 20}
+      image {../../resources/ui/images/wave/ramp.png} xywh {40 40 100 20}
     }
     MenuItem {} {
-      image {images/wave/triangle.png} xywh {50 50 100 20}
+      image {../../resources/ui/images/wave/triangle.png} xywh {50 50 100 20}
     }
   }
   Fl_Slider sl_gain_in_ {
