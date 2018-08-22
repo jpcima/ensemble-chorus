@@ -46,6 +46,7 @@ void Main_View::parameter(unsigned id, float value, void *userdata)
         break;
     };
     case ECP_DELAY: self.sl_delay_->value(value); break;
+    case ECP_REGEN: self.dl_regen_->value(value); break;
     case ECP_NSTAGES: {
         std::string label = std::to_string((int)value);
         int index = self.cb_nstages_->find_index(label.c_str());

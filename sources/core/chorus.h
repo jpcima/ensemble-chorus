@@ -19,6 +19,7 @@ public:
     void id(unsigned i);
 
     void delay(float r_delay);
+    void regen(float r_regen);
     void delays(const float phases[], const unsigned nums[], unsigned count);
 
     void nstages(unsigned n);

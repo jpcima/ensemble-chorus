@@ -142,6 +142,9 @@ static void ensemble_chorus_set_parameter_ex(chorus_t *ec, ec_parameter_t p, flo
         case ECP_DELAY:
             chorus.delay(value);
             break;
+        case ECP_REGEN:
+            chorus.regen(value);
+            break;
         case ECP_NSTAGES:
             chorus.nstages(value);
             break;

@@ -24,6 +24,8 @@ static constexpr float lowpass_cutoff_min = 100.0;
 static constexpr float lowpass_cutoff_max = 20e3;
 static constexpr float lowpass_q_min = 0.05;
 static constexpr float lowpass_q_max = 1.0;
+static constexpr float regen_min = 0.0;
+static constexpr float regen_max = 0.1;
 
 struct Chorus::Impl {
     unsigned id_ = 0;
@@ -259,6 +261,14 @@ void Chorus::delay(float r_delay)
     P.delay_ = delay;
     P.r_delay_ = r_delay;
     P.update_clock_freq();
+}
+
+void Chorus::regen(float r_regen)
+{
+    Impl &P = *this->P;
+    float regen = regen_min + r_regen * (regen_max - regen_min);
+    for (unsigned i = 0; i < 6; ++i)
+        P.delay_line_[i].regen(regen);
 }
 
 void Chorus::delays(const float phases[], const unsigned nums[], unsigned count)

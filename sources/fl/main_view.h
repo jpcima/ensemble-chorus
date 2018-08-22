@@ -284,6 +284,11 @@ private:
   inline void cb_Save_i(Fl_Button*, void*);
   static void cb_Save(Fl_Button*, void*);
 public:
+  Fl_Valuator_Ex<Fl_Knob> *dl_regen_;
+private:
+  inline void cb_dl_regen__i(Fl_Valuator_Ex<Fl_Knob>*, void*);
+  static void cb_dl_regen_(Fl_Valuator_Ex<Fl_Knob>*, void*);
+public:
   void controller(Main_Controller *x);
 private:
   static void parameter(unsigned id, float value, void *userdata);

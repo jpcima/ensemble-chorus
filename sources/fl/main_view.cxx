@@ -849,6 +849,13 @@ void Main_View::cb_Save_i(Fl_Button*, void*) {
 void Main_View::cb_Save(Fl_Button* o, void* v) {
   ((Main_View*)(o->parent()))->cb_Save_i(o,v);
 }
+
+void Main_View::cb_dl_regen__i(Fl_Valuator_Ex<Fl_Knob>* o, void*) {
+  controller()->send_parameter(ECP_REGEN, o->value());
+}
+void Main_View::cb_dl_regen_(Fl_Valuator_Ex<Fl_Knob>* o, void* v) {
+  ((Main_View*)(o->parent()))->cb_dl_regen__i(o,v);
+}
 Main_View::Main_View(int X, int Y, int W, int H, const char *L)
   : Fl_Group(X, Y, W, H, L) {
 this->labelfont(13);
@@ -1592,6 +1599,18 @@ this->labelfont(13);
   o->labeltype(FL_ENGRAVED_LABEL);
   o->callback((Fl_Callback*)cb_Save);
 } // Fl_Button* o
+{ dl_regen_ = new Fl_Valuator_Ex<Fl_Knob>(445, 140, 35, 35, "Regen");
+  dl_regen_->box(FL_OVAL_BOX);
+  dl_regen_->color(FL_BACKGROUND_COLOR);
+  dl_regen_->selection_color(FL_INACTIVE_COLOR);
+  dl_regen_->labeltype(FL_ENGRAVED_LABEL);
+  dl_regen_->labelfont(0);
+  dl_regen_->labelsize(12);
+  dl_regen_->labelcolor(FL_FOREGROUND_COLOR);
+  dl_regen_->callback((Fl_Callback*)cb_dl_regen_);
+  dl_regen_->align(Fl_Align(FL_ALIGN_BOTTOM));
+  dl_regen_->when(FL_WHEN_CHANGED);
+} // Fl_Valuator_Ex<Fl_Knob>* dl_regen_
 end();
 }
 

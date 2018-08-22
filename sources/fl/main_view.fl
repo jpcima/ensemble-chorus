@@ -54,7 +54,7 @@ decl {class Fl_Toggle_Button;} {public global
 }
 
 widget_class Main_View {open
-  xywh {426 643 625 280} type Double labelfont 13 visible
+  xywh {424 517 625 280} type Double labelfont 13 visible
 } {
   decl {static constexpr int W = 625;} {public local
   }
@@ -307,7 +307,7 @@ x->set_modulation_callback(&modulation, this);} {}
     MenuItem {} {
       image {../../resources/ui/images/wave/ramp.png} xywh {30 30 100 20}
     }
-    MenuItem {} {selected
+    MenuItem {} {
       image {../../resources/ui/images/wave/triangle.png} xywh {40 40 100 20}
     }
   }
@@ -494,5 +494,11 @@ else {
     fl_alert("Could not save the preset file.");
 }}
     xywh {315 30 45 25} labeltype ENGRAVED_LABEL
+  }
+  Fl_Dial dl_regen_ {
+    label Regen
+    callback {controller()->send_parameter(ECP_REGEN, o->value())} selected
+    xywh {445 140 35 35} labeltype ENGRAVED_LABEL labelsize 12
+    class {Fl_Valuator_Ex<Fl_Knob>}
   }
 }

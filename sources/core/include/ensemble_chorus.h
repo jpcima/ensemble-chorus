@@ -52,6 +52,7 @@ typedef enum ec_parameter_flag {
     P(BYPASS, false, true, false, ECP_BOOLEAN, "Bypass")                \
     P(CHANNEL_LAYOUT, ECC_STEREO, ECC_MONO, ECC_STEREO, ECP_INTEGER, "Channel layout") \
     P(DELAY, 0, 1, 0.5, ECP_FLOAT, "Delay")                             \
+    P(REGEN, 0, 1, 0.5, ECP_FLOAT, "Regen")                             \
     P(NSTAGES, EC_NSTAGES_MIN, EC_NSTAGES_MAX, 1024, ECP_INTEGER, "Stages") \
     P(MOD_RANGE, 0, 1, 0.5, ECP_FLOAT, "Modulation range")              \
     P(SLOW_RATE, 0, 1, 0.5, ECP_FLOAT, "Chorus rate")                   \
