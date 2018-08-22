@@ -111,9 +111,12 @@ void Chorus::setup(float samplerate, unsigned bufsize)
 
     float lowpass_cutoff = lowpass_cutoff_max;
     float lowpass_q = M_SQRT1_2;
-    for (unsigned c = 0; c < 2; ++c)  { // XXX optimize to compute once only
+    for (unsigned c = 0; c < 2; ++c) {
         auto &lowpass1 = P.lowpass1_[c];
-        lowpass1.setup(samplerate, lowpass_cutoff, lowpass_q);
+        if (c == 0)
+            lowpass1.setup(samplerate, lowpass_cutoff, lowpass_q);
+        else
+            RBJ_setup_copy(P.lowpass1_[0], lowpass1);
         auto &lowpass2 = P.lowpass2_[c];
         RBJ_setup_copy(lowpass1, lowpass2);
     }
@@ -337,9 +340,12 @@ void Chorus::lpf(float r_cutoff, float r_q)
     Impl &P = *this->P;
     float cutoff = lowpass_cutoff_min + r_cutoff * (lowpass_cutoff_max - lowpass_cutoff_min);
     float q = lowpass_q_min + r_q * (lowpass_q_max - lowpass_q_min);
-    for (unsigned c = 0; c < 2; ++c) {  // XXX optimize to compute once only
+    for (unsigned c = 0; c < 2; ++c) {
         auto &lowpass1 = P.lowpass1_[c];
-        lowpass1.setup(P.samplerate_, cutoff, q);
+        if (c == 0)
+            lowpass1.setup(P.samplerate_, cutoff, q);
+        else
+            RBJ_setup_copy(P.lowpass1_[0], lowpass1);
         auto &lowpass2 = P.lowpass2_[c];
         RBJ_setup_copy(lowpass1, lowpass2);
     }
