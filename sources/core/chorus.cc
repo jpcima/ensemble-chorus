@@ -47,12 +47,20 @@ struct Chorus::Impl {
     LFOs lfos_slow_;
     LFOs lfos_fast_;
 
-    Dsp::SimpleFilter<Dsp::RBJ::LowPass, 1> lowpass_[2];
+    Dsp::SimpleFilter<Dsp::RBJ::LowPass, 1> lowpass1_[2];
+    Dsp::SimpleFilter<Dsp::RBJ::LowPass, 1> lowpass2_[2];
 
     std::unique_ptr<float[]> tmpbuf_;
 
     void update_clock_freq();
 };
+
+template <class F1, class F2>
+void RBJ_setup_copy(const F1 &src, F2 &dst)
+{
+    dst.m_a0 = src.m_a0; dst.m_a1 = src.m_a1; dst.m_a2 = src.m_a2;
+    dst.m_b0 = src.m_b0; dst.m_b1 = src.m_b1; dst.m_b2 = src.m_b2;
+}
 
 Chorus::Chorus()
     : P(new Impl)
@@ -104,8 +112,10 @@ void Chorus::setup(float samplerate, unsigned bufsize)
     float lowpass_cutoff = lowpass_cutoff_max;
     float lowpass_q = M_SQRT1_2;
     for (unsigned c = 0; c < 2; ++c)  { // XXX optimize to compute once only
-        auto &lowpass = P.lowpass_[c];
-        lowpass.setup(samplerate, lowpass_cutoff, lowpass_q);
+        auto &lowpass1 = P.lowpass1_[c];
+        lowpass1.setup(samplerate, lowpass_cutoff, lowpass_q);
+        auto &lowpass2 = P.lowpass2_[c];
+        RBJ_setup_copy(lowpass1, lowpass2);
     }
 
     P.tmpbuf_.reset(new float[(4 + 2 * 6) * bufsize]);
@@ -214,8 +224,10 @@ void Chorus::process(float *inout[2], unsigned nframes, ec_channel_layout ecc, c
     }
 
     for (unsigned c = 0; c < 2; ++c) {
-        auto &lowpass = P.lowpass_[c];
-        dsp::process_mono_DspFilter(lowpass, inout[c], nframes);
+        auto &lowpass1 = P.lowpass1_[c];
+        dsp::process_mono_DspFilter(lowpass1, inout[c], nframes);
+        auto &lowpass2 = P.lowpass2_[c];
+        dsp::process_mono_DspFilter(lowpass2, inout[c], nframes);
     }
 }
 
@@ -326,8 +338,10 @@ void Chorus::lpf(float r_cutoff, float r_q)
     float cutoff = lowpass_cutoff_min + r_cutoff * (lowpass_cutoff_max - lowpass_cutoff_min);
     float q = lowpass_q_min + r_q * (lowpass_q_max - lowpass_q_min);
     for (unsigned c = 0; c < 2; ++c) {  // XXX optimize to compute once only
-        auto &lowpass = P.lowpass_[c];
-        lowpass.setup(P.samplerate_, cutoff, q);
+        auto &lowpass1 = P.lowpass1_[c];
+        lowpass1.setup(P.samplerate_, cutoff, q);
+        auto &lowpass2 = P.lowpass2_[c];
+        RBJ_setup_copy(lowpass1, lowpass2);
     }
 }
 
