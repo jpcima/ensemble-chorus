@@ -35,6 +35,10 @@ void ensemble_chorus_free(chorus_t *ec)
 
 bool ensemble_chorus_init(chorus_t *ec, float samplerate, unsigned bufsize)
 {
+    // don't trust buffer size and take it as nominal value only
+    unsigned ref_bufsize = std::min(bufsize, 16u * 1024);
+    for (bufsize = 1024; bufsize < ref_bufsize; bufsize <<= 1);
+
     ec->samplerate_ = samplerate;
     ec->bufsize_ = bufsize;
 
@@ -56,7 +60,7 @@ bool ensemble_chorus_init(chorus_t *ec, float samplerate, unsigned bufsize)
     return true;
 }
 
-void ensemble_chorus_process(chorus_t *ec, float *inout[], unsigned nframes)
+static void ensemble_chorus_do_process(chorus_t *ec, float *inout[], unsigned nframes)
 {
     unsigned bufsize = ec->bufsize_;
     Chorus &chorus = *ec->chorus_;
@@ -101,6 +105,18 @@ void ensemble_chorus_process(chorus_t *ec, float *inout[], unsigned nframes)
         float *chorus_inout = chorus_inouts[c];
         for (unsigned i = 0; i < nframes; ++i)
             channel_inout[i] = dry_gain * channel_inout[i] + wet_gain * chorus_inout[i];
+    }
+}
+
+void ensemble_chorus_process(chorus_t *ec, float *inout[], unsigned nframes)
+{
+    unsigned bufsize = ec->bufsize_;
+    unsigned index = 0;
+
+    while (index < nframes) {
+        unsigned curr = std::min(nframes - index, bufsize);
+        ensemble_chorus_do_process(ec, inout + index, curr);
+        index += curr;
     }
 }
 
