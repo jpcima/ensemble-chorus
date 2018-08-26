@@ -1,0 +1,340 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!-- Mirrored from www.jhaible.com/triple_chorus/triple_chorus.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Feb 2015 12:58:13 GMT -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="Author" content="Vorname Nachname">
+  <meta name="GENERATOR" content="Mozilla/4.03 [de] (Win95; I) [Netscape]"><title>JH. Triple Chorus</title></head>
+<body alink="#ff0000" bgcolor="#cccccc" link="#0000ee" text="#000000" vlink="#551a8b">
+<i><a href="http://jhaible.com/legacy/index.html">&nbsp;back
+to my homepage</a></i>
+<p><b><font size="+3"><big>JH. String Ensemble / Triple Chorus -
+"Solina"<small><small>(TM)</small></small>
+Emulator</big></font></b></p>
+<p><small><span class="postbody">(Disclaimer: Solina used to be a
+Trademark of Eminent, and was licenced to ARP when the original String
+Ensemble keyboard was built. AFAIK the trademark is not active anymore
+- I searched the US trademark data base and found the status "dead" -
+but you can never know for sure. I do not intend to infringe anybody's
+right of exclusive use of their Trademarks. In case someone still <span style="font-style: italic;">has</span> the right to the Solina
+trademark, I kindly ask you to notify me using this <a href="mailto:jhaible@debitel.net">email</a>, and I'll remove it from
+my site immediately.)</span></small><br>
+<span class="postbody"></span><br>
+<img alt="" src="jh_triple_chorus_second_prototype_1.jpg" style="width: 652px; height: 217px;"><br>
+</p>
+<p><big><font style="font-weight: bold;" size="+3"><small>Background</small></font></big></p>
+
+<p><span class="postbody"></span><span class="postbody">The lush Sound
+of the Solina (TM) Ensemble is created by 3 BBD delay lines that are
+modulated in a unique way:</span><br>
+<span class="postbody">There are two 3-phase modulation generators, one
+running at slow speed ("Chorus"), and one running at high speed
+("Vibrato").</span></p>
+<p><span class="postbody">We'll focus on one of the modulation
+generators first, "Chorus": the slow one.<br>
+"3-Phase" means that the modulation generator has 3 outputs, each of
+which's phase is roughly 120 deg apart from the previous output.<br>
+Let's call them "0 deg", "120 deg" and 240 deg" - it's easy to see
+that, with 360 deg describing a full circle, the three modulation
+outputs a modulation generator are equally distributed around a circle.
+They are routed to the CV inputs of the 3 BBD's clock VCOs. Modulation
+of a BBD line causes a pitch shift similar to the Doppler effect
+of&nbsp; a moving sound source, so with the 3 BBD lines modulated by
+the 3-phase control signals, a sonic image of&nbsp; 3 sound sources
+that are moving along the same circle, with equal distance to one
+another along the outline of the circle, is created.<br>
+</span></p>
+<p><span class="postbody">Actually, each BBD clock VCO is controlled
+not by a single modulation generator, but by a combination of the slow
+and the fast generator.<br>
+BBD1 sees a CV that is combined from the Chorus generator's "0 deg"
+output and the Vibrato generator's "0 deg" output.<br>
+BBD2 sees Chorus "120 deg" and Vibrato "120 deg".<br>
+BBD3 sees Chorus "240deg" and Vibrato "240 deg".<br>
+</span></p>
+<p><span class="postbody">This method creates the famous "Solina"
+sound, which was so sucessfull that it has been emulated by other
+manufacturers.<br>
+Of these, I have studied two very closely: The Crumar Performer, and
+the Dr. Boehm Phasing Rotor 78. I've also taken a look at the Korg
+Polysix's Ensemble mode.</span><br>
+<big><font style="font-weight: bold;" size="+3"><small><br>
+Classic Implementation&nbsp;</small></font></big><span class="postbody">
+</span><span class="postbody"><br>
+</span></p>
+<p><span class="postbody">The original Solina did not use a 3-phase
+oscillator at all. Not even a sine wave oscillator, for that matter.<br>
+There's a Square Wave oscillator which is then turned into an
+approximated sine wave by heavy filtering, creating the "0 deg" signal
+of the "Chorus" part.<br>
+This is then fed into a 1-pole low pass filter with a gain 1.83 for
+very low frequencies. The brilliant idea behind this: For one specific
+input frequency, you get unity gain <span style="font-style: italic;">and</span>
+the desired 120 degree phase shift. You can adjust the frequency of the
+square wave generator for the "0 deg " and "120 deg" signals to have
+the same amplitude, and you'll have the right frequency and the right
+phase shift automatically.<br>
+The "240 deg"&nbsp; signal&nbsp; is not created with another filter:
+It's derived from the "0 deg" and "120 deg" signal with a simple
+inverting adder stage. (The wonders of vector maths: The vector sum of
+a balanced 3-phase system is always zero.)<br>
+The "Vibrato" path even needs one stage less: There's the square wave
+oscillator with filtering for the "0 deg" signal, a LPF for the "120
+deg signal".<br>
+These two signals are added to the "Chorus" signal chain at the
+respective stages, so the inverting adder of the "Chorus" takes care of
+the vector maths to create the "240 deg" signal of the "Vibrato" as
+well. (Even though there is no point in the circuit where you could
+measure the individual "240 deg" signals separately!)</span></p>
+<p><span class="postbody">This was pretty brilliant at a time when
+saving an opamp stage in a circuit made a difference. :)<br>
+From today's point of view, it's the tiny flaws of the original method
+that may make it interesing: Whatever adjustment of the Vibrato and
+Chorus speed potentiometers, it is <span style="font-style: italic;">not</span>
+possible to create a perfect level balance and equal phase distribution
+for both, the fast and the slow part of the modulation.<br>
+My conclusion is that <span style="font-style: italic;">if</span>
+there is a perceivable difference in the sound of a Solina, compared to
+a Boehm or the Polysix (other than EQ-ing and SNR), this may have to do
+with these special&nbsp; modulation waveforms.<br>
+The Boehm, for instance, has a very direct and precise method of
+directly creating 3-phase signals.<br>
+</span></p>
+<p><big><font style="font-weight: bold;" size="+3"><small>My
+Emulation&nbsp;</small></font></big><span class="postbody"> </span><span class="postbody"><br>
+</span>
+</p>
+<p><span class="postbody">When emulating the behaviour of some Vintage
+instrument, my design goal is always to be as precise as possible. But
+don't get fooled: If part of that vintage sound is due to certain
+imperfections, all the precision of the emulation must be directed to
+re-create that specific - once "non-perfect", but now your reference! -
+solution.<br>
+This doesn't mean to just copy the original and to use the same
+components. While this certainly works in most cases, it's rarely an
+option if you want to give others the oportunity to to build your
+circuit as well. I <span style="font-style: italic;">have</span> a set
+of TCA 350's in my drawer, but I'd rather go for BBDs that are still
+available (even when production has long stopped), the TDA1022. And
+I've omitted a lot of the more bulky components in the Solina's
+modulation generators, but I've painstakingly taken care to get the
+same waveforms, with all their "flaws", as in the original. (A circuit
+simulator is a gift from heaven for that kind of work.)<br>
+</span></p>
+<p><span class="postbody">I've also noticed that a diode in the
+Solina's BBD Clock VCOs is slightly bending the combined modulation
+waveform, before it really hits the VCO core. As my VCO implementation
+is different - CMOS gates like the Boehm, instead of&nbsp; transistors
+- that kind of&nbsp; waveform bending&nbsp; is also implemented in a
+different way, to get the same result <span style="font-style: italic;">without</span>
+introducing en extra 21V supply rail. I've made it adjustable with a
+trimmer, so you can set that effect to your taste, Solina Way or Dr.
+Boehm Way.<br>
+</span></p>
+<big><font style="font-weight: bold;" size="+3"><small>Filtering in
+general, and the Crumar Performer in particular</small></font></big><span class="postbody"></span><span class="postbody"><br>
+</span>
+<p></p>
+<span class="postbody">In the Solina, the signal as it comes from the
+tone generation and string sound shaping, runs thru a second order
+12kHz filter before it goes into the BBDs. This acts as an
+anti-aliasing filter, as well as adding to the sound shaping a bit.<br>
+With longer BBD lines (TDA1022 instead of TCA350), the clock frequency
+can be higher, this allowing for a wider bandwidth without increased
+aliasing.<br>
+So I've implemented a 16kHz anti-aliasing filter, plus a 12kHz filter,
+to be able to choose a broadband sound vs. a slightly darker sound.<br>
+A third option was inspired by the Crumar Performer: It has a very
+specialized 3-Band EQ that is very effective on string sounds. With my
+Performer, I get very convincing, yet very different, string sounds
+with a 0-10-0 setting and with a 10-0-10 setting (low-mid-high).<br>
+I've included this wonderful EQ in my emulation.<br>
+<br>
+</span><big><font style="font-weight: bold;" size="+3"><small><span style="color: rgb(255, 0, 0);">New:</span> Schematics<br>
+</small></font></big><span class="postbody"></span><span class="postbody"><br>
+</span>
+<span class="postbody"><a href="jh_triple_chorus_sch_page1.pdf">Schematics,
+Page 1: Signal Path</a></span><span class="postbody">, PDF, also shows
+Mode Selector as 3-Position Switch (Rotary Switch)</span><span class="postbody"><br>
+<a href="jh_triple_chorus_sch_page2.pdf">Schematics, Page 2: Modulation</a>
+, PDF<br>
+<a href="jh_triple_chorus_connections_1p2t_switches.pdf">Connecting
+Swicthes and Pots, Option 1</a>, PDF, shows Mode Selection as Set of
+2-Posion Switches (Toggle Switches etc.)<br>
+(more options to come)<br>
+</span><big><font style="font-weight: bold;" size="+3"><small><br>
+The PCB
+board - power on-board.</small></font></big><span class="postbody"></span><span class="postbody"><br>
+</span>
+<p></p>
+<span class="postbody">It all fits onto a 160mm x 100mm board. It
+contains a power supply (less transformer and primary fuse). You only
+have to connect 18V AC from a transformer. <span style="color: rgb(255, 0, 0);">(And you must be qualified to handle
+the mains voltage - fuses, insulation, safety aspects. If in doubt,
+don't wire the mains voltage, but use an insulated 18V AC wallwart
+instead. Mains voltage can be lethal.</span>)<br>
+Here's a (preliminary) component overlay:<br>
+(click on the image for a full size version.)<span style="color: rgb(255, 0, 0);"></span><br>
+<a href="jh_triple_chorus_overlay.pdf"><img alt="" src="jh_triple_chorus_overlay_tiny.jpg" style="border: 0px solid ; width: 758px; height: 480px;"></a><br>
+</span><span class="postbody"><br>
+</span><big><font style="font-weight: bold;" size="+3"><small>Alternative
++/-15V supply (MOTM and Synthesizers.com, etc.)</small></font></big><span class="postbody"></span><span class="postbody"><br>
+</span>
+<p></p>
+<span class="postbody">I've also included the footprints of MOTM and
+.COM power connectors, if you want to run the board directly from 15V,
+without a transformer of its own.<br>
+I've placed the footprint for the connectors beneath the (secondary)
+fuse, because you never need both at the same time.<br>
+When connecting to 15V DC, you <span style="font-weight: bold;">must</span>
+omit a lot of the power supply components, too.<br>
+Click on the following links for the alternative component overlay for
+15V DC: <a href="jh_triple_chorus_overlay_motm.pdf">MOTM version</a>,&nbsp;&nbsp;
+<a href="jh_triple_chorus_overlay_dotcom.pdf">Synthesizers.com (.COM)
+version</a>.<br>
+By the way: The whole circuit only needs the -15V part of the MOTM and
+.COM system; the +15V pins of the connectors are unconnected.<br>
+The audio signals are centered to 0V nevertheless, of course, due to AC
+coupling of inputs and outputs.<br>
+Signals are weaker than your usual modular system. Input can be
+attenuated with a potentiometer. Output is roughly "Line level" and can
+go directly into a mixing desk or sound card.<br>
+<br>
+</span><big><font style="font-weight: bold;" size="+3"><small><span style="color: rgb(255, 0, 0);"></span>Bill of Materials</small></font></big><span class="postbody"></span><span class="postbody"><br>
+</span>
+<span class="postbody"><br>
+Here's a <a href="jh_triple_chorus_bom.pdf">list of&nbsp; components</a>
+that are to be soldered onto the PCB.</span><br>
+<span class="postbody"><br>
+The Equalizer potentiometers are 10k linear each (3 in total).<br>
+You may want to add an input level potentiometer: 10k log ... 50k log
+are good values.<br>
+Input / output jacks depending on what signals you want to bring out.<br>
+Mode and bypass switch can be realized with a rotary switch or with a
+set of toggle switches - more about this later.<br>
+<br>
+</span><big><font style="font-weight: bold;" size="+3"><small>Testing
+the Prototype</small></font></big><span class="postbody"></span><span class="postbody"><br>
+</span>
+<span class="postbody"><br>
+Pictures of the prototype in a small, sloped Teko enclosure; still a
+lot of cables and some alligator clips:<br>
+<br>
+<img alt="" src="jh_triple_chorus_prototype_1.jpg" style="width: 667px; height: 500px;"><br>
+<br>
+<img alt="" src="jh_triple_chorus_prototype_2.jpg" style="width: 667px; height: 500px;"><br>
+</span><span class="postbody">
+<br>
+</span><big><font style="font-weight: bold;" size="+3"><small>Sound
+Samples</small></font></big><span class="postbody"></span><span class="postbody"><br>
+</span>
+<p></p>
+<span class="postbody"></span><span class="postbody">Setup for demos:
+OB-8 (mostly set to a boring single-oscillator, unmodulated sound)
+-&gt; JH Triple Chorus / String Ensemble Effect -&gt; Reverb<br>
+(String Ensemble Effect is sometimes bypassed to show the dry sound.)<br>
+<br>
+<a href="jh_string_ensemble_demo_just_strings_r8b.mp3">Plain and simple
+string sound</a> (1.1 MB mp3)<br>
+I start with a dry sound just to show you how much the Ensemble Effect
+is altering it, and I switch back to the dry sound towards the end for
+the same reason.<br>
+<br>
+<a href="jh_string_ensemble_demo_bells_r8b.mp3">Enhancing a bell sound</a>
+(740 kB mp3)<br>
+I think the effect is interesting for other sounds than just mere
+strings, as well.<br>
+<br>
+<a href="jh_string_ensemble_demo_mideq_chorale_r8b.mp3">Chorale sound
+(equalized ensemble effect)</a> (470 kB mp3)<br>
+I wouldn't sell this as a specialized choir effect device, but it's
+certainly an alternative to the straight Solina-like stuff.<br>
+All done with the on-board 3-band Equalizer (which was inspired by the
+Crumar Performer).<br>
+<br>
+<a href="jh_string_ensemble_demo_stereo_r8b.mp3">Stereo effect using
+individual outputs</a> (390 kB mp3)<br>
+Yes, we can do Stereo, with the individual outputs.<br>
+My first thought was to take the 3 individual outputs and mix them, one
+panned left, one center, and one right. But then the "Ensemble" effect
+falls apart, and the modulation sounds overly strong. I think you can
+do a lot of experiments with mixing the individual outputs, and will
+find interesting configurations.<br>
+The above sound sample was made with a very simple setup, however:<br>
+The full mix (main output) goes to one channel, and one individual
+channel goes to the other. The two channels are then panned almost (but
+not totally) left and right on the mixing desk.<br>
+<br>
+<a href="jh_string_ensemble_demo_playing_with_eq_r8b.mp3">Playing
+around with the EQ section</a> (1.5 MB mp3)<br>
+Just some aimless turning of the 3 potentiometers in the EQ section,
+while my OB-8 arpeggiates away. I obviously change the OB-8 sound to
+something percussive towards the end, and I also adjust the OB-8's
+filter envelope setting slightly for the percussive sound, but I think
+it's quite clear what comes from the OB-8 and what comes from the
+Crumar-like 3-Band EQ.<br>
+<br>
+<a href="jh_string_ensemble_demo_waveform_adjust_r8b.mp3">Adjusting the
+waveform pot to find the "sweet spot"</a> (790 kB mp3)<br>
+What is "the Solina Sound"? I think without any modulation waveform
+clipping (like the sound sample starts; please also see the discussion
+of this topic above!), is a tad overly lush for a solina. Or maybe it
+isn't. During this sound sample, I chance the modulation waveform from
+no clipping to almost totally clipped and back, and I <span style="font-style: italic;">think</span> the "Solina sound" is where
+the waveform is just ever so slightly clipped.<br>
+This soft clipping (the "waveform" trimpot on the board) is different
+from a simple attenuation of the modulation CV. It's possible to
+attenuate (or to boost) the modulation CV, too, by changing 3 resistors
+on the board, if you want to make further experiments.<br>
+<br>
+</span><big><font style="font-weight: bold;" size="+3"><small>Third
+Party Documentation <small><small><small>(contains links to external sites; the autors of these pages are responsible for the contents.)</small></small></small></small></font></big><span class="postbody"></span><span class="postbody"><br>
+</span>
+<p><span class="postbody">It's always helpful when someone else is
+looking at the documents I've published and double check them. Thanks
+to all of you who spotted the 330 ohm resistor in my BOM without
+quantity - it was a copy and paste error, and I fixed it in the BOM now.<br>
+Some of you are going way beyond just checking for errors, and create
+helpful documents of their own:<br>
+</span></p>
+<p><span class="postbody">Guido M&ouml;ller has set up a web site (in
+German) with colour coded cross-reference of components on the BOM and
+on the board layout.<br>
+And he even has set up a <span style="font-weight: bold;">"Warenkorb"
+(shopping cart) at Reichelt</span> with all the PCB mounted parts
+except the TDA1022s. He used different connectors which have the wires
+readily attached, which should make building the project a little
+easier.<br>
+Thank you, Guido! <br>
+Follow this link to his <a href="http://www.spezialton.de/solina.html">Spezialton
+Solina page</a>.<br>
+</span></p>
+<p><span class="postbody">Mike "clickmrmike" has posted a link to his <a href="http://www.bigbangsound.com/JH_TripleChorus_BOM.xls">BOM with Mouser part numbers</a>. It's in spreadsheed format - thank you Mike!<br>
+</span></p>
+<p><span class="postbody">I heard there's a similar page in progress
+with a Mouser shopping cart from another US Triple Chorus builder.
+I'll post a link here when it's available.<br>
+</span></p>
+<p><span class="postbody">I received a <a href="Clive_Triple_Chorus_UK_BOM.xls">BOM for UK builders</a>, mostly with Farnell part numbers, from Clive (aka Analogue) via email. Thank you!<br>
+</span></p>
+
+<p><span class="postbody">Thanks for all who make their lists of parts available for the benefit of the community.<br>
+These lists are intended to<span style="font-style: italic;"> help</span> you shopping for parts - they are not guaranteed to be free of errors, and they show <span style="font-style: italic;">one option</span>,
+among many,&nbsp; what parts you can buy. As with all diy projects that
+don't come as complete kits, you have the choice to go for different
+brands / quality / prices for components.<br>
+</span></p>
+<p><span class="postbody">Bill &amp; Will have started a <a href="http://www.dragonflyalley.com/jHTripleChorusConstruction.htm">page documenting their progress with building the Triple Chorus</a>. They also have front panel designs.<br>
+</span></p>
+
+
+<span class="postbody"><br>
+</span><span style="font-weight: bold;">(to be continued ...)<br>
+<br>
+</span>
+<p><i><a href="http://jhaible.com/legacy/index.html">&nbsp;back
+to my homepage</a></i>
+</p>
+</body>
+<!-- Mirrored from www.jhaible.com/triple_chorus/triple_chorus.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Feb 2015 13:02:25 GMT -->
+</html>
