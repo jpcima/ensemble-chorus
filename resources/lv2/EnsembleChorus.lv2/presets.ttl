@@ -16,51 +16,51 @@
 
     lv2:port [
         lv2:symbol "bypass" ;
-        pset:value 0.000000 ;
+        pset:value 0 ;
     ] ,
     [
         lv2:symbol "channel_layout" ;
-        pset:value 0.000000 ;
+        pset:value 0 ;
     ] ,
     [
         lv2:symbol "delay" ;
-        pset:value 0.500000 ;
+        pset:value 0.5 ;
     ] ,
     [
         lv2:symbol "nstages" ;
-        pset:value 0.066667 ;
+        pset:value 1024 ;
     ] ,
     [
         lv2:symbol "mod_range" ;
-        pset:value 0.500000 ;
+        pset:value 0.5 ;
     ] ,
     [
         lv2:symbol "slow_rate" ;
-        pset:value 0.500000 ;
+        pset:value 0.5 ;
     ] ,
     [
         lv2:symbol "slow_wave" ;
-        pset:value 1.000000 ;
+        pset:value 4 ;
     ] ,
     [
         lv2:symbol "slow_rand" ;
-        pset:value 0.100000 ;
+        pset:value 0.1 ;
     ] ,
     [
         lv2:symbol "fast_rate" ;
-        pset:value 0.500000 ;
+        pset:value 0.5 ;
     ] ,
     [
         lv2:symbol "fast_wave" ;
-        pset:value 1.000000 ;
+        pset:value 4 ;
     ] ,
     [
         lv2:symbol "fast_rand" ;
-        pset:value 0.100000 ;
+        pset:value 0.1 ;
     ] ,
     [
         lv2:symbol "lpf_cutoff" ;
-        pset:value 1.000000 ;
+        pset:value 1 ;
     ] ,
     [
         lv2:symbol "lpf_q" ;
@@ -68,11 +68,11 @@
     ] ,
     [
         lv2:symbol "gain_in" ;
-        pset:value 0.333333 ;
+        pset:value 1 ;
     ] ,
     [
         lv2:symbol "gain_out" ;
-        pset:value 0.333333 ;
+        pset:value 1 ;
     ] ,
     [
         lv2:symbol "mix_dry" ;
@@ -84,27 +84,27 @@
     ] ,
     [
         lv2:symbol "enable1" ;
-        pset:value 1.000000 ;
+        pset:value 1 ;
     ] ,
     [
         lv2:symbol "phase1" ;
-        pset:value 0.000000 ;
+        pset:value 0 ;
     ] ,
     [
         lv2:symbol "depth1" ;
-        pset:value 0.500000 ;
+        pset:value 0.5 ;
     ] ,
     [
         lv2:symbol "route_l1" ;
-        pset:value 1.000000 ;
+        pset:value 1 ;
     ] ,
     [
         lv2:symbol "route_r1" ;
-        pset:value 0.000000 ;
+        pset:value 0 ;
     ] ,
     [
         lv2:symbol "enable2" ;
-        pset:value 1.000000 ;
+        pset:value 1 ;
     ] ,
     [
         lv2:symbol "phase2" ;
@@ -112,19 +112,19 @@
     ] ,
     [
         lv2:symbol "depth2" ;
-        pset:value 0.500000 ;
+        pset:value 0.5 ;
     ] ,
     [
         lv2:symbol "route_l2" ;
-        pset:value 1.000000 ;
+        pset:value 1 ;
     ] ,
     [
         lv2:symbol "route_r2" ;
-        pset:value 1.000000 ;
+        pset:value 1 ;
     ] ,
     [
         lv2:symbol "enable3" ;
-        pset:value 1.000000 ;
+        pset:value 1 ;
     ] ,
     [
         lv2:symbol "phase3" ;
@@ -132,39 +132,39 @@
     ] ,
     [
         lv2:symbol "depth3" ;
-        pset:value 0.500000 ;
+        pset:value 0.5 ;
     ] ,
     [
         lv2:symbol "route_l3" ;
-        pset:value 0.000000 ;
+        pset:value 0 ;
     ] ,
     [
         lv2:symbol "route_r3" ;
-        pset:value 1.000000 ;
+        pset:value 1 ;
     ] ,
     [
         lv2:symbol "enable4" ;
-        pset:value 0.000000 ;
+        pset:value 0 ;
     ] ,
     [
         lv2:symbol "phase4" ;
-        pset:value 0.000000 ;
+        pset:value 0 ;
     ] ,
     [
         lv2:symbol "depth4" ;
-        pset:value 0.500000 ;
+        pset:value 0.5 ;
     ] ,
     [
         lv2:symbol "route_l4" ;
-        pset:value 0.000000 ;
+        pset:value 0 ;
     ] ,
     [
         lv2:symbol "route_r4" ;
-        pset:value 1.000000 ;
+        pset:value 1 ;
     ] ,
     [
         lv2:symbol "enable5" ;
-        pset:value 0.000000 ;
+        pset:value 0 ;
     ] ,
     [
         lv2:symbol "phase5" ;
@@ -172,19 +172,19 @@
     ] ,
     [
         lv2:symbol "depth5" ;
-        pset:value 0.500000 ;
+        pset:value 0.5 ;
     ] ,
     [
         lv2:symbol "route_l5" ;
-        pset:value 1.000000 ;
+        pset:value 1 ;
     ] ,
     [
         lv2:symbol "route_r5" ;
-        pset:value 1.000000 ;
+        pset:value 1 ;
     ] ,
     [
         lv2:symbol "enable6" ;
-        pset:value 0.000000 ;
+        pset:value 0 ;
     ] ,
     [
         lv2:symbol "phase6" ;
@@ -192,15 +192,15 @@
     ] ,
     [
         lv2:symbol "depth6" ;
-        pset:value 0.500000 ;
+        pset:value 0.5 ;
     ] ,
     [
         lv2:symbol "route_l6" ;
-        pset:value 1.000000 ;
+        pset:value 1 ;
     ] ,
     [
         lv2:symbol "route_r6" ;
-        pset:value 0.000000 ;
+        pset:value 0 ;
     ] .
 
 
