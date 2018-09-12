@@ -4,7 +4,9 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include "PluginProcessor.h"
+#if !JUCE_AUDIOPROCESSOR_NO_GUI
 #include "PluginEditor.h"
+#endif
 #include "MessageQueue.h"
 #include "utility/stdc_memory.h"
 #include <cstdlib>
@@ -102,6 +104,7 @@ void EnsembleChorusAudioProcessor::processBlock(AudioBuffer<float> &buffer, Midi
     mq_->writeMessage(msg_mod);
 }
 
+#if ! JUCE_AUDIOPROCESSOR_NO_GUI
 //==============================================================================
 bool EnsembleChorusAudioProcessor::hasEditor() const
 {
@@ -112,6 +115,7 @@ AudioProcessorEditor *EnsembleChorusAudioProcessor::createEditor()
 {
     return new EnsembleChorusAudioProcessorEditor(*this);
 }
+#endif
 
 //==============================================================================
 float EnsembleChorusAudioProcessor::getEcp(ec_parameter p) const

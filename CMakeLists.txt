@@ -9,6 +9,7 @@ include(SystemOption)
 system_option(EnsembleChorus_VST2 "Build VST2" ON)
 system_option(EnsembleChorus_LV2 "Build LV2" ON "Windows" OFF "Darwin" OFF)
 system_option(EnsembleChorus_Standalone "Build Standalone" OFF)
+option(EnsembleChorus_NoUI "Build without UI" OFF)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -116,20 +117,28 @@ endif()
 set(JUCE_ROOT_DIR "${PROJECT_SOURCE_DIR}/thirdparty/JUCE")
 set(JUCE_PROJECT_DIR "${PROJECT_SOURCE_DIR}/sources/plugin")
 set(JUCE_LV2_URI "${PROJECT_LV2_URI}")
+set(JUCE_NO_UI "${EnsembleChorus_NoUI}")
 include(JUCE)
 
 set(ensemble_chorus_JUCE_MODULES
   juce_core juce_events juce_data_structures
   juce_audio_basics juce_audio_devices juce_audio_formats juce_audio_processors juce_audio_utils
-  juce_graphics juce_gui_basics juce_gui_extra)
+  juce_graphics)
+if(NOT EnsembleChorus_NoUI)
+  list(APPEND ensemble_chorus_JUCE_MODULES
+    juce_gui_basics juce_gui_extra)
+endif()
 
 add_library(ensemble_chorus_plugin_core STATIC EXCLUDE_FROM_ALL
-  sources/plugin/Source/PluginEditor.cpp
   sources/plugin/Source/PluginProcessor.cpp
-  sources/plugin/Source/LookAndFeel.cpp
-  sources/plugin/Source/MainComponent.cpp
-  sources/plugin/Source/ModulatorVisu.cpp
   sources/plugin/JuceLibraryCode/BinaryData.cpp)
+if(NOT EnsembleChorus_NoUI)
+  target_sources(ensemble_chorus_plugin_core PRIVATE
+    sources/plugin/Source/PluginEditor.cpp
+    sources/plugin/Source/LookAndFeel.cpp
+    sources/plugin/Source/MainComponent.cpp
+    sources/plugin/Source/ModulatorVisu.cpp)
+endif()
 target_include_directories(ensemble_chorus_plugin_core
   PRIVATE "sources"
   PRIVATE "sources/plugin/JuceLibraryCode")
@@ -181,13 +190,19 @@ if(EnsembleChorus_LV2)
   endif()
   set(LV2_BINARY_SUFFIX "${CMAKE_SHARED_MODULE_SUFFIX}")
 
-  configure_file(
-    "${PROJECT_SOURCE_DIR}/resources/lv2/EnsembleChorus.lv2/manifest.ttl.in"
-    "${PROJECT_BINARY_DIR}/lv2-build/EnsembleChorus.lv2/manifest.ttl"
-    @ONLY)
+  if(NOT EnsembleChorus_NoUI)
+    configure_file(
+      "${PROJECT_SOURCE_DIR}/resources/lv2/EnsembleChorus.lv2/manifest.ttl.in"
+      "${PROJECT_BINARY_DIR}/lv2-build/EnsembleChorus.lv2/manifest.ttl"
+      @ONLY)
+  else()
+    configure_file(
+      "${PROJECT_SOURCE_DIR}/resources/lv2/EnsembleChorus.lv2/manifest-noui.ttl.in"
+      "${PROJECT_BINARY_DIR}/lv2-build/EnsembleChorus.lv2/manifest.ttl"
+      @ONLY)
+  endif()
 
   set(ensemble_chorus_lv2_MANIFESTS
-    "resources/lv2/EnsembleChorus.lv2/EnsembleChorus.ttl"
     "${PROJECT_BINARY_DIR}/lv2-build/EnsembleChorus.lv2/manifest.ttl"
     "resources/lv2/EnsembleChorus.lv2/presets.ttl")
   add_custom_target(ensemble_chorus_lv2_manifests_copy ALL
@@ -198,4 +213,18 @@ if(EnsembleChorus_LV2)
 
   install(TARGETS ensemble_chorus_lv2 DESTINATION "lib/lv2/EnsembleChorus.lv2")
   install(FILES ${ensemble_chorus_lv2_MANIFESTS} DESTINATION "lib/lv2/EnsembleChorus.lv2")
+
+  if(NOT EnsembleChorus_NoUI)
+    execute_process(COMMAND "${CMAKE_COMMAND}" -E copy
+      "${PROJECT_SOURCE_DIR}/resources/lv2/EnsembleChorus.lv2/EnsembleChorus.ttl"
+      "${CMAKE_CURRENT_BINARY_DIR}/lv2/EnsembleChorus.lv2/EnsembleChorus.ttl")
+    install(FILES "resources/lv2/EnsembleChorus.lv2/EnsembleChorus.ttl"
+      DESTINATION "lib/lv2/EnsembleChorus.lv2")
+  else()
+    execute_process(COMMAND "${CMAKE_COMMAND}" -E copy
+      "${PROJECT_SOURCE_DIR}/resources/lv2/EnsembleChorus.lv2/EnsembleChorus-noui.ttl"
+      "${CMAKE_CURRENT_BINARY_DIR}/lv2/EnsembleChorus.lv2/EnsembleChorus.ttl")
+    install(FILES "resources/lv2/EnsembleChorus.lv2/EnsembleChorus-noui.ttl"
+      DESTINATION "lib/lv2/EnsembleChorus.lv2" RENAME "EnsembleChorus.ttl")
+  endif()
 endif()

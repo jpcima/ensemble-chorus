@@ -15,9 +15,9 @@
 
 //==============================================================================
 // [BEGIN_USER_CODE_SECTION]
-
-// (You can add your own code in this section, and the Projucer will not overwrite it)
-
+#ifndef JUCE_AUDIOPROCESSOR_NO_GUI
+#define JUCE_AUDIOPROCESSOR_NO_GUI 0
+#endif
 // [END_USER_CODE_SECTION]
 
 /*
