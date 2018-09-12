@@ -934,6 +934,9 @@
     <ClCompile Include="..\..\..\..\thirdparty\JUCE\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\MusicDeviceBase.cpp">
       <Filter>JUCE Modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\JUCE\modules\juce_audio_plugin_client\LV2\juce_LV2_ParameterWrapper.cpp">
+      <Filter>JUCE Modules\juce_audio_plugin_client\LV2</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\thirdparty\JUCE\modules\juce_audio_plugin_client\LV2\juce_LV2_Wrapper.cpp">
       <Filter>JUCE Modules\juce_audio_plugin_client\LV2</Filter>
     </ClCompile>

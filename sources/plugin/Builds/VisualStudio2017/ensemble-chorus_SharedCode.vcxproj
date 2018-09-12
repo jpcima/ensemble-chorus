@@ -554,6 +554,9 @@
     <ClCompile Include="..\..\..\..\thirdparty\JUCE\modules\juce_audio_plugin_client\AU\CoreAudioUtilityClasses\MusicDeviceBase.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\JUCE\modules\juce_audio_plugin_client\LV2\juce_LV2_ParameterWrapper.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\thirdparty\JUCE\modules\juce_audio_plugin_client\LV2\juce_LV2_Wrapper.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
