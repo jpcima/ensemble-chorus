@@ -194,8 +194,16 @@ void EnsembleChorusAudioProcessor::setupParameters()
         switch (flags & (ECP_FLOAT|ECP_BOOLEAN|ECP_INTEGER)) {
         case ECP_BOOLEAN:
             ap = new AudioParameterBool(name, label, def); break;
-        case ECP_INTEGER:
-            ap = new AudioParameterInt(name, label, min, max, def); break;
+        case ECP_INTEGER: {
+            const char *const *choices = ensemble_chorus_parameter_choices(p);
+            if (choices && min == 0) {
+                StringArray array(choices, (unsigned)max + 1);
+                ap = new AudioParameterChoice(name, label, array, def);
+            }
+            else
+                ap = new AudioParameterInt(name, label, min, max, def);
+            break;
+        }
         case ECP_FLOAT:
             ap = new AudioParameterFloat(name, label, min, max, def); break;
         }

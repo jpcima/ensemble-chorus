@@ -100,6 +100,7 @@ EC_API float ensemble_chorus_parameter_max(ec_parameter_t p);
 EC_API float ensemble_chorus_parameter_default(ec_parameter_t p);
 EC_API unsigned ensemble_chorus_parameter_flags(ec_parameter_t p);
 EC_API const char *ensemble_chorus_parameter_label(ec_parameter_t p);
+EC_API const char *const *ensemble_chorus_parameter_choices(ec_parameter_t p);
 
 EC_API bool ensemble_chorus_load_parameters(const char *data, size_t length, float *parameters);
 EC_API char *ensemble_chorus_save_parameters(size_t *length, const float *parameters);

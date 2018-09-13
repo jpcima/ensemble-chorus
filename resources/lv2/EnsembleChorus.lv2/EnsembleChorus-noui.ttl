@@ -137,7 +137,12 @@
         lv2:default 4 ;
         lv2:minimum 0 ;
         lv2:maximum 4 ;
-        lv2:portProperty lv2:integer ;
+        lv2:portProperty lv2:integer, lv2:enumeration ;
+        lv2:scalePoint [ rdfs:label "Sine" ; rdf:value 0 ] ;
+        lv2:scalePoint [ rdfs:label "Square" ; rdf:value 1 ] ;
+        lv2:scalePoint [ rdfs:label "Saw" ; rdf:value 2 ] ;
+        lv2:scalePoint [ rdfs:label "Ramp" ; rdf:value 3 ] ;
+        lv2:scalePoint [ rdfs:label "Triangle" ; rdf:value 4 ] ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
@@ -165,7 +170,12 @@
         lv2:default 4 ;
         lv2:minimum 0 ;
         lv2:maximum 4 ;
-        lv2:portProperty lv2:integer ;
+        lv2:portProperty lv2:integer, lv2:enumeration ;
+        lv2:scalePoint [ rdfs:label "Sine" ; rdf:value 0 ] ;
+        lv2:scalePoint [ rdfs:label "Square" ; rdf:value 1 ] ;
+        lv2:scalePoint [ rdfs:label "Saw" ; rdf:value 2 ] ;
+        lv2:scalePoint [ rdfs:label "Ramp" ; rdf:value 3 ] ;
+        lv2:scalePoint [ rdfs:label "Triangle" ; rdf:value 4 ] ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
