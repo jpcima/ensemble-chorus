@@ -571,7 +571,7 @@ MainComponent::MainComponent (EnsembleChorusAudioProcessor &p)
     //[UserPreSize]
     for (unsigned i = 0; i < EC_SUPPORTED_NSTAGES_COUNT; ++i) {
         unsigned nstages = EC_NSTAGES_MIN << i;
-        cb_nstages->addItem(String(nstages), nstages);
+        cb_nstages->addItem(String(nstages), i + 1);
     }
 
     PopupMenu *menu_slow_wave = cb_slow_wave->getRootMenu();
@@ -1090,7 +1090,7 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
     {
         //[UserComboBoxCode_cb_nstages] -- add your combo box handling code here..
         ecp = ECP_NSTAGES;
-        processor.setEcp(ecp, comboBoxThatHasChanged->getSelectedId());
+        processor.setEcp(ecp, comboBoxThatHasChanged->getSelectedId() - 1);
         //[/UserComboBoxCode_cb_nstages]
     }
     else if (comboBoxThatHasChanged == cb_slow_wave.get())
@@ -1312,15 +1312,9 @@ void MainComponent::updateDisplayWithEcp(ec_parameter p, float value)
         sl = sl_delay.get();
         sl->setValue(value, dontSendNotification);
         break;
-    case ECP_NSTAGES: {
-        int index = 0;
-        int count = cb_nstages->getNumItems();
-        int nstages = (int)value;
-        while (index < count && cb_nstages->getItemId(index) < nstages)
-            ++index;
-        cb_nstages->setSelectedItemIndex(index, dontSendNotification);
+    case ECP_NSTAGES:
+        cb_nstages->setSelectedId((int)value + 1, dontSendNotification);
         break;
-    }
     case ECP_MOD_RANGE:
         sl = dl_mod_range.get();
         sl->setValue(value, dontSendNotification);

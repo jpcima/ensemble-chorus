@@ -108,10 +108,15 @@
         lv2:index 10 ;
         lv2:symbol "nstages" ;
         lv2:name "Stages" ;
-        lv2:default 1024 ;
-        lv2:minimum 512 ;
-        lv2:maximum 8192 ;
-        lv2:portProperty lv2:integer ;
+        lv2:default 1 ;
+        lv2:minimum 0 ;
+        lv2:maximum 4 ;
+        lv2:portProperty lv2:integer, lv2:enumeration ;
+        lv2:scalePoint [ rdfs:label "512" ; rdf:value 0 ] ;
+        lv2:scalePoint [ rdfs:label "1024" ; rdf:value 1 ] ;
+        lv2:scalePoint [ rdfs:label "2048" ; rdf:value 2 ] ;
+        lv2:scalePoint [ rdfs:label "4096" ; rdf:value 3 ] ;
+        lv2:scalePoint [ rdfs:label "8192" ; rdf:value 4 ] ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;

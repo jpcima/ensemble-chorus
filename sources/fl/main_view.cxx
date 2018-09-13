@@ -125,35 +125,35 @@ void Main_View::cb_sl_delay_(Fl_Valuator_Ex<Fl_Slider>* o, void* v) {
 }
 
 void Main_View::cb_512_i(Fl_Menu_*, void*) {
-  controller()->send_parameter(ECP_NSTAGES, 512);
+  controller()->send_parameter(ECP_NSTAGES, 0);
 }
 void Main_View::cb_512(Fl_Menu_* o, void* v) {
   ((Main_View*)(o->parent()))->cb_512_i(o,v);
 }
 
 void Main_View::cb_1024_i(Fl_Menu_*, void*) {
-  controller()->send_parameter(ECP_NSTAGES, 1024);
+  controller()->send_parameter(ECP_NSTAGES, 1);
 }
 void Main_View::cb_1024(Fl_Menu_* o, void* v) {
   ((Main_View*)(o->parent()))->cb_1024_i(o,v);
 }
 
 void Main_View::cb_2048_i(Fl_Menu_*, void*) {
-  controller()->send_parameter(ECP_NSTAGES, 2048);
+  controller()->send_parameter(ECP_NSTAGES, 2);
 }
 void Main_View::cb_2048(Fl_Menu_* o, void* v) {
   ((Main_View*)(o->parent()))->cb_2048_i(o,v);
 }
 
 void Main_View::cb_4096_i(Fl_Menu_*, void*) {
-  controller()->send_parameter(ECP_NSTAGES, 4096);
+  controller()->send_parameter(ECP_NSTAGES, 3);
 }
 void Main_View::cb_4096(Fl_Menu_* o, void* v) {
   ((Main_View*)(o->parent()))->cb_4096_i(o,v);
 }
 
 void Main_View::cb_8192_i(Fl_Menu_*, void*) {
-  controller()->send_parameter(ECP_NSTAGES, 8192);
+  controller()->send_parameter(ECP_NSTAGES, 4);
 }
 void Main_View::cb_8192(Fl_Menu_* o, void* v) {
   ((Main_View*)(o->parent()))->cb_8192_i(o,v);

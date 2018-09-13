@@ -159,7 +159,7 @@ static void ensemble_chorus_set_parameter_ex(chorus_t *ec, ec_parameter_t p, flo
             chorus.delay(value);
             break;
         case ECP_NSTAGES:
-            chorus.nstages(value);
+            chorus.nstages(EC_NSTAGES_MIN << (unsigned)value);
             break;
         case ECP_MOD_RANGE:
             chorus.mod_range(value);
@@ -264,9 +264,6 @@ float ensemble_chorus_adjust_parameter(ec_parameter_t p, float value)
                 value = std::round(value);
         }
         break;
-    case ECP_NSTAGES:
-        value = BBD_Line::adjust_nstages(value);
-        break;
     case ECP_PHASE1: case ECP_PHASE2: case ECP_PHASE3:
     case ECP_PHASE4: case ECP_PHASE5: case ECP_PHASE6:
         value = value - (int)value;
@@ -365,6 +362,18 @@ const char *const *ensemble_chorus_parameter_choices(ec_parameter_t p)
         };
         return choices;
     }
+    case ECP_NSTAGES:
+        static const char *const *choices = nullptr;
+        if (choices)
+            return choices;
+        static char buffers[16 * EC_SUPPORTED_NSTAGES_COUNT];
+        static const char *tab_choices[EC_SUPPORTED_NSTAGES_COUNT];
+        for (unsigned i = 0; i < EC_SUPPORTED_NSTAGES_COUNT; ++i) {
+            sprintf(&buffers[16 * i], "%u", EC_NSTAGES_MIN << i);
+            tab_choices[i] = &buffers[16 * i];
+        }
+        choices = tab_choices;
+        return choices;
     case ECP_SLOW_WAVE:
     case ECP_FAST_WAVE: {
         static const char *const choices[] = {

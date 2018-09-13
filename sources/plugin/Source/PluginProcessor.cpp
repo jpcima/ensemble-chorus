@@ -122,11 +122,13 @@ float EnsembleChorusAudioProcessor::getEcp(ec_parameter p) const
 {
     const AudioProcessorParameter *ap = getParameters()[(unsigned)p];
     unsigned flags = ensemble_chorus_parameter_flags(p);
-    switch (flags & (ECP_FLOAT|ECP_BOOLEAN|ECP_INTEGER)) {
+    switch (flags & (ECP_FLOAT|ECP_BOOLEAN|ECP_INTEGER|ECP_CHOICE)) {
     case ECP_BOOLEAN:
         return *static_cast<const AudioParameterBool *>(ap); break;
     case ECP_INTEGER:
         return *static_cast<const AudioParameterInt *>(ap); break;
+    case ECP_INTEGER|ECP_CHOICE:
+        return *static_cast<const AudioParameterChoice *>(ap); break;
     case ECP_FLOAT:
         return *static_cast<const AudioParameterFloat *>(ap); break;
     default:
@@ -138,11 +140,13 @@ void EnsembleChorusAudioProcessor::setEcp(ec_parameter p, float value)
 {
     AudioProcessorParameter *ap = getParameters()[(unsigned)p];
     unsigned flags = ensemble_chorus_parameter_flags(p);
-    switch (flags & (ECP_FLOAT|ECP_BOOLEAN|ECP_INTEGER)) {
+    switch (flags & (ECP_FLOAT|ECP_BOOLEAN|ECP_INTEGER|ECP_CHOICE)) {
     case ECP_BOOLEAN:
         *static_cast<AudioParameterBool *>(ap) = value; break;
     case ECP_INTEGER:
         *static_cast<AudioParameterInt *>(ap) = value; break;
+    case ECP_INTEGER|ECP_CHOICE:
+        *static_cast<AudioParameterChoice *>(ap) = value; break;
     case ECP_FLOAT:
         *static_cast<AudioParameterFloat *>(ap) = value; break;
     default:
@@ -191,17 +195,16 @@ void EnsembleChorusAudioProcessor::setupParameters()
         float def = ensemble_chorus_parameter_default(p);
 
         AudioProcessorParameter *ap = nullptr;
-        switch (flags & (ECP_FLOAT|ECP_BOOLEAN|ECP_INTEGER)) {
+        switch (flags & (ECP_FLOAT|ECP_BOOLEAN|ECP_INTEGER|ECP_CHOICE)) {
         case ECP_BOOLEAN:
             ap = new AudioParameterBool(name, label, def); break;
-        case ECP_INTEGER: {
-            const char *const *choices = ensemble_chorus_parameter_choices(p);
-            if (choices && min == 0) {
-                StringArray array(choices, (unsigned)max + 1);
-                ap = new AudioParameterChoice(name, label, array, def);
-            }
-            else
-                ap = new AudioParameterInt(name, label, min, max, def);
+        case ECP_INTEGER:
+            ap = new AudioParameterInt(name, label, min, max, def);
+            break;
+        case ECP_INTEGER|ECP_CHOICE: {
+            assert (min == 0);
+            StringArray array(ensemble_chorus_parameter_choices(p), (unsigned)max + 1);
+            ap = new AudioParameterChoice(name, label, array, def);
             break;
         }
         case ECP_FLOAT:

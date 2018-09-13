@@ -54,7 +54,7 @@ decl {class Fl_Toggle_Button;} {public global
 }
 
 widget_class Main_View {open
-  xywh {426 643 625 280} type Double labelfont 13 visible
+  xywh {522 316 625 280} type Double labelfont 13 visible
 } {
   decl {static constexpr int W = 625;} {public local
   }
@@ -187,27 +187,27 @@ x->set_modulation_callback(&modulation, this);} {}
   } {
     MenuItem {} {
       label 512
-      callback {controller()->send_parameter(ECP_NSTAGES, 512)}
+      callback {controller()->send_parameter(ECP_NSTAGES, 0)}
       xywh {0 0 100 20}
     }
     MenuItem {} {
       label 1024
-      callback {controller()->send_parameter(ECP_NSTAGES, 1024)}
+      callback {controller()->send_parameter(ECP_NSTAGES, 1)}
       xywh {10 10 100 20}
     }
     MenuItem {} {
       label 2048
-      callback {controller()->send_parameter(ECP_NSTAGES, 2048)}
+      callback {controller()->send_parameter(ECP_NSTAGES, 2)}
       xywh {20 20 100 20}
     }
     MenuItem {} {
       label 4096
-      callback {controller()->send_parameter(ECP_NSTAGES, 4096)}
+      callback {controller()->send_parameter(ECP_NSTAGES, 3)}
       xywh {30 30 100 20}
     }
     MenuItem {} {
       label 8192
-      callback {controller()->send_parameter(ECP_NSTAGES, 8192)}
+      callback {controller()->send_parameter(ECP_NSTAGES, 4)} selected
       xywh {40 40 100 20}
     }
   }
@@ -307,7 +307,7 @@ x->set_modulation_callback(&modulation, this);} {}
     MenuItem {} {
       image {../../resources/ui/images/wave/ramp.png} xywh {30 30 100 20}
     }
-    MenuItem {} {selected
+    MenuItem {} {
       image {../../resources/ui/images/wave/triangle.png} xywh {40 40 100 20}
     }
   }

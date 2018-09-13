@@ -37,28 +37,29 @@ enum {
     EC_SUPPORTED_NSTAGES_COUNT = 5,
     EC_NSTAGES_MIN = 512,
     EC_NSTAGES_MAX = EC_NSTAGES_MIN << (EC_SUPPORTED_NSTAGES_COUNT - 1),
-    EC_LFO_WAVE_COUNT = 5,
+    EC_LFO_WAVE_COUNT = 5
 };
 
 typedef enum ec_parameter_flag {
     ECP_FLOAT       = 0,
     ECP_BOOLEAN     = 1,
     ECP_INTEGER     = 2,
-    ECP_LOGARITHMIC = 4,
+    ECP_CHOICE      = 4,
+    ECP_LOGARITHMIC = 8
 } ec_parameter_flag_t;
 
 #define EC_EACH_PARAMETER(P)                                            \
     /* Name, Min, Max, Def, Flags, Label */                             \
     P(BYPASS, false, true, false, ECP_BOOLEAN, "Bypass")                \
-    P(CHANNEL_LAYOUT, ECC_STEREO, ECC_MONO, ECC_STEREO, ECP_INTEGER, "Channel layout") \
+    P(CHANNEL_LAYOUT, ECC_STEREO, ECC_MONO, ECC_STEREO, ECP_INTEGER|ECP_CHOICE, "Channel layout") \
     P(DELAY, 0, 1, 0.5, ECP_FLOAT, "Delay")                             \
-    P(NSTAGES, EC_NSTAGES_MIN, EC_NSTAGES_MAX, 1024, ECP_INTEGER, "Stages") \
+    P(NSTAGES, 0, EC_SUPPORTED_NSTAGES_COUNT - 1, 1/* 1024 */, ECP_INTEGER|ECP_CHOICE, "Stages") \
     P(MOD_RANGE, 0, 1, 0.5, ECP_FLOAT, "Modulation range")              \
     P(SLOW_RATE, 0, 1, 0.5, ECP_FLOAT, "Chorus rate")                   \
-    P(SLOW_WAVE, 0, EC_LFO_WAVE_COUNT - 1, 4, ECP_INTEGER, "Chorus wave") \
+    P(SLOW_WAVE, 0, EC_LFO_WAVE_COUNT - 1, 4, ECP_INTEGER|ECP_CHOICE, "Chorus wave") \
     P(SLOW_RAND, 0, 1, 0.1, ECP_FLOAT, "Chorus random")                 \
     P(FAST_RATE, 0, 1, 0.5, ECP_FLOAT, "Vibrato rate")                  \
-    P(FAST_WAVE, 0, EC_LFO_WAVE_COUNT - 1, 4, ECP_INTEGER, "Vibrato wave") \
+    P(FAST_WAVE, 0, EC_LFO_WAVE_COUNT - 1, 4, ECP_INTEGER|ECP_CHOICE, "Vibrato wave") \
     P(FAST_RAND, 0, 1, 0.1, ECP_FLOAT, "Vibrato random")                \
     P(LPF_CUTOFF, 0, 1, 1.0, ECP_FLOAT, "Lowpass cutoff")               \
     P(LPF_Q, 0, 1, M_SQRT1_2, ECP_FLOAT, "Lowpass Q")                   \
