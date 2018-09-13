@@ -4,7 +4,7 @@
               pluginFormats="buildAAX,buildAU,buildAUv3,buildRTAS,buildStandalone,buildVST,buildVST3"
               pluginAUMainType="'aufx'" pluginRTASCategory="8192" pluginAAXCategory="8192"
               pluginVSTCategory="kPlugCategEffect" pluginVST3Category="Fx"
-              version="0.0.1" pluginName="JPC Ensemble Chorus" pluginManufacturer="Jean Pierre Cimalando"
+              version="0.0.1" pluginName="Ensemble Chorus" pluginManufacturer="Jean Pierre Cimalando"
               pluginManufacturerCode="JPCi" pluginCode="EnsC" pluginChannelConfigs="{2, 2}"
               aaxIdentifier="jpcima.ensemble-chorus" cppLanguageStandard="11"
               includeBinaryInJuceHeader="0" pluginDesc="Digital model of electronic string ensemble chorus"

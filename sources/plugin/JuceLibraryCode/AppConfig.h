@@ -328,7 +328,7 @@
  #define JucePlugin_Enable_IAA             0
 #endif
 #ifndef  JucePlugin_Name
- #define JucePlugin_Name                   "JPC Ensemble Chorus"
+ #define JucePlugin_Name                   "Ensemble Chorus"
 #endif
 #ifndef  JucePlugin_Desc
  #define JucePlugin_Desc                   "Digital model of electronic string ensemble chorus"
@@ -439,7 +439,7 @@
  #define JucePlugin_IAASubType             JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_IAAName
- #define JucePlugin_IAAName                "Jean Pierre Cimalando: JPC Ensemble Chorus"
+ #define JucePlugin_IAAName                "Jean Pierre Cimalando: Ensemble Chorus"
 #endif
 #ifndef  JucePlugin_MaxNumInputChannels
  #define JucePlugin_MaxNumInputChannels    2

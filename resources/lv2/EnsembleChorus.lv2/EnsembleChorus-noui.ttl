@@ -536,6 +536,6 @@
         lv2:portProperty lv2:toggled ;
     ] ;
 
-    doap:name "JPC Ensemble Chorus" ;
+    doap:name "Ensemble Chorus" ;
     doap:maintainer [ foaf:name "Jean Pierre Cimalando" ] .
 
