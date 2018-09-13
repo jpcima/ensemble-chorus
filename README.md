@@ -12,6 +12,12 @@ Listen to the biniou:
 - [Original Sound](https://soundcloud.com/user-482248552/jpc-ensemble-chorus-demo)
 - [Chorused Sound](https://soundcloud.com/user-482248552/ensemble-chorus-demo)
 
+## Development builds
+
+[![Build Status](https://semaphoreci.com/api/v1/jpcima/ensemble-chorus/branches/master/badge.svg)](https://semaphoreci.com/jpcima/ensemble-chorus)
+
+Find automatic builds of the development branch [here](http://jpcima.sdf1.org/software/development/EnsembleChorus/).
+
 ## Dependencies
 
 - `git`
