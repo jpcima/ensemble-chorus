@@ -540,5 +540,11 @@
     ] ;
 
     doap:name "Ensemble Chorus" ;
-    doap:maintainer [ foaf:name "Jean Pierre Cimalando" ] .
+    doap:license <http://usefulinc.com/doap/licenses/gpl> ;
 
+    rdfs:comment "This is a chorus based on emulated analog bucket-brigade delay lines, also known as BBD, reproducing the classic chorus sound of an electronic string ensemble synthesizer such as the ARP Solina." ;
+
+    doap:maintainer [
+        foaf:name "Jean Pierre Cimalando" ;
+        foaf:homepage <https://github.com/jpcima/ensemble-chorus> ;
+    ] .
