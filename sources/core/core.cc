@@ -359,6 +359,12 @@ const char *ensemble_chorus_parameter_label(ec_parameter_t p)
 const char *const *ensemble_chorus_parameter_choices(ec_parameter_t p)
 {
     switch (p) {
+    case ECP_CHANNEL_LAYOUT: {
+        static const char *const choices[] = {
+            "Stereo", "Mono"
+        };
+        return choices;
+    }
     case ECP_SLOW_WAVE:
     case ECP_FAST_WAVE: {
         static const char *const choices[] = {
