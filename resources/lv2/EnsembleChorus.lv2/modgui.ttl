@@ -1,0 +1,42 @@
+@prefix modgui: <http://moddevices.com/ns/modgui#> .
+@prefix lv2:    <http://lv2plug.in/ns/lv2core#> .
+
+<urn:jpcima:ensemble-chorus>
+    modgui:gui [
+        modgui:resourcesDirectory <modgui> ;
+        modgui:iconTemplate <modgui/icon-jpc-ensemble-chorus.html> ;
+        modgui:stylesheet <modgui/stylesheet-jpc-ensemble-chorus.css> ;
+        modgui:screenshot <modgui/screenshot-jpc-ensemble-chorus.png> ;
+        modgui:thumbnail <modgui/thumbnail-jpc-ensemble-chorus.png> ;
+        modgui:brand "JPC" ;
+        modgui:label "Chorus EC-1" ;
+        modgui:model "boxy" ;
+        modgui:panel "6-knobs" ;
+        modgui:color "blue" ;
+        modgui:knob "gold" ;
+        modgui:port [
+            lv2:index 0 ;
+            lv2:symbol "delay" ;
+            lv2:name "Delay" ;
+        ] , [
+            lv2:index 1 ;
+            lv2:symbol "slow_rate" ;
+            lv2:name "Chorus" ;
+        ] , [
+            lv2:index 2 ;
+            lv2:symbol "fast_rate" ;
+            lv2:name "Vibrato" ;
+        ] , [
+            lv2:index 3 ;
+            lv2:symbol "mod_range" ;
+            lv2:name "Mod" ;
+        ] , [
+            lv2:index 4 ;
+            lv2:symbol "lpf_cutoff" ;
+            lv2:name "Cutoff" ;
+        ] , [
+            lv2:index 5 ;
+            lv2:symbol "lpf_q" ;
+            lv2:name "Q" ;
+        ] ;
+    ] .

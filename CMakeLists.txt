@@ -227,4 +227,15 @@ if(EnsembleChorus_LV2)
     install(FILES "resources/lv2/EnsembleChorus.lv2/EnsembleChorus-noui.ttl"
       DESTINATION "lib/lv2/EnsembleChorus.lv2" RENAME "EnsembleChorus.ttl")
   endif()
+
+  execute_process(COMMAND "${CMAKE_COMMAND}" -E copy
+    "${PROJECT_SOURCE_DIR}/resources/lv2/EnsembleChorus.lv2/modgui.ttl"
+    "${CMAKE_CURRENT_BINARY_DIR}/lv2/EnsembleChorus.lv2/modgui.ttl")
+  execute_process(COMMAND "${CMAKE_COMMAND}" -E copy_directory
+    "${PROJECT_SOURCE_DIR}/resources/lv2/EnsembleChorus.lv2/modgui"
+    "${CMAKE_CURRENT_BINARY_DIR}/lv2/EnsembleChorus.lv2/modgui")
+  install(FILES "resources/lv2/EnsembleChorus.lv2/modgui.ttl"
+    DESTINATION "lib/lv2/EnsembleChorus.lv2")
+  install(DIRECTORY "resources/lv2/EnsembleChorus.lv2/modgui"
+    DESTINATION "lib/lv2/EnsembleChorus.lv2/modgui")
 endif()

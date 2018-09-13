@@ -6,7 +6,8 @@
 <urn:jpcima:ensemble-chorus>
     a lv2:Plugin ;
     lv2:binary <EnsembleChorus@LV2_BINARY_SUFFIX@> ;
-    rdfs:seeAlso <EnsembleChorus.ttl> .
+    rdfs:seeAlso <EnsembleChorus.ttl> ;
+    rdfs:seeAlso <modgui.ttl> .
 
 <urn:jpcima:ensemble-chorus#preset001>
     a pset:Preset ;
