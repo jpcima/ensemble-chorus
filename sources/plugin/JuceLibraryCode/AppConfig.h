@@ -15,6 +15,13 @@
 
 //==============================================================================
 // [BEGIN_USER_CODE_SECTION]
+#define JucePlugin_LV2URI "urn:jpcima:ensemble-chorus"
+#define JucePlugin_LV2Category "ChorusPlugin"
+
+#ifndef JucePlugin_Build_LV2
+#define JucePlugin_Build_LV2 1
+#endif
+
 #ifndef JUCE_AUDIOPROCESSOR_NO_GUI
 #define JUCE_AUDIOPROCESSOR_NO_GUI 0
 #endif

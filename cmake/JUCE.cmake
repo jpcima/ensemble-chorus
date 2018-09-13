@@ -166,9 +166,6 @@ target_link_libraries(juce_audio_plugin_client_LV2 PUBLIC juce_audio_basics juce
 if(NOT JUCE_NO_UI)
   target_link_libraries(juce_audio_plugin_client_LV2 PUBLIC juce_gui_basics)
 endif()
-target_compile_definitions(juce_audio_plugin_client_LV2
-  PUBLIC "JucePlugin_Build_LV2=1"
-  PUBLIC "JucePlugin_LV2URI=\"${JUCE_LV2_URI}\"")
 
 set(Standalone_SOURCES
   "${JUCE_LIBRARY_CODE_DIR}/include_juce_audio_plugin_client_utils.cpp"

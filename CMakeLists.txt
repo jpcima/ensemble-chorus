@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(EnsembleChorus VERSION "0.0.1" LANGUAGES C CXX)
-set(PROJECT_LV2_URI "urn:jpcima:ensemble-chorus")
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
@@ -116,7 +115,6 @@ endif()
 ###
 set(JUCE_ROOT_DIR "${PROJECT_SOURCE_DIR}/thirdparty/JUCE")
 set(JUCE_PROJECT_DIR "${PROJECT_SOURCE_DIR}/sources/plugin")
-set(JUCE_LV2_URI "${PROJECT_LV2_URI}")
 set(JUCE_NO_UI "${EnsembleChorus_NoUI}")
 include(JUCE)
 
