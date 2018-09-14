@@ -235,5 +235,5 @@ if(EnsembleChorus_LV2)
   install(FILES "resources/lv2/EnsembleChorus.lv2/modgui.ttl"
     DESTINATION "lib/lv2/EnsembleChorus.lv2")
   install(DIRECTORY "resources/lv2/EnsembleChorus.lv2/modgui"
-    DESTINATION "lib/lv2/EnsembleChorus.lv2/modgui")
+    DESTINATION "lib/lv2/EnsembleChorus.lv2")
 endif()
