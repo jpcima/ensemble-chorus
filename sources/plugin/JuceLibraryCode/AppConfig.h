@@ -25,6 +25,9 @@
 #ifndef JUCE_AUDIOPROCESSOR_NO_GUI
 #define JUCE_AUDIOPROCESSOR_NO_GUI 0
 #endif
+
+#define JucePlugin_WantsLV2Latency 0
+#define JucePlugin_WantsLV2TimePos 0
 // [END_USER_CODE_SECTION]
 
 /*
