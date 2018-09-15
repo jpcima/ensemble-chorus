@@ -20,8 +20,6 @@ static constexpr float lfo_slow_freq_min = 0.01;
 static constexpr float lfo_slow_freq_max = 2.0;
 static constexpr float lfo_fast_freq_min = 2.0;
 static constexpr float lfo_fast_freq_max = 10.0;
-static constexpr float lowpass_cutoff_min = 100.0;
-static constexpr float lowpass_cutoff_max = 20e3;
 static constexpr float lowpass_q_min = 0.05;
 static constexpr float lowpass_q_max = 1.0;
 
@@ -110,8 +108,8 @@ void Chorus::setup(float samplerate, unsigned bufsize)
     lfos_slow.phases(phases, num_delay_lines);
     lfos_fast.phases(phases, num_delay_lines);
 
-    float lowpass_cutoff = lowpass_cutoff_max;
-    float lowpass_q = M_SQRT1_2;
+    float lowpass_cutoff = ensemble_chorus_parameter_max(ECP_LPF_CUTOFF);
+    float lowpass_q = ensemble_chorus_parameter_default(ECP_LPF_Q);
     for (unsigned c = 0; c < 2; ++c) {
         auto &lowpass1 = P.lowpass1_[c];
         if (c == 0)
@@ -336,10 +334,9 @@ void Chorus::modulation_depth(unsigned lfo, float depth)
     P.clock_mod_depth_[lfo] = depth;
 }
 
-void Chorus::lpf(float r_cutoff, float r_q)
+void Chorus::lpf(float cutoff, float r_q)
 {
     Impl &P = *this->P;
-    float cutoff = lowpass_cutoff_min + r_cutoff * (lowpass_cutoff_max - lowpass_cutoff_min);
     float q = lowpass_q_min + r_q * (lowpass_q_max - lowpass_q_min);
     for (unsigned c = 0; c < 2; ++c) {
         auto &lowpass1 = P.lowpass1_[c];

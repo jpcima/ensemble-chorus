@@ -62,7 +62,7 @@ typedef enum ec_parameter_flag {
     P(FAST_RATE, 0, 1, 0.5, ECP_FLOAT, "Vibrato rate")                  \
     P(FAST_WAVE, 0, EC_LFO_WAVE_COUNT - 1, 4, ECP_INTEGER|ECP_CHOICE, "Vibrato wave") \
     P(FAST_RAND, 0, 1, 0.1, ECP_FLOAT, "Vibrato random")                \
-    P(LPF_CUTOFF, 0, 1, 1.0, ECP_FLOAT, "Lowpass cutoff")               \
+    P(LPF_CUTOFF, 0, 22000, 22000, ECP_FLOAT, "Lowpass cutoff")         \
     P(LPF_Q, 0, 1, M_SQRT1_2, ECP_FLOAT, "Lowpass Q")                   \
     P(GAIN_IN, 0, 3, 1, ECP_FLOAT|ECP_LOGARITHMIC, "Input gain")        \
     P(GAIN_OUT, 0, 3, 1, ECP_FLOAT|ECP_LOGARITHMIC, "Output gain")      \

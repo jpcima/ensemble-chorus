@@ -35,7 +35,7 @@ public:
 
     void modulation_depth(unsigned lfo, float depth);
 
-    void lpf(float r_cutoff, float r_q);
+    void lpf(float cutoff, float r_q);
 
     void aa_cutoff(float cutoff);
 

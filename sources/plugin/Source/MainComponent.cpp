@@ -977,7 +977,9 @@ void MainComponent::sliderValueChanged (Slider* sliderThatWasMoved)
     {
         //[UserSliderCode_dl_lpf_cutoff] -- add your slider handling code here..
         ecp = ECP_LPF_CUTOFF;
-        processor.setEcp(ecp, sliderThatWasMoved->getValue());
+        float min = ensemble_chorus_parameter_min(ecp);
+        float max = ensemble_chorus_parameter_max(ecp);
+        processor.setEcp(ecp, min + (max - min) * sliderThatWasMoved->getValue());
         //[/UserSliderCode_dl_lpf_cutoff]
     }
     else if (sliderThatWasMoved == dl_lpf_q.get())
@@ -1391,10 +1393,13 @@ void MainComponent::updateDisplayWithEcp(ec_parameter p, float value)
         sl = dl_fast_rand.get();
         sl->setValue(value, dontSendNotification);
         break;
-    case ECP_LPF_CUTOFF:
+    case ECP_LPF_CUTOFF: {
+        float min = ensemble_chorus_parameter_min(p);
+        float max = ensemble_chorus_parameter_max(p);
         sl = dl_lpf_cutoff.get();
-        sl->setValue(value, dontSendNotification);
+        sl->setValue((value - min) / (max - min), dontSendNotification);
         break;
+    }
     case ECP_LPF_Q:
         sl = dl_lpf_q.get();
         sl->setValue(value, dontSendNotification);

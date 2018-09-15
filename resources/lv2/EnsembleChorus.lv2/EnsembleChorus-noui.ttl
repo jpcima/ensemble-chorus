@@ -187,9 +187,9 @@
         lv2:index 17 ;
         lv2:symbol "lpf_cutoff" ;
         lv2:name "Lowpass cutoff" ;
-        lv2:default 1 ;
+        lv2:default 22000 ;
         lv2:minimum 0 ;
-        lv2:maximum 1 ;
+        lv2:maximum 22000 ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;

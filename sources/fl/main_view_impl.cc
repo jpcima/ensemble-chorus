@@ -60,7 +60,12 @@ void Main_View::parameter(unsigned id, float value, void *userdata)
     case ECP_FAST_RATE: self.dl_fast_rate_->value(value); break;
     case ECP_FAST_WAVE: self.cb_fast_wave_->value(value); break;
     case ECP_FAST_RAND: self.dl_fast_rand_->value(value); break;
-    case ECP_LPF_CUTOFF: self.dl_lpf_cutoff_->value(value); break;
+    case ECP_LPF_CUTOFF: {
+        float min = ensemble_chorus_parameter_min((ec_parameter)id);
+        float max = ensemble_chorus_parameter_max((ec_parameter)id);
+        self.dl_lpf_cutoff_->value((value - min) / (max - min));
+        break;
+    }
     case ECP_LPF_Q: self.dl_lpf_q_->value(value); break;
     case ECP_GAIN_IN: self.sl_gain_in_->value(to_logarithmic(value * (1.0 / 3.0))); break;
     case ECP_GAIN_OUT: self.sl_gain_out_->value(to_logarithmic(value * (1.0 / 3.0))); break;

@@ -709,7 +709,10 @@ void Main_View::cb_dl_mod_range_(Fl_Valuator_Ex<Fl_Knob>* o, void* v) {
 }
 
 void Main_View::cb_dl_lpf_cutoff__i(Fl_Valuator_Ex<Fl_Knob>* o, void*) {
-  controller()->send_parameter(ECP_LPF_CUTOFF, o->value());
+  ec_parameter ecp = ECP_LPF_CUTOFF;
+float min = ensemble_chorus_parameter_min(ecp);
+float max = ensemble_chorus_parameter_max(ecp);
+controller()->send_parameter(ecp, min + (max - min) * o->value());
 }
 void Main_View::cb_dl_lpf_cutoff_(Fl_Valuator_Ex<Fl_Knob>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_dl_lpf_cutoff__i(o,v);
