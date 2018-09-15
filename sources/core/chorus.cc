@@ -346,6 +346,8 @@ void Chorus::lpf(float cutoff, float r_q)
             RBJ_setup_copy(P.lowpass1_[0], lowpass1);
         auto &lowpass2 = P.lowpass2_[c];
         RBJ_setup_copy(lowpass1, lowpass2);
+        lowpass1.reset();
+        lowpass2.reset();
     }
 }
 
