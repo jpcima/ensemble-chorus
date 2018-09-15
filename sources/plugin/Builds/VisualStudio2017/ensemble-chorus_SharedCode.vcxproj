@@ -157,8 +157,8 @@
     <ClCompile Include="..\..\..\core\core_preset.cc"/>
     <ClCompile Include="..\..\..\core\lfos.cc"/>
     <ClCompile Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\source\Biquad.cpp"/>
+    <ClCompile Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\source\Butterworth.cpp"/>
     <ClCompile Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\source\Cascade.cpp"/>
-    <ClCompile Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\source\Legendre.cpp"/>
     <ClCompile Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\source\PoleFilter.cpp"/>
     <ClCompile Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\source\RBJ.cpp"/>
     <ClCompile Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\source\RootFinder.cpp"/>
@@ -1941,12 +1941,12 @@
     <ClInclude Include="..\..\..\core\lfos.h"/>
     <ClInclude Include="..\..\..\utility\stdc_memory.h"/>
     <ClInclude Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters\Biquad.h"/>
+    <ClInclude Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters\Butterworth.h"/>
     <ClInclude Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters\Cascade.h"/>
     <ClInclude Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters\Common.h"/>
     <ClInclude Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters\Design.h"/>
     <ClInclude Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters\Filter.h"/>
     <ClInclude Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters\Layout.h"/>
-    <ClInclude Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters\Legendre.h"/>
     <ClInclude Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters\MathSupplement.h"/>
     <ClInclude Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters\Params.h"/>
     <ClInclude Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters\PoleFilter.h"/>

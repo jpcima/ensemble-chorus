@@ -47,6 +47,12 @@ void Main_View::parameter(unsigned id, float value, void *userdata)
     };
     case ECP_DELAY: self.sl_delay_->value(value); break;
     case ECP_NSTAGES: self.cb_nstages_->value(value); break;
+    case ECP_AA_CUTOFF: {
+        float min = ensemble_chorus_parameter_min((ec_parameter)id);
+        float max = ensemble_chorus_parameter_max((ec_parameter)id);
+        self.dl_aa_cutoff_->value((value - min) / (max - min));
+        break;
+    }
     case ECP_MOD_RANGE: self.dl_mod_range_->value(value); break;
     case ECP_SLOW_RATE: self.dl_slow_rate_->value(value); break;
     case ECP_SLOW_WAVE: self.cb_slow_wave_->value(value); break;

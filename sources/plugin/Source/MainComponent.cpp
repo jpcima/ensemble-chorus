@@ -44,7 +44,7 @@ MainComponent::MainComponent (EnsembleChorusAudioProcessor &p)
     dl_mod_range->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     dl_mod_range->addListener (this);
 
-    dl_mod_range->setBounds (370, 80, 45, 45);
+    dl_mod_range->setBounds (380, 125, 40, 40);
 
     dl_slow_rate.reset (new Slider ("new slider"));
     addAndMakeVisible (dl_slow_rate.get());
@@ -477,7 +477,7 @@ MainComponent::MainComponent (EnsembleChorusAudioProcessor &p)
     label4->setBounds (575, 240, 45, 35);
 
     label5.reset (new Label ("new label",
-                             TRANS("Range")));
+                             TRANS("Mod range")));
     addAndMakeVisible (label5.get());
     label5->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
     label5->setJustificationType (Justification::centred);
@@ -485,7 +485,7 @@ MainComponent::MainComponent (EnsembleChorusAudioProcessor &p)
     label5->setColour (TextEditor::textColourId, Colours::black);
     label5->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    label5->setBounds (365, 120, 55, 25);
+    label5->setBounds (365, 155, 75, 25);
 
     label6.reset (new Label ("new label",
                              TRANS("Wet")));
@@ -566,6 +566,26 @@ MainComponent::MainComponent (EnsembleChorusAudioProcessor &p)
     visu_mod6->setName ("new component");
 
     visu_mod6->setBounds (245, 205, 55, 25);
+
+    dl_aa_cutoff.reset (new Slider ("new slider"));
+    addAndMakeVisible (dl_aa_cutoff.get());
+    dl_aa_cutoff->setRange (0, 1, 0);
+    dl_aa_cutoff->setSliderStyle (Slider::Rotary);
+    dl_aa_cutoff->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    dl_aa_cutoff->addListener (this);
+
+    dl_aa_cutoff->setBounds (365, 80, 35, 35);
+
+    label10.reset (new Label ("new label",
+                              TRANS("Cutoff")));
+    addAndMakeVisible (label10.get());
+    label10->setFont (Font (15.0f, Font::plain).withTypefaceStyle ("Regular"));
+    label10->setJustificationType (Justification::centred);
+    label10->setEditable (false, false, false);
+    label10->setColour (TextEditor::textColourId, Colours::black);
+    label10->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
+    label10->setBounds (395, 85, 50, 25);
 
 
     //[UserPreSize]
@@ -701,6 +721,8 @@ MainComponent::~MainComponent()
     visu_mod4 = nullptr;
     visu_mod5 = nullptr;
     visu_mod6 = nullptr;
+    dl_aa_cutoff = nullptr;
+    label10 = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -882,6 +904,18 @@ void MainComponent::paint (Graphics& g)
         //[/UserPaintCustomArguments]
         g.setColour (fillColour);
         g.fillRect (x, y, width, height);
+    }
+
+    {
+        int x = 360, y = 55, width = 90, height = 25;
+        String text (TRANS("Anti-alias"));
+        Colour fillColour = Colours::black;
+        //[UserPaintCustomArguments] Customize the painting arguments here..
+        //[/UserPaintCustomArguments]
+        g.setColour (fillColour);
+        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::bold | Font::italic));
+        g.drawText (text, x, y, width, height,
+                    Justification::centred, true);
     }
 
     //[UserPaint] Add your own custom painting code here..
@@ -1073,6 +1107,15 @@ void MainComponent::sliderValueChanged (Slider* sliderThatWasMoved)
         ecp = ECP_PHASE6;
         goto handle_phaseN;
         //[/UserSliderCode_sl_phase6]
+    }
+    else if (sliderThatWasMoved == dl_aa_cutoff.get())
+    {
+        //[UserSliderCode_dl_aa_cutoff] -- add your slider handling code here..
+        ecp = ECP_AA_CUTOFF;
+        float min = ensemble_chorus_parameter_min(ecp);
+        float max = ensemble_chorus_parameter_max(ecp);
+        processor.setEcp(ecp, min + (max - min) * sliderThatWasMoved->getValue());
+        //[/UserSliderCode_dl_aa_cutoff]
     }
 
     //[UsersliderValueChanged_Post]
@@ -1315,6 +1358,13 @@ void MainComponent::updateDisplayWithEcp(ec_parameter p, float value)
     case ECP_NSTAGES:
         cb_nstages->setSelectedId((int)value + 1, dontSendNotification);
         break;
+    case ECP_AA_CUTOFF: {
+        float min = ensemble_chorus_parameter_min(p);
+        float max = ensemble_chorus_parameter_max(p);
+        sl = dl_aa_cutoff.get();
+        sl->setValue((value - min) / (max - min), dontSendNotification);
+        break;
+    }
     case ECP_MOD_RANGE:
         sl = dl_mod_range.get();
         sl->setValue(value, dontSendNotification);
@@ -1467,9 +1517,12 @@ BEGIN_JUCER_METADATA
     <RECT pos="0 0 230 42" fill="solid: 0" hasStroke="1" stroke="1, mitered, butt"
           strokeColour="solid: ff000000"/>
     <RECT pos="230 4 4 42" fill="solid: ff404040" hasStroke="0"/>
+    <TEXT pos="360 55 90 25" fill="solid: ff000000" hasStroke="0" text="Anti-alias"
+          fontname="Default serif font" fontsize="18.0" kerning="0.0" bold="1"
+          italic="1" justification="36" typefaceStyle="Bold Italic"/>
   </BACKGROUND>
   <SLIDER name="new slider" id="4106898fdb391e2c" memberName="dl_mod_range"
-          virtualName="" explicitFocusOrder="0" pos="370 80 45 45" min="0.0"
+          virtualName="" explicitFocusOrder="0" pos="380 125 40 40" min="0.0"
           max="1.0" int="0.0" style="Rotary" textBoxPos="NoTextBox" textBoxEditable="1"
           textBoxWidth="80" textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
   <SLIDER name="new slider" id="ce8811064110cb8c" memberName="dl_slow_rate"
@@ -1672,8 +1725,8 @@ BEGIN_JUCER_METADATA
          focusDiscardsChanges="0" fontname="Default font" fontsize="15.0"
          kerning="0.0" bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="1a504956f75fa6f0" memberName="label5" virtualName=""
-         explicitFocusOrder="0" pos="365 120 55 25" edTextCol="ff000000"
-         edBkgCol="0" labelText="Range" editableSingleClick="0" editableDoubleClick="0"
+         explicitFocusOrder="0" pos="365 155 75 25" edTextCol="ff000000"
+         edBkgCol="0" labelText="Mod range" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15.0"
          kerning="0.0" bold="0" italic="0" justification="36"/>
   <LABEL name="new label" id="c1eb5c37ea705fb9" memberName="label6" virtualName=""
@@ -1714,6 +1767,15 @@ BEGIN_JUCER_METADATA
   <GENERICCOMPONENT name="new component" id="189c5da9f8971bea" memberName="visu_mod6"
                     virtualName="ModulatorVisu" explicitFocusOrder="0" pos="245 205 55 25"
                     class="Component" params=""/>
+  <SLIDER name="new slider" id="aec553e98f465f1" memberName="dl_aa_cutoff"
+          virtualName="" explicitFocusOrder="0" pos="365 80 35 35" min="0.0"
+          max="1.0" int="0.0" style="Rotary" textBoxPos="NoTextBox" textBoxEditable="1"
+          textBoxWidth="80" textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
+  <LABEL name="new label" id="aefffe557433fe09" memberName="label10" virtualName=""
+         explicitFocusOrder="0" pos="395 85 50 25" edTextCol="ff000000"
+         edBkgCol="0" labelText="Cutoff" editableSingleClick="0" editableDoubleClick="0"
+         focusDiscardsChanges="0" fontname="Default font" fontsize="15.0"
+         kerning="0.0" bold="0" italic="0" justification="36"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

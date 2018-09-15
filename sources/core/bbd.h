@@ -37,10 +37,12 @@ class BBD_Line {
 public:
     BBD_Line();
     ~BBD_Line();
-    bool setup(float samplerate, float maxclockrate, unsigned nstages);
+    bool setup(float samplerate, float maxclockrate, unsigned nstages, BBD_Line *other);
     void process(unsigned n, float *inout, const float *clock);
     void regen(float r);
     void nstages(unsigned n);
+    void aa_cutoff(float cutoff);
+    void aa_reset();
 
     static constexpr float min_delay = 1e-5f;
 

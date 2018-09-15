@@ -514,10 +514,10 @@
     <ClCompile Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\source\Biquad.cpp">
       <Filter>ensemble-chorus\thirdparty\DSPFilters\shared\DSPFilters\source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\source\Cascade.cpp">
+    <ClCompile Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\source\Butterworth.cpp">
       <Filter>ensemble-chorus\thirdparty\DSPFilters\shared\DSPFilters\source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\source\Legendre.cpp">
+    <ClCompile Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\source\Cascade.cpp">
       <Filter>ensemble-chorus\thirdparty\DSPFilters\shared\DSPFilters\source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\source\PoleFilter.cpp">
@@ -2487,6 +2487,9 @@
     <ClInclude Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters\Biquad.h">
       <Filter>ensemble-chorus\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters\Butterworth.h">
+      <Filter>ensemble-chorus\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters\Cascade.h">
       <Filter>ensemble-chorus\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters</Filter>
     </ClInclude>
@@ -2500,9 +2503,6 @@
       <Filter>ensemble-chorus\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters\Layout.h">
-      <Filter>ensemble-chorus\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters\Legendre.h">
       <Filter>ensemble-chorus\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\thirdparty\DSPFilters\shared\DSPFilters\include\DspFilters\MathSupplement.h">

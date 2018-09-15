@@ -37,6 +37,8 @@ public:
 
     void lpf(float r_cutoff, float r_q);
 
+    void aa_cutoff(float cutoff);
+
     float current_slow_modulation(unsigned lfo) const;
     float current_fast_modulation(unsigned lfo) const;
 

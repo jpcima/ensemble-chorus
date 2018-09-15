@@ -95,7 +95,8 @@ void Chorus::setup(float samplerate, unsigned bufsize)
 
     for (unsigned i = 0; i < 6; ++i) {
         BBD_Line &line = P.delay_line_[i];
-        line.setup(samplerate, max_clock_rate, nstages);
+        BBD_Line *other = (i > 0) ? &P.delay_line_[0] : nullptr;
+        line.setup(samplerate, max_clock_rate, nstages, other);
     }
 
     LFOs &lfos_slow = P.lfos_slow_;
@@ -349,6 +350,14 @@ void Chorus::lpf(float r_cutoff, float r_q)
         auto &lowpass2 = P.lowpass2_[c];
         RBJ_setup_copy(lowpass1, lowpass2);
     }
+}
+
+void Chorus::aa_cutoff(float cutoff)
+{
+    Impl &P = *this->P;
+    P.delay_line_[0].aa_cutoff(cutoff);
+    for (unsigned i = 0; i < 6; ++i)
+        P.delay_line_[i].aa_reset();
 }
 
 float Chorus::current_slow_modulation(unsigned lfo) const

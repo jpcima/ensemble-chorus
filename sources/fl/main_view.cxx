@@ -849,6 +849,16 @@ void Main_View::cb_Save_i(Fl_Button*, void*) {
 void Main_View::cb_Save(Fl_Button* o, void* v) {
   ((Main_View*)(o->parent()))->cb_Save_i(o,v);
 }
+
+void Main_View::cb_dl_aa_cutoff__i(Fl_Valuator_Ex<Fl_Knob>* o, void*) {
+  ec_parameter ecp = ECP_AA_CUTOFF;
+float min = ensemble_chorus_parameter_min(ecp);
+float max = ensemble_chorus_parameter_max(ecp);
+controller()->send_parameter(ecp, min + (max - min) * o->value());
+}
+void Main_View::cb_dl_aa_cutoff_(Fl_Valuator_Ex<Fl_Knob>* o, void* v) {
+  ((Main_View*)(o->parent()))->cb_dl_aa_cutoff__i(o,v);
+}
 Main_View::Main_View(int X, int Y, int W, int H, const char *L)
   : Fl_Group(X, Y, W, H, L) {
 this->labelfont(13);
@@ -1370,7 +1380,7 @@ this->labelfont(13);
   dl_fast_rand_->align(Fl_Align(FL_ALIGN_RIGHT));
   dl_fast_rand_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Knob>* dl_fast_rand_
-{ dl_mod_range_ = new Fl_Valuator_Ex<Fl_Knob>(370, 80, 45, 45, "Range");
+{ dl_mod_range_ = new Fl_Valuator_Ex<Fl_Knob>(380, 125, 40, 40, "Mod range");
   dl_mod_range_->box(FL_OVAL_BOX);
   dl_mod_range_->color(FL_BACKGROUND_COLOR);
   dl_mod_range_->selection_color(FL_INACTIVE_COLOR);
@@ -1592,6 +1602,23 @@ this->labelfont(13);
   o->labeltype(FL_ENGRAVED_LABEL);
   o->callback((Fl_Callback*)cb_Save);
 } // Fl_Button* o
+{ Fl_Box* o = new Fl_Box(360, 55, 90, 25, "Anti-alias");
+  o->labeltype(FL_EMBOSSED_LABEL);
+  o->labelfont(11);
+  o->align(Fl_Align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE));
+} // Fl_Box* o
+{ dl_aa_cutoff_ = new Fl_Valuator_Ex<Fl_Knob>(365, 80, 35, 35, "Cutoff");
+  dl_aa_cutoff_->box(FL_OVAL_BOX);
+  dl_aa_cutoff_->color(FL_BACKGROUND_COLOR);
+  dl_aa_cutoff_->selection_color(FL_INACTIVE_COLOR);
+  dl_aa_cutoff_->labeltype(FL_EMBOSSED_LABEL);
+  dl_aa_cutoff_->labelfont(0);
+  dl_aa_cutoff_->labelsize(12);
+  dl_aa_cutoff_->labelcolor(FL_FOREGROUND_COLOR);
+  dl_aa_cutoff_->callback((Fl_Callback*)cb_dl_aa_cutoff_);
+  dl_aa_cutoff_->align(Fl_Align(FL_ALIGN_RIGHT));
+  dl_aa_cutoff_->when(FL_WHEN_CHANGED);
+} // Fl_Valuator_Ex<Fl_Knob>* dl_aa_cutoff_
 end();
 }
 

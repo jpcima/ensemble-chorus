@@ -161,6 +161,9 @@ static void ensemble_chorus_set_parameter_ex(chorus_t *ec, ec_parameter_t p, flo
         case ECP_NSTAGES:
             chorus.nstages(EC_NSTAGES_MIN << (unsigned)value);
             break;
+        case ECP_AA_CUTOFF:
+            chorus.aa_cutoff(value);
+            break;
         case ECP_MOD_RANGE:
             chorus.mod_range(value);
             break;

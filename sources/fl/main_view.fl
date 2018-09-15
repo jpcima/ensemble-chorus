@@ -54,7 +54,7 @@ decl {class Fl_Toggle_Button;} {public global
 }
 
 widget_class Main_View {open
-  xywh {522 316 625 280} type Double labelfont 13 visible
+  xywh {5 711 625 280} type Double labelfont 13 visible
 } {
   decl {static constexpr int W = 625;} {public local
   }
@@ -207,7 +207,7 @@ x->set_modulation_callback(&modulation, this);} {}
     }
     MenuItem {} {
       label 8192
-      callback {controller()->send_parameter(ECP_NSTAGES, 4)} selected
+      callback {controller()->send_parameter(ECP_NSTAGES, 4)}
       xywh {40 40 100 20}
     }
   }
@@ -360,9 +360,9 @@ x->set_modulation_callback(&modulation, this);} {}
     class {Fl_Valuator_Ex<Fl_Knob>}
   }
   Fl_Dial dl_mod_range_ {
-    label Range
+    label {Mod range}
     callback {controller()->send_parameter(ECP_MOD_RANGE, o->value())}
-    xywh {370 80 45 45} labeltype ENGRAVED_LABEL labelsize 12
+    xywh {380 125 40 40} labeltype ENGRAVED_LABEL labelsize 12
     class {Fl_Valuator_Ex<Fl_Knob>}
   }
   Fl_Box {} {
@@ -494,5 +494,18 @@ else {
     fl_alert("Could not save the preset file.");
 }}
     xywh {315 30 45 25} labeltype ENGRAVED_LABEL
+  }
+  Fl_Box {} {
+    label {Anti-alias}
+    xywh {360 55 90 25} labeltype EMBOSSED_LABEL labelfont 11 align 16
+  }
+  Fl_Dial dl_aa_cutoff_ {
+    label Cutoff
+    callback {ec_parameter ecp = ECP_AA_CUTOFF;
+float min = ensemble_chorus_parameter_min(ecp);
+float max = ensemble_chorus_parameter_max(ecp);
+controller()->send_parameter(ecp, min + (max - min) * o->value())} selected
+    xywh {365 80 35 35} labeltype EMBOSSED_LABEL labelsize 12 align 8
+    class {Fl_Valuator_Ex<Fl_Knob>}
   }
 }

@@ -64,12 +64,12 @@
             <GROUP id="{5524F942-F8D7-5F69-20E0-488C34049CF1}" name="include">
               <GROUP id="{CD21F5AC-78A7-882A-04CB-FAFF9D1C6689}" name="DspFilters">
                 <FILE id="sn72cc" name="Biquad.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/Biquad.h"/>
+                <FILE id="J5Ykhh" name="Butterworth.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/Butterworth.h"/>
                 <FILE id="GQgnDq" name="Cascade.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/Cascade.h"/>
                 <FILE id="cgBSFO" name="Common.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/Common.h"/>
                 <FILE id="tgsUhI" name="Design.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/Design.h"/>
                 <FILE id="fJDxGw" name="Filter.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/Filter.h"/>
                 <FILE id="eC7SaO" name="Layout.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/Layout.h"/>
-                <FILE id="A3GBIW" name="Legendre.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/Legendre.h"/>
                 <FILE id="xnWuch" name="MathSupplement.h" compile="0" resource="0"
                       file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/MathSupplement.h"/>
                 <FILE id="f0xCjb" name="Params.h" compile="0" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/include/DspFilters/Params.h"/>
@@ -82,8 +82,8 @@
             </GROUP>
             <GROUP id="{8A33B38C-7E7A-84B5-E88E-7A03E45B5C72}" name="source">
               <FILE id="JqsVbW" name="Biquad.cpp" compile="1" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/source/Biquad.cpp"/>
+              <FILE id="Q2A9si" name="Butterworth.cpp" compile="1" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/source/Butterworth.cpp"/>
               <FILE id="erZyql" name="Cascade.cpp" compile="1" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/source/Cascade.cpp"/>
-              <FILE id="dFZetz" name="Legendre.cpp" compile="1" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/source/Legendre.cpp"/>
               <FILE id="rZge9m" name="PoleFilter.cpp" compile="1" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/source/PoleFilter.cpp"/>
               <FILE id="rfOkAa" name="RBJ.cpp" compile="1" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/source/RBJ.cpp"/>
               <FILE id="jOpVey" name="RootFinder.cpp" compile="1" resource="0" file="../../thirdparty/DSPFilters/shared/DSPFilters/source/RootFinder.cpp"/>

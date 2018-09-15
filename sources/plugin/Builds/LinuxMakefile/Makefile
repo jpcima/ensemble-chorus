@@ -105,8 +105,8 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/core_preset_1429e470.o \
   $(JUCE_OBJDIR)/lfos_4d1ab74f.o \
   $(JUCE_OBJDIR)/Biquad_3f7c3487.o \
+  $(JUCE_OBJDIR)/Butterworth_56b7f5ff.o \
   $(JUCE_OBJDIR)/Cascade_80460125.o \
-  $(JUCE_OBJDIR)/Legendre_35f05b79.o \
   $(JUCE_OBJDIR)/PoleFilter_3cf7b4c9.o \
   $(JUCE_OBJDIR)/RBJ_df19b9ab.o \
   $(JUCE_OBJDIR)/RootFinder_528d5721.o \
@@ -221,14 +221,14 @@ $(JUCE_OBJDIR)/Biquad_3f7c3487.o: ../../../../thirdparty/DSPFilters/shared/DSPFi
 	@echo "Compiling Biquad.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
+$(JUCE_OBJDIR)/Butterworth_56b7f5ff.o: ../../../../thirdparty/DSPFilters/shared/DSPFilters/source/Butterworth.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling Butterworth.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
 $(JUCE_OBJDIR)/Cascade_80460125.o: ../../../../thirdparty/DSPFilters/shared/DSPFilters/source/Cascade.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling Cascade.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/Legendre_35f05b79.o: ../../../../thirdparty/DSPFilters/shared/DSPFilters/source/Legendre.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling Legendre.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/PoleFilter_3cf7b4c9.o: ../../../../thirdparty/DSPFilters/shared/DSPFilters/source/PoleFilter.cpp

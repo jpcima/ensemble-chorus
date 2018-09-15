@@ -129,6 +129,8 @@ private:
     std::unique_ptr<ModulatorVisu> visu_mod4;
     std::unique_ptr<ModulatorVisu> visu_mod5;
     std::unique_ptr<ModulatorVisu> visu_mod6;
+    std::unique_ptr<Slider> dl_aa_cutoff;
+    std::unique_ptr<Label> label10;
 
 
     //==============================================================================

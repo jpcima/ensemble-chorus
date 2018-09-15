@@ -54,6 +54,7 @@ typedef enum ec_parameter_flag {
     P(CHANNEL_LAYOUT, ECC_STEREO, ECC_MONO, ECC_STEREO, ECP_INTEGER|ECP_CHOICE, "Channel layout") \
     P(DELAY, 0, 1, 0.5, ECP_FLOAT, "Delay")                             \
     P(NSTAGES, 0, EC_SUPPORTED_NSTAGES_COUNT - 1, 1/* 1024 */, ECP_INTEGER|ECP_CHOICE, "Stages") \
+    P(AA_CUTOFF, 0, 22000, 15000, ECP_FLOAT, "Anti-alias cutoff")       \
     P(MOD_RANGE, 0, 1, 0.5, ECP_FLOAT, "Modulation range")              \
     P(SLOW_RATE, 0, 1, 0.5, ECP_FLOAT, "Chorus rate")                   \
     P(SLOW_WAVE, 0, EC_LFO_WAVE_COUNT - 1, 4, ECP_INTEGER|ECP_CHOICE, "Chorus wave") \
