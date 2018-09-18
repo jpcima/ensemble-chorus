@@ -78,7 +78,7 @@ typedef enum ec_parameter_flag {
 #define EC_EACH_LINE_PARAMETER(P, I)                                    \
     /* Name, Min, Max, Def, Flags, Label */                             \
     P(ENABLE##I, false, true, (I <= 3), ECP_BOOLEAN, "Enable " #I)      \
-    P(PHASE##I, 0, 1, ((I - 1) % 3) / 3. + ((I - 1) / 3) / 6., ECP_FLOAT, "Phase " #I) \
+    P(PHASE##I, 0, 360, (((I - 1) % 3) * 120 + ((I - 1) / 3) * 60), ECP_FLOAT, "Phase " #I) \
     P(DEPTH##I, 0, 1, 0.5, ECP_FLOAT, "Depth " #I)                      \
     P(ROUTE_L##I, false, true, (I != 3 && I != 4), ECP_BOOLEAN, "Left " #I) \
     P(ROUTE_R##I, false, true, (I != 1 && I != 6), ECP_BOOLEAN, "Right " #I)

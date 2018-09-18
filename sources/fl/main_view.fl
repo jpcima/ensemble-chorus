@@ -54,7 +54,7 @@ decl {class Fl_Toggle_Button;} {public global
 }
 
 widget_class Main_View {open
-  xywh {5 711 625 280} type Double labelfont 13 visible
+  xywh {489 509 625 280} type Double labelfont 13 visible
 } {
   decl {static constexpr int W = 625;} {public local
   }
@@ -114,7 +114,7 @@ x->set_modulation_callback(&modulation, this);} {}
     class Fl_Toggle_Button
   }
   Fl_Value_Slider sl_phase1_ {
-    callback {controller()->send_parameter(ECP_PHASE1, o->value() * (1.0 / 360))}
+    callback {controller()->send_parameter(ECP_PHASE1, o->value())}
     xywh {65 80 105 25} type Horizontal maximum 359 step 1
     class {Fl_Valuator_Ex<Fl_Value_Slider>}
   }
@@ -125,7 +125,7 @@ x->set_modulation_callback(&modulation, this);} {}
     class Fl_Toggle_Button
   }
   Fl_Value_Slider sl_phase2_ {
-    callback {controller()->send_parameter(ECP_PHASE2, o->value() * (1.0 / 360))}
+    callback {controller()->send_parameter(ECP_PHASE2, o->value())}
     xywh {65 105 105 25} type Horizontal maximum 359 step 1
     class {Fl_Valuator_Ex<Fl_Value_Slider>}
   }
@@ -136,7 +136,7 @@ x->set_modulation_callback(&modulation, this);} {}
     class Fl_Toggle_Button
   }
   Fl_Value_Slider sl_phase3_ {
-    callback {controller()->send_parameter(ECP_PHASE3, o->value() * (1.0 / 360))}
+    callback {controller()->send_parameter(ECP_PHASE3, o->value())}
     xywh {65 130 105 25} type Horizontal maximum 359 step 1
     class {Fl_Valuator_Ex<Fl_Value_Slider>}
   }
@@ -147,7 +147,7 @@ x->set_modulation_callback(&modulation, this);} {}
     class Fl_Toggle_Button
   }
   Fl_Value_Slider sl_phase4_ {
-    callback {controller()->send_parameter(ECP_PHASE4, o->value() * (1.0 / 360))}
+    callback {controller()->send_parameter(ECP_PHASE4, o->value())}
     xywh {65 155 105 25} type Horizontal maximum 359 step 1
     class {Fl_Valuator_Ex<Fl_Value_Slider>}
   }
@@ -158,7 +158,7 @@ x->set_modulation_callback(&modulation, this);} {}
     class Fl_Toggle_Button
   }
   Fl_Value_Slider sl_phase5_ {
-    callback {controller()->send_parameter(ECP_PHASE5, o->value() * (1.0 / 360))}
+    callback {controller()->send_parameter(ECP_PHASE5, o->value())}
     xywh {65 180 105 25} type Horizontal maximum 359 step 1
     class {Fl_Valuator_Ex<Fl_Value_Slider>}
   }
@@ -169,7 +169,7 @@ x->set_modulation_callback(&modulation, this);} {}
     class Fl_Toggle_Button
   }
   Fl_Value_Slider sl_phase6_ {
-    callback {controller()->send_parameter(ECP_PHASE6, o->value() * (1.0 / 360))}
+    callback {controller()->send_parameter(ECP_PHASE6, o->value())} selected
     xywh {65 205 105 25} type Horizontal maximum 359 step 1
     class {Fl_Valuator_Ex<Fl_Value_Slider>}
   }
@@ -374,7 +374,7 @@ x->set_modulation_callback(&modulation, this);} {}
     callback {ec_parameter ecp = ECP_LPF_CUTOFF;
 float min = ensemble_chorus_parameter_min(ecp);
 float max = ensemble_chorus_parameter_max(ecp);
-controller()->send_parameter(ecp, min + (max - min) * o->value())} selected
+controller()->send_parameter(ecp, min + (max - min) * o->value())}
     xywh {160 235 40 40} labeltype EMBOSSED_LABEL labelsize 12 align 14
     class {Fl_Valuator_Ex<Fl_Knob>}
   }

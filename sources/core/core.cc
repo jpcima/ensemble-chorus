@@ -213,7 +213,7 @@ static void ensemble_chorus_set_parameter_ex(chorus_t *ec, ec_parameter_t p, flo
         for (unsigned i = 0; i < 6; ++i) {
             unsigned off = ECP_ENABLE2 - ECP_ENABLE1;
             bool enable = parameter[ECP_ENABLE1 + i * off];
-            float phase = parameter[ECP_PHASE1 + i * off];
+            float phase = parameter[ECP_PHASE1 + i * off] * (1.0f / 360);
             if (enable) {
                 phases[nphases] = phase;
                 nums[nphases] = i;
@@ -269,8 +269,9 @@ float ensemble_chorus_adjust_parameter(ec_parameter_t p, float value)
         break;
     case ECP_PHASE1: case ECP_PHASE2: case ECP_PHASE3:
     case ECP_PHASE4: case ECP_PHASE5: case ECP_PHASE6:
+        value *= 1.0f / 360;
         value = value - (int)value;
-        value = (value < 0) ? (value + 1) : value;
+        value = 360 * ((value < 0) ? (value + 1) : value);
         break;
     }
 

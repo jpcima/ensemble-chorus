@@ -41,7 +41,7 @@ void Main_View::cb_btn_enable1_(Fl_Toggle_Button* o, void* v) {
 }
 
 void Main_View::cb_sl_phase1__i(Fl_Valuator_Ex<Fl_Value_Slider>* o, void*) {
-  controller()->send_parameter(ECP_PHASE1, o->value() * (1.0 / 360));
+  controller()->send_parameter(ECP_PHASE1, o->value());
 }
 void Main_View::cb_sl_phase1_(Fl_Valuator_Ex<Fl_Value_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_phase1__i(o,v);
@@ -55,7 +55,7 @@ void Main_View::cb_btn_enable2_(Fl_Toggle_Button* o, void* v) {
 }
 
 void Main_View::cb_sl_phase2__i(Fl_Valuator_Ex<Fl_Value_Slider>* o, void*) {
-  controller()->send_parameter(ECP_PHASE2, o->value() * (1.0 / 360));
+  controller()->send_parameter(ECP_PHASE2, o->value());
 }
 void Main_View::cb_sl_phase2_(Fl_Valuator_Ex<Fl_Value_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_phase2__i(o,v);
@@ -69,7 +69,7 @@ void Main_View::cb_btn_enable3_(Fl_Toggle_Button* o, void* v) {
 }
 
 void Main_View::cb_sl_phase3__i(Fl_Valuator_Ex<Fl_Value_Slider>* o, void*) {
-  controller()->send_parameter(ECP_PHASE3, o->value() * (1.0 / 360));
+  controller()->send_parameter(ECP_PHASE3, o->value());
 }
 void Main_View::cb_sl_phase3_(Fl_Valuator_Ex<Fl_Value_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_phase3__i(o,v);
@@ -83,7 +83,7 @@ void Main_View::cb_btn_enable4_(Fl_Toggle_Button* o, void* v) {
 }
 
 void Main_View::cb_sl_phase4__i(Fl_Valuator_Ex<Fl_Value_Slider>* o, void*) {
-  controller()->send_parameter(ECP_PHASE4, o->value() * (1.0 / 360));
+  controller()->send_parameter(ECP_PHASE4, o->value());
 }
 void Main_View::cb_sl_phase4_(Fl_Valuator_Ex<Fl_Value_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_phase4__i(o,v);
@@ -97,7 +97,7 @@ void Main_View::cb_btn_enable5_(Fl_Toggle_Button* o, void* v) {
 }
 
 void Main_View::cb_sl_phase5__i(Fl_Valuator_Ex<Fl_Value_Slider>* o, void*) {
-  controller()->send_parameter(ECP_PHASE5, o->value() * (1.0 / 360));
+  controller()->send_parameter(ECP_PHASE5, o->value());
 }
 void Main_View::cb_sl_phase5_(Fl_Valuator_Ex<Fl_Value_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_phase5__i(o,v);
@@ -111,7 +111,7 @@ void Main_View::cb_btn_enable6_(Fl_Toggle_Button* o, void* v) {
 }
 
 void Main_View::cb_sl_phase6__i(Fl_Valuator_Ex<Fl_Value_Slider>* o, void*) {
-  controller()->send_parameter(ECP_PHASE6, o->value() * (1.0 / 360));
+  controller()->send_parameter(ECP_PHASE6, o->value());
 }
 void Main_View::cb_sl_phase6_(Fl_Valuator_Ex<Fl_Value_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_phase6__i(o,v);

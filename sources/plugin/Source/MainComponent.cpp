@@ -1072,7 +1072,7 @@ void MainComponent::sliderValueChanged (Slider* sliderThatWasMoved)
         //[UserSliderCode_sl_phase1] -- add your slider handling code here..
         ecp = ECP_PHASE1;
     handle_phaseN:
-        processor.setEcp(ecp, sliderThatWasMoved->getValue() * (1.0 / 360.0));
+        processor.setEcp(ecp, sliderThatWasMoved->getValue());
         //[/UserSliderCode_sl_phase1]
     }
     else if (sliderThatWasMoved == sl_phase2.get())
@@ -1428,7 +1428,7 @@ void MainComponent::updateDisplayWithEcp(ec_parameter p, float value)
     case ECP_PHASE1:
         sl = sl_phase1.get();
     handlePhaseN:
-        sl->setValue(value * 360.0, dontSendNotification);
+        sl->setValue(value, dontSendNotification);
         break;
     case ECP_DEPTH1:
         sl = sl_depth1.get();
