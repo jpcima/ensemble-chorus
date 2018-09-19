@@ -28,6 +28,10 @@ Find automatic builds of the development branch [here](http://jpcima.sdf1.org/so
 - `libasound2-dev`
 - `libjack-jackd2-dev` or `libjack-dev` (for Jack 2 or Jack 1 respectively)
 - `libpulse-dev` (optional)
+- `libfreetype6-dev`
+- `libxrandr-dev`
+- `libxinerama-dev`
+- `libxcursor-dev`
 
 ## Build
 
