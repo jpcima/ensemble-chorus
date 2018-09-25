@@ -5,7 +5,7 @@ Digital model of electronic string ensemble chorus
 
 **Experimental!**
 
-This chorus effect simulates the operation of an analog circuit based on Bucket-brigade delays (or BBD).
+This chorus effect simulates the operation of an analog circuit based on [Bucket-brigade delays (or BBD)](https://en.wikipedia.org/wiki/Bucket-brigade_device).
 
 The BBD chorus was famously used in [ARP Solina](https://en.wikipedia.org/wiki/ARP_String_Ensemble) and [Eminent 310 Unique](https://en.wikipedia.org/wiki/Eminent_310_Unique) analog string ensemble synthesizers, and also in guitar effect pedals and other instruments. It is the chorus which gives these electronic instruments the timbral characteristics which turn them effectively into ensembles.
 
