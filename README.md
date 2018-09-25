@@ -5,6 +5,17 @@ Digital model of electronic string ensemble chorus
 
 **Experimental!**
 
+This chorus effect simulates the operation of an analog circuit based on Bucket-brigade delays (or BBD).
+
+The BBD chorus was famously used in [ARP Solina](https://en.wikipedia.org/wiki/ARP_String_Ensemble) and [Eminent 310 Unique](https://en.wikipedia.org/wiki/Eminent_310_Unique) analog string ensemble synthesizers, and also in guitar effect pedals and other instruments. It is the chorus which gives these electronic instruments the timbral characteristics which turn them effectively into ensembles.
+
+**Principle:** the chorus consists of 3 to 6 BBD lines. It samples the signal on each delay line by applying a variation on the delay, using pairs of low-frequency oscillators which are generated using fixed phase offsets from one to another.
+Each LFO pair is made of one slower modulator, *Chorus*, and one faster modulator, *Vibrato*.
+
+The BBD delay is an integrated circuit which implements an analog buffer using an array of capacitors, which maintains a memory of the signal. As the capacitors discharge between two sampling periods, the signal is degraded, and a distortion effect happens.
+
+This chorus effect models real BBD circuits, so it recreates the distortion effect. This software package does not have the ambition to faithfully reproduce the characteristics of any existing effect; it is offers customization to allow the creation a vast set of timbres.
+
 ## Sound demo
 
 Listen to the biniou:
