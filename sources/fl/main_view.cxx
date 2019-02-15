@@ -118,7 +118,9 @@ void Main_View::cb_sl_phase6_(Fl_Valuator_Ex<Fl_Value_Slider>* o, void* v) {
 }
 
 void Main_View::cb_sl_delay__i(Fl_Valuator_Ex<Fl_Slider>* o, void*) {
-  controller()->send_parameter(ECP_DELAY, o->value());
+  double param = current_delay_param_ = o->value();
+controller()->send_parameter(ECP_DELAY, param);
+update_delay_display();
 }
 void Main_View::cb_sl_delay_(Fl_Valuator_Ex<Fl_Slider>* o, void* v) {
   ((Main_View*)(o->parent()))->cb_sl_delay__i(o,v);
@@ -126,6 +128,8 @@ void Main_View::cb_sl_delay_(Fl_Valuator_Ex<Fl_Slider>* o, void* v) {
 
 void Main_View::cb_512_i(Fl_Menu_*, void*) {
   controller()->send_parameter(ECP_NSTAGES, 0);
+update_delay_range();
+update_delay_display();
 }
 void Main_View::cb_512(Fl_Menu_* o, void* v) {
   ((Main_View*)(o->parent()))->cb_512_i(o,v);
@@ -133,6 +137,8 @@ void Main_View::cb_512(Fl_Menu_* o, void* v) {
 
 void Main_View::cb_1024_i(Fl_Menu_*, void*) {
   controller()->send_parameter(ECP_NSTAGES, 1);
+update_delay_range();
+update_delay_display();
 }
 void Main_View::cb_1024(Fl_Menu_* o, void* v) {
   ((Main_View*)(o->parent()))->cb_1024_i(o,v);
@@ -140,6 +146,8 @@ void Main_View::cb_1024(Fl_Menu_* o, void* v) {
 
 void Main_View::cb_2048_i(Fl_Menu_*, void*) {
   controller()->send_parameter(ECP_NSTAGES, 2);
+update_delay_range();
+update_delay_display();
 }
 void Main_View::cb_2048(Fl_Menu_* o, void* v) {
   ((Main_View*)(o->parent()))->cb_2048_i(o,v);
@@ -147,6 +155,8 @@ void Main_View::cb_2048(Fl_Menu_* o, void* v) {
 
 void Main_View::cb_4096_i(Fl_Menu_*, void*) {
   controller()->send_parameter(ECP_NSTAGES, 3);
+update_delay_range();
+update_delay_display();
 }
 void Main_View::cb_4096(Fl_Menu_* o, void* v) {
   ((Main_View*)(o->parent()))->cb_4096_i(o,v);
@@ -154,6 +164,8 @@ void Main_View::cb_4096(Fl_Menu_* o, void* v) {
 
 void Main_View::cb_8192_i(Fl_Menu_*, void*) {
   controller()->send_parameter(ECP_NSTAGES, 4);
+update_delay_range();
+update_delay_display();
 }
 void Main_View::cb_8192(Fl_Menu_* o, void* v) {
   ((Main_View*)(o->parent()))->cb_8192_i(o,v);
@@ -1077,7 +1089,7 @@ this->labelfont(13);
   sl_phase6_->align(Fl_Align(FL_ALIGN_BOTTOM));
   sl_phase6_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Value_Slider>* sl_phase6_
-{ sl_delay_ = new Fl_Valuator_Ex<Fl_Slider>(450, 30, 25, 95);
+{ sl_delay_ = new Fl_Valuator_Ex<Fl_Slider>(455, 30, 25, 125);
   sl_delay_->type(4);
   sl_delay_->box(FL_THIN_DOWN_BOX);
   sl_delay_->color(FL_BACKGROUND_COLOR);
@@ -1092,7 +1104,7 @@ this->labelfont(13);
   sl_delay_->align(Fl_Align(FL_ALIGN_BOTTOM));
   sl_delay_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Slider>* sl_delay_
-{ Fl_Box* o = new Fl_Box(435, 5, 55, 25, "Delay");
+{ Fl_Box* o = new Fl_Box(440, 5, 55, 25, "Delay");
   o->labeltype(FL_EMBOSSED_LABEL);
   o->labelfont(11);
 } // Fl_Box* o
@@ -1424,7 +1436,7 @@ this->labelfont(13);
   dl_lpf_q_->align(Fl_Align(FL_ALIGN_RIGHT_BOTTOM));
   dl_lpf_q_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Knob>* dl_lpf_q_
-{ btn_mono_ = new Fl_Toggle_Button(555, 150, 55, 25, "Mono");
+{ btn_mono_ = new Fl_Toggle_Button(555, 155, 55, 25, "Mono");
   btn_mono_->box(FL_UP_BOX);
   btn_mono_->color(FL_BACKGROUND_COLOR);
   btn_mono_->selection_color(FL_BACKGROUND_COLOR);
@@ -1436,7 +1448,7 @@ this->labelfont(13);
   btn_mono_->align(Fl_Align(FL_ALIGN_CENTER));
   btn_mono_->when(FL_WHEN_RELEASE);
 } // Fl_Toggle_Button* btn_mono_
-{ btn_stereo_ = new Fl_Toggle_Button(500, 150, 55, 25, "Stereo");
+{ btn_stereo_ = new Fl_Toggle_Button(500, 155, 55, 25, "Stereo");
   btn_stereo_->box(FL_UP_BOX);
   btn_stereo_->color(FL_BACKGROUND_COLOR);
   btn_stereo_->selection_color(FL_BACKGROUND_COLOR);
@@ -1622,6 +1634,13 @@ this->labelfont(13);
   dl_aa_cutoff_->align(Fl_Align(FL_ALIGN_RIGHT));
   dl_aa_cutoff_->when(FL_WHEN_CHANGED);
 } // Fl_Valuator_Ex<Fl_Knob>* dl_aa_cutoff_
+{ lbl_delay_ = new Fl_Box(443, 155, 49, 25);
+  lbl_delay_->box(FL_DOWN_BOX);
+  lbl_delay_->color((Fl_Color)137);
+  lbl_delay_->labelfont(14);
+  lbl_delay_->labelsize(10);
+  lbl_delay_->labelcolor((Fl_Color)70);
+} // Fl_Box* lbl_delay_
 end();
 }
 

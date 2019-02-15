@@ -7,7 +7,7 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 5.3.2
+  Created with Projucer version: 5.4.1
 
   ------------------------------------------------------------------------------
 
@@ -107,7 +107,7 @@ MainComponent::MainComponent (EnsembleChorusAudioProcessor &p)
     sl_delay->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     sl_delay->addListener (this);
 
-    sl_delay->setBounds (450, 30, 25, 95);
+    sl_delay->setBounds (455, 30, 25, 125);
 
     sl_wet.reset (new Slider ("new slider"));
     addAndMakeVisible (sl_wet.get());
@@ -415,7 +415,7 @@ MainComponent::MainComponent (EnsembleChorusAudioProcessor &p)
     btn_stereo->setConnectedEdges (Button::ConnectedOnRight);
     btn_stereo->addListener (this);
 
-    btn_stereo->setBounds (500, 150, 55, 25);
+    btn_stereo->setBounds (500, 155, 55, 25);
 
     btn_mono.reset (new TextButton ("new button"));
     addAndMakeVisible (btn_mono.get());
@@ -423,7 +423,7 @@ MainComponent::MainComponent (EnsembleChorusAudioProcessor &p)
     btn_mono->setConnectedEdges (Button::ConnectedOnLeft);
     btn_mono->addListener (this);
 
-    btn_mono->setBounds (555, 150, 55, 25);
+    btn_mono->setBounds (555, 155, 55, 25);
 
     tick_bypass.reset (new ToggleButton ("new toggle button"));
     addAndMakeVisible (tick_bypass.get());
@@ -587,6 +587,19 @@ MainComponent::MainComponent (EnsembleChorusAudioProcessor &p)
 
     label10->setBounds (395, 85, 50, 25);
 
+    lbl_delay.reset (new Label ("new label",
+                                TRANS("888 ms")));
+    addAndMakeVisible (lbl_delay.get());
+    lbl_delay->setFont (Font (Font::getDefaultMonospacedFontName(), 15.0f, Font::plain).withTypefaceStyle ("Bold"));
+    lbl_delay->setJustificationType (Justification::centred);
+    lbl_delay->setEditable (false, false, false);
+    lbl_delay->setColour (Label::backgroundColourId, Colour (0x0000247f));
+    lbl_delay->setColour (Label::textColourId, Colour (0xff3fda00));
+    lbl_delay->setColour (TextEditor::textColourId, Colours::black);
+    lbl_delay->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
+    lbl_delay->setBounds (443, 155, 49, 25);
+
 
     //[UserPreSize]
     for (unsigned i = 0; i < EC_SUPPORTED_NSTAGES_COUNT; ++i) {
@@ -723,6 +736,7 @@ MainComponent::~MainComponent()
     visu_mod6 = nullptr;
     dl_aa_cutoff = nullptr;
     label10 = nullptr;
+    lbl_delay = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -762,19 +776,19 @@ void MainComponent::paint (Graphics& g)
         //[UserPaintCustomArguments] Customize the painting arguments here..
         //[/UserPaintCustomArguments]
         g.setColour (fillColour);
-        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::bold | Font::italic));
+        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::plain).withTypefaceStyle ("Bold Italic"));
         g.drawText (text, x, y, width, height,
                     Justification::centred, true);
     }
 
     {
-        int x = 435, y = 5, width = 55, height = 25;
+        int x = 440, y = 5, width = 55, height = 25;
         String text (TRANS("Delay"));
         Colour fillColour = Colours::black;
         //[UserPaintCustomArguments] Customize the painting arguments here..
         //[/UserPaintCustomArguments]
         g.setColour (fillColour);
-        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::bold | Font::italic));
+        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::plain).withTypefaceStyle ("Bold Italic"));
         g.drawText (text, x, y, width, height,
                     Justification::centred, true);
     }
@@ -786,7 +800,7 @@ void MainComponent::paint (Graphics& g)
         //[UserPaintCustomArguments] Customize the painting arguments here..
         //[/UserPaintCustomArguments]
         g.setColour (fillColour);
-        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::bold | Font::italic));
+        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::plain).withTypefaceStyle ("Bold Italic"));
         g.drawText (text, x, y, width, height,
                     Justification::centred, true);
     }
@@ -798,7 +812,7 @@ void MainComponent::paint (Graphics& g)
         //[UserPaintCustomArguments] Customize the painting arguments here..
         //[/UserPaintCustomArguments]
         g.setColour (fillColour);
-        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::bold | Font::italic));
+        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::plain).withTypefaceStyle ("Bold Italic"));
         g.drawText (text, x, y, width, height,
                     Justification::centred, true);
     }
@@ -810,7 +824,7 @@ void MainComponent::paint (Graphics& g)
         //[UserPaintCustomArguments] Customize the painting arguments here..
         //[/UserPaintCustomArguments]
         g.setColour (fillColour);
-        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::bold | Font::italic));
+        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::plain).withTypefaceStyle ("Bold Italic"));
         g.drawText (text, x, y, width, height,
                     Justification::centred, true);
     }
@@ -822,7 +836,7 @@ void MainComponent::paint (Graphics& g)
         //[UserPaintCustomArguments] Customize the painting arguments here..
         //[/UserPaintCustomArguments]
         g.setColour (fillColour);
-        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::bold | Font::italic));
+        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::plain).withTypefaceStyle ("Bold Italic"));
         g.drawText (text, x, y, width, height,
                     Justification::centred, true);
     }
@@ -834,7 +848,7 @@ void MainComponent::paint (Graphics& g)
         //[UserPaintCustomArguments] Customize the painting arguments here..
         //[/UserPaintCustomArguments]
         g.setColour (fillColour);
-        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::bold | Font::italic));
+        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::plain).withTypefaceStyle ("Bold Italic"));
         g.drawText (text, x, y, width, height,
                     Justification::centredLeft, true);
     }
@@ -846,7 +860,7 @@ void MainComponent::paint (Graphics& g)
         //[UserPaintCustomArguments] Customize the painting arguments here..
         //[/UserPaintCustomArguments]
         g.setColour (fillColour);
-        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::bold | Font::italic));
+        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::plain).withTypefaceStyle ("Bold Italic"));
         g.drawText (text, x, y, width, height,
                     Justification::centredLeft, true);
     }
@@ -858,7 +872,7 @@ void MainComponent::paint (Graphics& g)
         //[UserPaintCustomArguments] Customize the painting arguments here..
         //[/UserPaintCustomArguments]
         g.setColour (fillColour);
-        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::bold | Font::italic));
+        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::plain).withTypefaceStyle ("Bold Italic"));
         g.drawText (text, x, y, width, height,
                     Justification::centredLeft, true);
     }
@@ -870,7 +884,7 @@ void MainComponent::paint (Graphics& g)
         //[UserPaintCustomArguments] Customize the painting arguments here..
         //[/UserPaintCustomArguments]
         g.setColour (fillColour);
-        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::bold | Font::italic));
+        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::plain).withTypefaceStyle ("Bold Italic"));
         g.drawText (text, x, y, width, height,
                     Justification::centredLeft, true);
     }
@@ -882,7 +896,7 @@ void MainComponent::paint (Graphics& g)
         //[UserPaintCustomArguments] Customize the painting arguments here..
         //[/UserPaintCustomArguments]
         g.setColour (fillColour);
-        g.setFont (Font (Font::getDefaultSerifFontName(), 21.0f, Font::bold | Font::italic));
+        g.setFont (Font (Font::getDefaultSerifFontName(), 21.0f, Font::plain).withTypefaceStyle ("Bold Italic"));
         g.drawText (text, x, y, width, height,
                     Justification::centred, true);
     }
@@ -913,9 +927,21 @@ void MainComponent::paint (Graphics& g)
         //[UserPaintCustomArguments] Customize the painting arguments here..
         //[/UserPaintCustomArguments]
         g.setColour (fillColour);
-        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::bold | Font::italic));
+        g.setFont (Font (Font::getDefaultSerifFontName(), 18.0f, Font::plain).withTypefaceStyle ("Bold Italic"));
         g.drawText (text, x, y, width, height,
                     Justification::centred, true);
+    }
+
+    {
+        float x = 443.0f, y = 155.0f, width = 49.0f, height = 25.0f;
+        Colour fillColour = Colour (0xff00247f);
+        Colour strokeColour = Colours::grey;
+        //[UserPaintCustomArguments] Customize the painting arguments here..
+        //[/UserPaintCustomArguments]
+        g.setColour (fillColour);
+        g.fillRoundedRectangle (x, y, width, height, 3.0f);
+        g.setColour (strokeColour);
+        g.drawRoundedRectangle (x, y, width, height, 3.0f, 1.0f);
     }
 
     //[UserPaint] Add your own custom painting code here..
@@ -992,8 +1018,10 @@ void MainComponent::sliderValueChanged (Slider* sliderThatWasMoved)
     else if (sliderThatWasMoved == sl_delay.get())
     {
         //[UserSliderCode_sl_delay] -- add your slider handling code here..
+        float value = sliderThatWasMoved->getValue();
         ecp = ECP_DELAY;
-        processor.setEcp(ecp, sliderThatWasMoved->getValue());
+        processor.setEcp(ecp, value);
+        updateDelayDisplay();
         //[/UserSliderCode_sl_delay]
     }
     else if (sliderThatWasMoved == sl_wet.get())
@@ -1136,6 +1164,8 @@ void MainComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
         //[UserComboBoxCode_cb_nstages] -- add your combo box handling code here..
         ecp = ECP_NSTAGES;
         processor.setEcp(ecp, comboBoxThatHasChanged->getSelectedId() - 1);
+        updateDelayRange();
+        updateDelayDisplay();
         //[/UserComboBoxCode_cb_nstages]
     }
     else if (comboBoxThatHasChanged == cb_slow_wave.get())
@@ -1356,9 +1386,12 @@ void MainComponent::updateDisplayWithEcp(ec_parameter p, float value)
     case ECP_DELAY:
         sl = sl_delay.get();
         sl->setValue(value, dontSendNotification);
+        updateDelayDisplay();
         break;
     case ECP_NSTAGES:
         cb_nstages->setSelectedId((int)value + 1, dontSendNotification);
+        updateDelayRange();
+        updateDelayDisplay();
         break;
     case ECP_AA_CUTOFF: {
         float min = ensemble_chorus_parameter_min(p);
@@ -1467,6 +1500,32 @@ void MainComponent::updateDisplayWithEcp(ec_parameter p, float value)
         assert(false);
     }
 }
+
+void MainComponent::updateDelayRange()
+{
+    Slider &sl = *sl_delay;
+    double delay = processor_->getEcp(ECP_DELAY);
+    const unsigned ns = EC_NSTAGES_MIN << (unsigned)(cb_nstages->getSelectedId() - 1);
+    sl.setRange(0, ns * (1.0 / (2 * EC_CLOCK_RATE_MIN)));
+    sl.setValue(delay, dontSendNotification);
+    sl.repaint();
+}
+
+void MainComponent::updateDelayDisplay()
+{
+    double delay = processor_->getEcp(ECP_DELAY);
+    double maxdelay = sl_delay->getMaximum();
+    delay = (delay < maxdelay) ? delay : maxdelay;
+
+    char buf[32];
+    if (delay < 1e-3)
+        std::strcpy(buf, "0 ms");
+    else if (delay < 1)
+        std::sprintf(buf, "%.3g ms", delay * 1e3);
+    else
+        std::sprintf(buf, "%.3g s", delay);
+    lbl_delay->setText(buf, dontSendNotification);
+}
 //[/MiscUserCode]
 
 
@@ -1489,7 +1548,7 @@ BEGIN_JUCER_METADATA
     <TEXT pos="370 5 65 25" fill="solid: ff000000" hasStroke="0" text="Stages"
           fontname="Default serif font" fontsize="18.0" kerning="0.0" bold="1"
           italic="1" justification="36" typefaceStyle="Bold Italic"/>
-    <TEXT pos="435 5 55 25" fill="solid: ff000000" hasStroke="0" text="Delay"
+    <TEXT pos="440 5 55 25" fill="solid: ff000000" hasStroke="0" text="Delay"
           fontname="Default serif font" fontsize="18.0" kerning="0.0" bold="1"
           italic="1" justification="36" typefaceStyle="Bold Italic"/>
     <TEXT pos="500 5 50 25" fill="solid: ff000000" hasStroke="0" text="Mix"
@@ -1525,6 +1584,8 @@ BEGIN_JUCER_METADATA
     <TEXT pos="360 55 90 25" fill="solid: ff000000" hasStroke="0" text="Anti-alias"
           fontname="Default serif font" fontsize="18.0" kerning="0.0" bold="1"
           italic="1" justification="36" typefaceStyle="Bold Italic"/>
+    <ROUNDRECT pos="443 155 49 25" cornerSize="3.0" fill="solid: ff00247f" hasStroke="1"
+               stroke="1, mitered, butt" strokeColour="solid: ff808080"/>
   </BACKGROUND>
   <SLIDER name="new slider" id="4106898fdb391e2c" memberName="dl_mod_range"
           virtualName="" explicitFocusOrder="0" pos="380 125 40 40" min="0.0"
@@ -1555,7 +1616,7 @@ BEGIN_JUCER_METADATA
           max="1.0" int="0.0" style="Rotary" textBoxPos="NoTextBox" textBoxEditable="1"
           textBoxWidth="80" textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
   <SLIDER name="new slider" id="6a5705d4b322c213" memberName="sl_delay"
-          virtualName="" explicitFocusOrder="0" pos="450 30 25 95" min="0.0"
+          virtualName="" explicitFocusOrder="0" pos="455 30 25 125" min="0.0"
           max="1.0" int="0.0" style="LinearVertical" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1.0"
           needsCallback="1"/>
@@ -1701,10 +1762,10 @@ BEGIN_JUCER_METADATA
             virtualName="" explicitFocusOrder="0" pos="555 210 55 25" editable="0"
             layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <TEXTBUTTON name="new button" id="48be6b9116492ac" memberName="btn_stereo"
-              virtualName="" explicitFocusOrder="0" pos="500 150 55 25" buttonText="Stereo"
+              virtualName="" explicitFocusOrder="0" pos="500 155 55 25" buttonText="Stereo"
               connectedEdges="2" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="new button" id="56b86482f7bd1062" memberName="btn_mono"
-              virtualName="" explicitFocusOrder="0" pos="555 150 55 25" buttonText="Mono"
+              virtualName="" explicitFocusOrder="0" pos="555 155 55 25" buttonText="Mono"
               connectedEdges="1" needsCallback="1" radioGroupId="0"/>
   <TOGGLEBUTTON name="new toggle button" id="f3d2d80e76c496eb" memberName="tick_bypass"
                 virtualName="" explicitFocusOrder="0" pos="235 10 75 25" buttonText="Bypass"
@@ -1781,6 +1842,12 @@ BEGIN_JUCER_METADATA
          edBkgCol="0" labelText="Cutoff" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15.0"
          kerning="0.0" bold="0" italic="0" justification="36"/>
+  <LABEL name="new label" id="a43b8b27d21e0e29" memberName="lbl_delay"
+         virtualName="" explicitFocusOrder="0" pos="443 155 49 25" bkgCol="247f"
+         textCol="ff3fda00" edTextCol="ff000000" edBkgCol="0" labelText="888 ms"
+         editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
+         fontname="Default monospaced font" fontsize="15.0" kerning="0.0"
+         bold="1" italic="0" justification="36" typefaceStyle="Bold"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

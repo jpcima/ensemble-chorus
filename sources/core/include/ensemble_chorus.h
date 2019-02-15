@@ -37,7 +37,9 @@ enum {
     EC_SUPPORTED_NSTAGES_COUNT = 5,
     EC_NSTAGES_MIN = 512,
     EC_NSTAGES_MAX = EC_NSTAGES_MIN << (EC_SUPPORTED_NSTAGES_COUNT - 1),
-    EC_LFO_WAVE_COUNT = 5
+    EC_LFO_WAVE_COUNT = 5,
+    EC_CLOCK_RATE_MIN = 1500,
+    EC_DELAY_DEFAULT_MS = 50
 };
 
 typedef enum ec_parameter_flag {
@@ -52,7 +54,7 @@ typedef enum ec_parameter_flag {
     /* Name, Min, Max, Def, Flags, Label */                             \
     P(BYPASS, false, true, false, ECP_BOOLEAN, "Bypass")                \
     P(CHANNEL_LAYOUT, ECC_STEREO, ECC_MONO, ECC_STEREO, ECP_INTEGER|ECP_CHOICE, "Channel layout") \
-    P(DELAY, 0, 1, 0.5, ECP_FLOAT, "Delay")                             \
+    P(DELAY, 0, 3.0, 1e-3 * EC_DELAY_DEFAULT_MS, ECP_FLOAT, "Delay")    \
     P(NSTAGES, 0, EC_SUPPORTED_NSTAGES_COUNT - 1, 1/* 1024 */, ECP_INTEGER|ECP_CHOICE, "Stages") \
     P(AA_CUTOFF, 0, 22000, 15000, ECP_FLOAT, "Anti-alias cutoff")       \
     P(MOD_RANGE, 0, 1, 0.5, ECP_FLOAT, "Modulation range")              \

@@ -21,6 +21,9 @@ public:
   Main_View(int X, int Y, int W, int H, const char *L = 0);
   static constexpr int W = 625; 
   static constexpr int H = 280; 
+private:
+  float current_delay_param_ = 0; 
+public:
   Fl_Valuator_Ex<Fl_Slider> *sl_wet_;
 private:
   inline void cb_sl_wet__i(Fl_Valuator_Ex<Fl_Slider>*, void*);
@@ -289,9 +292,12 @@ private:
   inline void cb_dl_aa_cutoff__i(Fl_Valuator_Ex<Fl_Knob>*, void*);
   static void cb_dl_aa_cutoff_(Fl_Valuator_Ex<Fl_Knob>*, void*);
 public:
+  Fl_Box *lbl_delay_;
   void controller(Main_Controller *x);
 private:
   static void parameter(unsigned id, float value, void *userdata);
+  void update_delay_display();
+  void update_delay_range();
   static void modulation(const float slow[6], const float fast[6], void *userdata);
 public:
   static double from_logarithmic(double value);

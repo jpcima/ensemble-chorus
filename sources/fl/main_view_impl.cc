@@ -13,6 +13,8 @@
 #include <FL/Fl_Toggle_Button.H>
 #include <string>
 #include <cmath>
+#include <cstring>
+#include <cstdio>
 #include <cassert>
 
 double Main_View::from_logarithmic(double value)
@@ -45,8 +47,16 @@ void Main_View::parameter(unsigned id, float value, void *userdata)
         }
         break;
     };
-    case ECP_DELAY: self.sl_delay_->value(value); break;
-    case ECP_NSTAGES: self.cb_nstages_->value(value); break;
+    case ECP_DELAY:
+        self.current_delay_param_ = value;
+        self.sl_delay_->value(self.sl_delay_->clamp(value));
+        self.update_delay_display();
+        break;
+    case ECP_NSTAGES:
+        self.cb_nstages_->value(value);
+        self.update_delay_range();
+        self.update_delay_display();
+        break;
     case ECP_AA_CUTOFF: {
         float min = ensemble_chorus_parameter_min((ec_parameter)id);
         float max = ensemble_chorus_parameter_max((ec_parameter)id);
@@ -108,6 +118,29 @@ void Main_View::parameter(unsigned id, float value, void *userdata)
     case ECP_ROUTE_L6: self.btn_routeL6_->value(value); break;
     case ECP_ROUTE_R6: self.btn_routeR6_->value(value); break;
     }
+}
+
+void Main_View::update_delay_range()
+{
+    Fl_Slider *sl = sl_delay_;
+    double delay = current_delay_param_;
+    const unsigned ns = EC_NSTAGES_MIN << (unsigned)cb_nstages_->value();
+    sl->minimum(ns * (1.0 / (2 * EC_CLOCK_RATE_MIN)));
+    sl->value(sl->clamp(delay));
+    sl->redraw();
+}
+
+void Main_View::update_delay_display()
+{
+    double delay = sl_delay_->clamp(current_delay_param_);
+    char buf[32];
+    if (delay < 1e-3)
+        std::strcpy(buf, "0 ms");
+    else if (delay < 1)
+        std::sprintf(buf, "%.3g ms", delay * 1e3);
+    else
+        std::sprintf(buf, "%.3g s", delay);
+    lbl_delay_->copy_label(buf);
 }
 
 void Main_View::modulation(const float slow[6], const float fast[6], void *userdata)

@@ -13,10 +13,9 @@
 #include <cstring>
 #include <cassert>
 
-static constexpr float min_clock_rate = 1500;
+static constexpr float min_clock_rate = EC_CLOCK_RATE_MIN;
 static constexpr float max_clock_rate = 22050/*100000*/; // TODO high clock rates
 static constexpr float clock_mod_depth_range = 0.25;  // in Hz/stages
-static constexpr float chorus_max_delay = 100e-3;
 static constexpr float lfo_slow_freq_min = 0.01;
 static constexpr float lfo_slow_freq_max = 2.0;
 static constexpr float lfo_fast_freq_min = 2.0;
@@ -40,7 +39,6 @@ struct Chorus::Impl {
     float clock_mod_range_ = 0;
     float clock_mod_depth_[6] = {};
     float delay_ = 0;
-    float r_delay_ = 0;
     unsigned nstages_ = 0;
 
     BBD_Clock clock_[6];
@@ -72,7 +70,6 @@ void Chorus::setup(float samplerate, unsigned bufsize)
     P.samplerate_ = samplerate;
     P.bufsize_ = bufsize;
 
-    float r_delay = 0.5;
     unsigned nstages = 2048;
     unsigned num_delay_lines = 3;
     float lfo_slow_freq = 1.0;
@@ -85,7 +82,7 @@ void Chorus::setup(float samplerate, unsigned bufsize)
     for (unsigned i = 0; i < 6; ++i)
         P.clock_mod_depth_[i] = 1.0;
     P.nstages_ = nstages;
-    delay(r_delay);
+    delay(50e-3);
 
     for (unsigned i = 0; i < 6; ++i) {
         BBD_Line &line = P.delay_line_[i];
@@ -229,18 +226,10 @@ void Chorus::id(unsigned i)
     P.id_ = i;
 }
 
-void Chorus::delay(float r_delay)
+void Chorus::delay(float del)
 {
     Impl &P = *this->P;
-    unsigned nstages = P.nstages_;
-
-    float min_delay = BBD_Clock::delay_for_hz_rate(max_clock_rate, nstages);
-    float max_delay = BBD_Clock::delay_for_hz_rate(min_clock_rate, nstages);
-    max_delay = std::min(max_delay, chorus_max_delay);
-    float delay = min_delay + r_delay * (max_delay - min_delay);
-
-    P.delay_ = delay;
-    P.r_delay_ = r_delay;
+    P.delay_ = del;
     P.update_clock_freq();
 }
 
@@ -267,7 +256,7 @@ void Chorus::nstages(unsigned n)
         line.nstages(d);
     }
     P.nstages_ = n;
-    delay(P.r_delay_);
+    P.update_clock_freq();
 }
 
 void Chorus::mod_range(float r)
@@ -358,6 +347,8 @@ void Chorus::Impl::update_clock_freq()
     unsigned nstages = nstages_;
 
     float clock_hz = BBD_Clock::hz_rate_for_delay(delay, nstages);
+    clock_hz = (clock_hz < max_clock_rate) ? clock_hz : max_clock_rate;
+    clock_hz = (clock_hz > min_clock_rate) ? clock_hz : min_clock_rate;
     clock_freq_ = clock_hz;
 
 #pragma message("XXX remove")

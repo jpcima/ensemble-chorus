@@ -7,7 +7,7 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Projucer version: 5.3.2
+  Created with Projucer version: 5.4.1
 
   ------------------------------------------------------------------------------
 
@@ -50,6 +50,8 @@ public:
     //[UserMethods]     -- You can add your own custom methods in this section.
     void setModulationValues(const float slow[6], const float fast[6]);
     void updateDisplayWithEcp(ec_parameter p, float value);
+    void updateDelayRange();
+    void updateDelayDisplay();
     //[/UserMethods]
 
     void paint (Graphics& g) override;
@@ -131,6 +133,7 @@ private:
     std::unique_ptr<ModulatorVisu> visu_mod6;
     std::unique_ptr<Slider> dl_aa_cutoff;
     std::unique_ptr<Label> label10;
+    std::unique_ptr<Label> lbl_delay;
 
 
     //==============================================================================
