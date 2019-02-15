@@ -54,6 +54,8 @@ add_library(DSPFilters STATIC
   "${DSPFilters_SOURCE_DIR}/source/Biquad.cpp"
   "${DSPFilters_SOURCE_DIR}/source/Butterworth.cpp"
   "${DSPFilters_SOURCE_DIR}/source/Cascade.cpp"
+  "${DSPFilters_SOURCE_DIR}/source/Filter.cpp"
+  "${DSPFilters_SOURCE_DIR}/source/Param.cpp"
   "${DSPFilters_SOURCE_DIR}/source/PoleFilter.cpp"
   "${DSPFilters_SOURCE_DIR}/source/RBJ.cpp"
   "${DSPFilters_SOURCE_DIR}/source/RootFinder.cpp")

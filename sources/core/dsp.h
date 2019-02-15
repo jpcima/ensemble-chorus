@@ -42,10 +42,6 @@ uint32_t fastrandom(uint32_t *pseed);
 template <class R>
 R white(uint32_t *pseed);
 
-// DspFilters library helper
-template <class Filter, class R>
-void process_mono_DspFilter(Filter &f, R *in, unsigned count);
-
 }  // namespace dsp
 
 #include "dsp.tcc"

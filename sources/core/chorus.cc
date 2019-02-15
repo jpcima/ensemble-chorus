@@ -8,6 +8,7 @@
 #include "lfos.h"
 #include "dsp.h"
 #include <DspFilters/RBJ.h>
+#include <DspFilters/SmoothedFilter.h>
 #include <memory>
 #include <cstring>
 #include <cassert>
@@ -24,6 +25,8 @@ static constexpr float lowpass_q_min = 0.05;
 static constexpr float lowpass_q_max = 1.0;
 
 struct Chorus::Impl {
+    Impl() : lpf_{SmoothLPF(1024), SmoothLPF(1024)} {}
+
     unsigned id_ = 0;
 
     float samplerate_ = 0;
@@ -45,20 +48,13 @@ struct Chorus::Impl {
     LFOs lfos_slow_;
     LFOs lfos_fast_;
 
-    Dsp::SimpleFilter<Dsp::RBJ::LowPass, 1> lowpass1_[2];
-    Dsp::SimpleFilter<Dsp::RBJ::LowPass, 1> lowpass2_[2];
+    typedef Dsp::SmoothedFilterDesign<Dsp::RBJ::Design::LowPass, 2> SmoothLPF;
+    SmoothLPF lpf_[2];
 
     std::unique_ptr<float[]> tmpbuf_;
 
     void update_clock_freq();
 };
-
-template <class F1, class F2>
-void RBJ_setup_copy(const F1 &src, F2 &dst)
-{
-    dst.m_a0 = src.m_a0; dst.m_a1 = src.m_a1; dst.m_a2 = src.m_a2;
-    dst.m_b0 = src.m_b0; dst.m_b1 = src.m_b1; dst.m_b2 = src.m_b2;
-}
 
 Chorus::Chorus()
     : P(new Impl)
@@ -108,17 +104,9 @@ void Chorus::setup(float samplerate, unsigned bufsize)
     lfos_slow.phases(phases, num_delay_lines);
     lfos_fast.phases(phases, num_delay_lines);
 
-    float lowpass_cutoff = ensemble_chorus_parameter_max(ECP_LPF_CUTOFF);
+    float lowpass_cutoff = ensemble_chorus_parameter_default(ECP_LPF_CUTOFF);
     float lowpass_q = ensemble_chorus_parameter_default(ECP_LPF_Q);
-    for (unsigned c = 0; c < 2; ++c) {
-        auto &lowpass1 = P.lowpass1_[c];
-        if (c == 0)
-            lowpass1.setup(samplerate, lowpass_cutoff, lowpass_q);
-        else
-            RBJ_setup_copy(P.lowpass1_[0], lowpass1);
-        auto &lowpass2 = P.lowpass2_[c];
-        RBJ_setup_copy(lowpass1, lowpass2);
-    }
+    lpf(lowpass_cutoff, lowpass_q);
 
     P.tmpbuf_.reset(new float[(4 + 2 * 6) * bufsize]);
 
@@ -225,12 +213,8 @@ void Chorus::process(float *inout[2], unsigned nframes, ec_channel_layout ecc, c
         }
     }
 
-    for (unsigned c = 0; c < 2; ++c) {
-        auto &lowpass1 = P.lowpass1_[c];
-        dsp::process_mono_DspFilter(lowpass1, inout[c], nframes);
-        auto &lowpass2 = P.lowpass2_[c];
-        dsp::process_mono_DspFilter(lowpass2, inout[c], nframes);
-    }
+    for (Impl::SmoothLPF &lpf : P.lpf_)
+        lpf.process(nframes, inout);
 }
 
 unsigned Chorus::id() const
@@ -338,16 +322,13 @@ void Chorus::lpf(float cutoff, float r_q)
 {
     Impl &P = *this->P;
     float q = lowpass_q_min + r_q * (lowpass_q_max - lowpass_q_min);
-    for (unsigned c = 0; c < 2; ++c) {
-        auto &lowpass1 = P.lowpass1_[c];
-        if (c == 0)
-            lowpass1.setup(P.samplerate_, cutoff, q);
-        else
-            RBJ_setup_copy(P.lowpass1_[0], lowpass1);
-        auto &lowpass2 = P.lowpass2_[c];
-        RBJ_setup_copy(lowpass1, lowpass2);
-        lowpass1.reset();
-        lowpass2.reset();
+
+    for (Impl::SmoothLPF &lpf : P.lpf_) {
+        Dsp::Params par;
+        par[0] = P.samplerate_;
+        par[1] = cutoff;
+        par[2] = q;
+        lpf.setParams(par);
     }
 }
 

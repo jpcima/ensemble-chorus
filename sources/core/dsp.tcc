@@ -148,12 +148,4 @@ inline R white(uint32_t *pseed)
     return (int32_t)fastrandom(pseed) * (1 / (R)INT32_MAX);
 }
 
-//------------------------------------------------------------------------------
-template <class Filter, class R>
-void process_mono_DspFilter(Filter &f, R *in, unsigned count)
-{
-    R *channels[1] = {in};
-    f.process(count, channels);
-}
-
 }  // namespace dsp
