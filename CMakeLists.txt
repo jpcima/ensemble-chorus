@@ -30,7 +30,8 @@ endif()
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
 
 add_library(ensemble_chorus STATIC
-  "sources/core/bbd.cc"
+  "sources/core/bbd_filter.cc"
+  "sources/core/bbd_line.cc"
   "sources/core/chorus.cc"
   "sources/core/lfos.cc"
   "sources/core/core.cc"

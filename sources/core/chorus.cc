@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include "chorus.h"
-#include "bbd.h"
+#include "bbd_line.h"
 #include "lfos.h"
 #include "dsp.h"
 #include <DspFilters/RBJ.h>
@@ -43,7 +43,6 @@ struct Chorus::Impl {
     float r_delay_ = 0;
     unsigned nstages_ = 0;
 
-    BBD_Clock clock_[6];
     BBD_Line delay_line_[6];
     LFOs lfos_slow_;
     LFOs lfos_fast_;
@@ -89,8 +88,7 @@ void Chorus::setup(float samplerate, unsigned bufsize)
 
     for (unsigned i = 0; i < 6; ++i) {
         BBD_Line &line = P.delay_line_[i];
-        BBD_Line *other = (i > 0) ? &P.delay_line_[0] : nullptr;
-        line.setup(samplerate, max_clock_rate, nstages, other);
+        line.setup(samplerate, nstages, bbd_fin_j60, bbd_fout_j60);
     }
 
     LFOs &lfos_slow = P.lfos_slow_;
@@ -114,8 +112,8 @@ void Chorus::setup(float samplerate, unsigned bufsize)
     if (true && P.id_ == 0) {
         for (unsigned i = 0; i < BBD_Line::supported_nstages_count; ++i) {
             unsigned ns = BBD_Line::nstages_min << i;
-            float min_delay = BBD_Clock::delay_for_hz_rate(max_clock_rate, ns);
-            float max_delay = BBD_Clock::delay_for_hz_rate(min_clock_rate, ns);
+            float min_delay = BBD_Line::delay_for_hz_rate(max_clock_rate, ns);
+            float max_delay = BBD_Line::delay_for_hz_rate(min_clock_rate, ns);
             fprintf(stderr, "stages=%u min_delay=%g max_delay=%g\n", ns, min_delay, max_delay);
         }
     }
@@ -172,7 +170,6 @@ void Chorus::process(float *inout[2], unsigned nframes, ec_channel_layout ecc, c
 
     for (unsigned d = 0; d < num_delay_lines; ++d) {
         unsigned id = P.id_delay_line_[d];
-        BBD_Clock &clock = P.clock_[d];
         BBD_Line &line = P.delay_line_[d];
         float *lfo_slow_out = lfo_slow_outs[d];
         float *lfo_fast_out = lfo_fast_outs[d];
@@ -181,7 +178,7 @@ void Chorus::process(float *inout[2], unsigned nframes, ec_channel_layout ecc, c
         for (unsigned i = 0; i < nframes; ++i) {
             float clock_mod = (lfo_slow_out[i] - 0.5) + (lfo_fast_out[i] - 0.5);
             float clock_f = clock_freq + clock_mod * mod_depth;
-            tmp_clock[i] = clock.tick(clock_f * ts);
+            tmp_clock[i] = clock_f * ts;
         }
 
         std::memset(tmp_out, 0, nframes * sizeof(float));
@@ -234,8 +231,8 @@ void Chorus::delay(float r_delay)
     Impl &P = *this->P;
     unsigned nstages = P.nstages_;
 
-    float min_delay = BBD_Clock::delay_for_hz_rate(max_clock_rate, nstages);
-    float max_delay = BBD_Clock::delay_for_hz_rate(min_clock_rate, nstages);
+    float min_delay = BBD_Line::delay_for_hz_rate(max_clock_rate, nstages);
+    float max_delay = BBD_Line::delay_for_hz_rate(min_clock_rate, nstages);
     max_delay = std::min(max_delay, chorus_max_delay);
     float delay = min_delay + r_delay * (max_delay - min_delay);
 
@@ -334,10 +331,11 @@ void Chorus::lpf(float cutoff, float r_q)
 
 void Chorus::aa_cutoff(float cutoff)
 {
-    Impl &P = *this->P;
-    P.delay_line_[0].aa_cutoff(cutoff);
-    for (unsigned i = 0; i < 6; ++i)
-        P.delay_line_[i].aa_reset();
+#warning XXX implement me new model
+    // Impl &P = *this->P;
+    // P.delay_line_[0].aa_cutoff(cutoff);
+    // for (unsigned i = 0; i < 6; ++i)
+    //     P.delay_line_[i].aa_reset();
 }
 
 float Chorus::current_slow_modulation(unsigned lfo) const
@@ -357,7 +355,7 @@ void Chorus::Impl::update_clock_freq()
     float delay = delay_;
     unsigned nstages = nstages_;
 
-    float clock_hz = BBD_Clock::hz_rate_for_delay(delay, nstages);
+    float clock_hz = BBD_Line::hz_rate_for_delay(delay, nstages);
     clock_freq_ = clock_hz;
 
 #pragma message("XXX remove")
