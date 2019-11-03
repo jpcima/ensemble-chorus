@@ -34,9 +34,6 @@ void poly(gsl::span<const R> z, gsl::span<R> p);
 template <class R>
 R polyval(gsl::span<const R> p, R x);
 
-// denormal disabler
-struct denormal_disabler;
-
 // integer base-2 logarithm
 template <class T>
 T ilog2(T value);

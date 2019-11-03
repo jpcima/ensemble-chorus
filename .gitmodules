@@ -4,15 +4,3 @@
 [submodule "thirdparty/gsl-lite"]
 	path = thirdparty/gsl-lite
 	url = https://github.com/martinmoene/gsl-lite.git
-[submodule "thirdparty/rtaudio"]
-	path = thirdparty/rtaudio
-	url = https://github.com/thestk/rtaudio.git
-[submodule "thirdparty/boost/predef"]
-	path = thirdparty/boost/predef
-	url = https://github.com/boostorg/predef
-[submodule "thirdparty/pugixml"]
-	path = thirdparty/pugixml
-	url = https://github.com/zeux/pugixml.git
-[submodule "thirdparty/JUCE"]
-	path = thirdparty/JUCE
-	url = https://github.com/jpcima/JUCE.git
