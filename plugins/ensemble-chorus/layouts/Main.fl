@@ -1,0 +1,342 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0305
+header_name {.h}
+code_name {.cxx}
+widget_class Main {open
+  xywh {691 146 625 280} type Double labelfont 13 visible
+} {
+  Fl_Group root {open
+    xywh {0 0 625 280}
+  } {
+    Fl_Slider sl_wet {
+      label Wet
+      xywh {505 35 25 95} type {Vert Knob} box THIN_DOWN_BOX labeltype EMBOSSED_LABEL labelsize 12 minimum 1 maximum 0
+    }
+    Fl_Slider sl_dry {
+      label Dry
+      xywh {530 35 25 95} type {Vert Knob} box THIN_DOWN_BOX labeltype EMBOSSED_LABEL labelsize 12 minimum 1 maximum 0
+    }
+    Fl_Box lbl_title {
+      label {JPC Ensemble Chorus}
+      xywh {5 5 230 42} box SHADOW_BOX labeltype EMBOSSED_LABEL labelfont 11 labelsize 16
+    }
+    Fl_Check_Button tick_bypass {
+      label Bypass selected
+      xywh {250 15 75 25} down_box DOWN_BOX labeltype EMBOSSED_LABEL
+    }
+    Fl_Box lbl_mix {
+      label Mix
+      xywh {505 10 50 25} labeltype EMBOSSED_LABEL labelfont 11
+    }
+    Fl_Box lbl_phase {
+      label Phase
+      xywh {70 60 105 25} labeltype EMBOSSED_LABEL labelfont 11 align 20
+    }
+    Fl_Button btn_enable1 {
+      label 1
+      xywh {25 85 25 25} labeltype EMBOSSED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Value_Slider sl_phase1 {
+      xywh {70 85 105 25} type Horizontal maximum 359 step 1
+    }
+    Fl_Button btn_enable2 {
+      label 2
+      xywh {25 110 25 25} labeltype EMBOSSED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Value_Slider sl_phase2 {
+      xywh {70 110 105 25} type Horizontal maximum 359 step 1
+    }
+    Fl_Button btn_enable3 {
+      label 3
+      xywh {25 135 25 25} labeltype EMBOSSED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Value_Slider sl_phase3 {
+      xywh {70 135 105 25} type Horizontal maximum 359 step 1
+    }
+    Fl_Button btn_enable4 {
+      label 4
+      xywh {25 160 25 25} labeltype EMBOSSED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Value_Slider sl_phase4 {
+      xywh {70 160 105 25} type Horizontal maximum 359 step 1
+    }
+    Fl_Button btn_enable5 {
+      label 5
+      xywh {25 185 25 25} labeltype EMBOSSED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Value_Slider sl_phase5 {
+      xywh {70 185 105 25} type Horizontal maximum 359 step 1
+    }
+    Fl_Button btn_enable6 {
+      label 6
+      xywh {25 210 25 25} labeltype EMBOSSED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Value_Slider sl_phase6 {
+      xywh {70 210 105 25} type Horizontal maximum 359 step 1
+    }
+    Fl_Slider sl_delay {
+      xywh {455 35 25 95} type {Vert Knob} box THIN_DOWN_BOX minimum 1 maximum 0
+    }
+    Fl_Box lbl_delay {
+      label Delay
+      xywh {440 10 55 25} labeltype EMBOSSED_LABEL labelfont 11
+    }
+    Fl_Choice cb_nstages {open
+      xywh {375 35 65 20} down_box BORDER_BOX
+    } {
+      MenuItem {} {
+        label 512
+        xywh {5 5 100 20}
+      }
+      MenuItem {} {
+        label 1024
+        xywh {15 15 100 20}
+      }
+      MenuItem {} {
+        label 2048
+        xywh {25 25 100 20}
+      }
+      MenuItem {} {
+        label 4096
+        xywh {35 35 100 20}
+      }
+      MenuItem {} {
+        label 8192
+        xywh {45 45 100 20}
+      }
+    }
+    Fl_Box lbl_stages {
+      label Stages
+      xywh {375 10 65 25} labeltype EMBOSSED_LABEL labelfont 11
+    }
+    Fl_Box visu_mod1 {
+      xywh {250 85 55 25} box DOWN_BOX
+      class Modulator_Visu
+    }
+    Fl_Box visu_mod2 {
+      xywh {250 110 55 25} box DOWN_BOX
+      class Modulator_Visu
+    }
+    Fl_Box visu_mod3 {
+      xywh {250 135 55 25} box DOWN_BOX
+      class Modulator_Visu
+    }
+    Fl_Box visu_mod4 {
+      xywh {250 160 55 25} box DOWN_BOX
+      class Modulator_Visu
+    }
+    Fl_Box visu_mod5 {
+      xywh {250 185 55 25} box DOWN_BOX
+      class Modulator_Visu
+    }
+    Fl_Box visu_mod6 {
+      xywh {250 210 55 25} box DOWN_BOX
+      class Modulator_Visu
+    }
+    Fl_Box lbl_modulator {
+      label Modulator
+      xywh {250 60 95 25} labeltype EMBOSSED_LABEL labelfont 11 align 20
+    }
+    Fl_Dial dl_slow_rate {
+      xywh {385 215 45 45}
+    }
+    Fl_Dial dl_fast_rate {
+      xywh {505 215 45 45}
+    }
+    Fl_Box lbl_chorus {
+      label Chorus
+      xywh {375 190 65 25} labeltype EMBOSSED_LABEL labelfont 11
+    }
+    Fl_Box lbl_vibrato {
+      label Vibrato
+      xywh {495 190 65 25} labeltype EMBOSSED_LABEL labelfont 11
+    }
+    Fl_Slider sl_depth1 {
+      xywh {305 85 60 25} type Horizontal
+    }
+    Fl_Slider sl_depth2 {
+      xywh {305 110 60 25} type Horizontal
+    }
+    Fl_Slider sl_depth3 {
+      xywh {305 135 60 25} type Horizontal
+    }
+    Fl_Slider sl_depth4 {
+      xywh {305 160 60 25} type Horizontal
+    }
+    Fl_Slider sl_depth5 {
+      xywh {305 185 60 25} type Horizontal
+    }
+    Fl_Slider sl_depth6 {
+      xywh {305 210 60 25} type Horizontal
+    }
+    Fl_Choice cb_slow_wave {
+      xywh {440 215 55 25} down_box BORDER_BOX
+    } {
+      MenuItem {} {
+        image {../resources/ui/images/wave/sine.png} xywh {5 5 100 20}
+      }
+      MenuItem {} {
+        image {../resources/ui/images/wave/square.png} xywh {15 15 100 20}
+      }
+      MenuItem {} {
+        image {../resources/ui/images/wave/saw.png} xywh {25 25 100 20}
+      }
+      MenuItem {} {
+        image {../resources/ui/images/wave/ramp.png} xywh {35 35 100 20}
+      }
+      MenuItem {} {
+        image {../resources/ui/images/wave/triangle.png} xywh {45 45 100 20}
+      }
+    }
+    Fl_Choice cb_fast_wave {
+      xywh {560 215 55 25} down_box BORDER_BOX
+    } {
+      MenuItem {} {
+        image {../resources/ui/images/wave/sine.png} xywh {15 15 100 20}
+      }
+      MenuItem {} {
+        image {../resources/ui/images/wave/square.png} xywh {25 25 100 20}
+      }
+      MenuItem {} {
+        image {../resources/ui/images/wave/saw.png} xywh {35 35 100 20}
+      }
+      MenuItem {} {
+        image {../resources/ui/images/wave/ramp.png} xywh {45 45 100 20}
+      }
+      MenuItem {} {
+        image {../resources/ui/images/wave/triangle.png} xywh {55 55 100 20}
+      }
+    }
+    Fl_Slider sl_gain_in {
+      label In
+      xywh {565 35 25 95} type {Vert Knob} box THIN_DOWN_BOX labeltype EMBOSSED_LABEL labelsize 12 minimum 1 maximum 0
+    }
+    Fl_Slider sl_gain_out {
+      label Out
+      xywh {590 35 25 95} type {Vert Knob} box THIN_DOWN_BOX labeltype EMBOSSED_LABEL labelsize 12 minimum 1 maximum 0
+    }
+    Fl_Box lbl_gain {
+      label Gain
+      xywh {565 10 50 25} labeltype EMBOSSED_LABEL labelfont 11
+    }
+    Fl_Dial dl_slow_rand {
+      label Rand
+      xywh {430 245 35 35} labeltype ENGRAVED_LABEL labelsize 12 align 8
+    }
+    Fl_Dial dl_fast_rand {
+      label Rand
+      xywh {550 245 35 35} labeltype ENGRAVED_LABEL labelsize 12 align 8
+    }
+    Fl_Dial dl_mod_range {
+      label {Mod range}
+      xywh {385 130 40 40} labeltype ENGRAVED_LABEL labelsize 12
+    }
+    Fl_Box lbl_lpf {
+      label {Low-pass filter}
+      xywh {35 250 125 25} labeltype EMBOSSED_LABEL labelfont 11 align 20
+    }
+    Fl_Dial dl_lpf_cutoff {
+      xywh {165 240 40 40} labeltype EMBOSSED_LABEL labelsize 12
+    }
+    Fl_Box lbl_lpf_cutoff {
+      label Cutoff
+      xywh {205 260 45 20} labeltype EMBOSSED_LABEL labelsize 12 align 20
+    }
+    Fl_Dial dl_lpf_q {
+      label Q
+      xywh {260 240 40 40} labeltype EMBOSSED_LABEL labelsize 12
+    }
+    Fl_Box lbl_lpf_q {
+      label Q
+      xywh {300 260 45 20} labeltype EMBOSSED_LABEL labelsize 12 align 20
+    }
+    Fl_Button btn_mono {
+      label Mono
+      xywh {560 155 55 25} labeltype ENGRAVED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Button btn_stereo {
+      label Stereo
+      xywh {505 155 55 25} labeltype ENGRAVED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Button btn_routeL1 {
+      label L
+      xywh {185 85 25 25} labeltype EMBOSSED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Box lbl_routing {
+      label Routing
+      xywh {175 60 75 25} labeltype EMBOSSED_LABEL labelfont 11 align 20
+    }
+    Fl_Button btn_routeR1 {
+      label R
+      xywh {215 85 25 25} labeltype EMBOSSED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Button btn_routeL2 {
+      label L
+      xywh {185 110 25 25} labeltype EMBOSSED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Button btn_routeR2 {
+      label R
+      xywh {215 110 25 25} labeltype EMBOSSED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Button btn_routeL3 {
+      label L
+      xywh {185 135 25 25} labeltype EMBOSSED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Button btn_routeR3 {
+      label R
+      xywh {215 135 25 25} labeltype EMBOSSED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Button btn_routeL4 {
+      label L
+      xywh {185 160 25 25} labeltype EMBOSSED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Button btn_routeR4 {
+      label R
+      xywh {215 160 25 25} labeltype EMBOSSED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Button btn_routeL5 {
+      label L
+      xywh {185 185 25 25} labeltype EMBOSSED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Button btn_routeR5 {
+      label R
+      xywh {215 185 25 25} labeltype EMBOSSED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Button btn_routeL6 {
+      label L
+      xywh {185 210 25 25} labeltype EMBOSSED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Button btn_routeR6 {
+      label R
+      xywh {215 210 25 25} labeltype EMBOSSED_LABEL
+      class Fl_Toggle_Button
+    }
+    Fl_Box lbl_aa {
+      label {Anti-alias}
+      xywh {365 60 90 25} labeltype EMBOSSED_LABEL labelfont 11 align 16
+    }
+    Fl_Dial dl_aa_cutoff {
+      label Cutoff
+      xywh {370 85 35 35} labeltype EMBOSSED_LABEL labelsize 12 align 8
+    }
+  }
+}

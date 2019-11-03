@@ -7,3 +7,6 @@
 [submodule "DPF"]
 	path = dpf
 	url = https://github.com/DISTRHO/DPF.git
+[submodule "thirdparty/gzip-hpp"]
+	path = thirdparty/gzip-hpp
+	url = https://github.com/mapbox/gzip-hpp.git

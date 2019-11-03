@@ -64,10 +64,10 @@ typedef enum ec_parameter_flag {
     P(FAST_RAND, 0, 1, 0.1, ECP_FLOAT, "Vibrato random")                \
     P(LPF_CUTOFF, 0, 22000, 22000, ECP_FLOAT, "Lowpass cutoff")         \
     P(LPF_Q, 0, 1, M_SQRT1_2, ECP_FLOAT, "Lowpass Q")                   \
-    P(GAIN_IN, 0, 3, 1, ECP_FLOAT|ECP_LOGARITHMIC, "Input gain")        \
-    P(GAIN_OUT, 0, 3, 1, ECP_FLOAT|ECP_LOGARITHMIC, "Output gain")      \
-    P(MIX_DRY, 0, 1, M_SQRT1_2, ECP_FLOAT|ECP_LOGARITHMIC, "Dry mix")   \
-    P(MIX_WET, 0, 1, M_SQRT1_2, ECP_FLOAT|ECP_LOGARITHMIC, "Wet mix")   \
+    P(GAIN_IN, 0.01, 3, 1, ECP_FLOAT|ECP_LOGARITHMIC, "Input gain")     \
+    P(GAIN_OUT, 0.01, 3, 1, ECP_FLOAT|ECP_LOGARITHMIC, "Output gain")   \
+    P(MIX_DRY, 0.01, 1, M_SQRT1_2, ECP_FLOAT|ECP_LOGARITHMIC, "Dry mix") \
+    P(MIX_WET, 0.01, 1, M_SQRT1_2, ECP_FLOAT|ECP_LOGARITHMIC, "Wet mix") \
     EC_EACH_LINE_PARAMETER(P, 1)                                        \
     EC_EACH_LINE_PARAMETER(P, 2)                                        \
     EC_EACH_LINE_PARAMETER(P, 3)                                        \
